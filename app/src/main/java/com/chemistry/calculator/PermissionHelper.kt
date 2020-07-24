@@ -1,5 +1,6 @@
 package com.chemistry.calculator
 
+import android.Manifest
 import androidx.core.app.ActivityCompat
 
 class PermissionHelper(private val mainActivity: MainActivity) {
@@ -12,10 +13,7 @@ class PermissionHelper(private val mainActivity: MainActivity) {
   }
   
   companion object {
-    private val REQUEST_CODE_PERMISSIONS = 99
-    private val REQUIRED_PERMISSIONS = arrayOf(
-      "android.permission.CAMERA",
-      "android.permission.WRITE_EXTERNAL_STORAGE"
-    )
+    private const val REQUEST_CODE_PERMISSIONS = 99
+    private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
   }
 }

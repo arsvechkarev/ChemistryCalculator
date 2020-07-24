@@ -38,8 +38,6 @@ class BoxView @JvmOverloads constructor(
       h.toFloat(),
       Path.Direction.CW
     )
-    println("eeex w: $w")
-    println("eeex h: $h")
   }
   
   override fun onDraw(canvas: Canvas) {

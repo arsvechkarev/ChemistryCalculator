@@ -3,9 +3,11 @@ package com.chemistry.calculator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.view.PreviewView
+import kotlinx.android.synthetic.main.activity_main.bottomSheet
 import kotlinx.android.synthetic.main.activity_main.boxView
 import kotlinx.android.synthetic.main.activity_main.previewView
 import kotlinx.android.synthetic.main.activity_main.processImageButton
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
   
@@ -24,12 +26,12 @@ class MainActivity : AppCompatActivity() {
       permissionHelper.requestCameraPermission()
     }
     processImageButton.setOnClickListener {
+      bottomSheet.show()
       imageProcessor.processImage()
     }
   }
   
   private fun processEquation(s: String) {
-    
-    println("qqq: $s")
+    Timber.d(s)
   }
 }

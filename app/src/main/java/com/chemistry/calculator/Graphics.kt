@@ -13,10 +13,7 @@ fun ImageProxy.toBitmap(): Bitmap {
   buffer.rewind()
   val bytes = ByteArray(buffer.capacity())
   buffer.get(bytes)
-  val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-  println("aaa: bitmap.width = ${bitmap.width}")
-  println("aaa: bitmap.height = ${bitmap.height}")
-  return bitmap
+  return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 }
 
 fun Bitmap.rotate(): Bitmap {
