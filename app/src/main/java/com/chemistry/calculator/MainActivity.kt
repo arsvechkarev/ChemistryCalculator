@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
   
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    Application.initResources(resources)
     setContentView(R.layout.activity_main)
     permissionHelper = PermissionHelper(this)
     imageProcessor = ImageProcessor(this,boxView, previewView, boxView::frameBox, ::processEquation)
