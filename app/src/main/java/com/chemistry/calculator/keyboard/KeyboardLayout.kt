@@ -3,10 +3,7 @@ package com.chemistry.calculator.keyboard
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import com.chemistry.calculator.R
 import com.chemistry.calculator.extensions.childWithClass
-import com.chemistry.calculator.extensions.dimen
-import com.chemistry.calculator.extensions.i
 
 class KeyboardLayout @JvmOverloads constructor(
   context: Context,
@@ -15,7 +12,7 @@ class KeyboardLayout @JvmOverloads constructor(
   
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
     val elementsLayout = childWithClass<ElementsLayout>()
-    val controlsLayout = childWithClass<ControlKeysLayout>()
+    val controlsLayout = childWithClass<ControlsLayout>()
     val numbersLayout = childWithClass<NumbersLayout>()
     
     elementsLayout.measure(widthMeasureSpec, heightMeasureSpec)
@@ -35,7 +32,7 @@ class KeyboardLayout @JvmOverloads constructor(
   
   override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
     val elementsLayout = childWithClass<ElementsLayout>()
-    val controlsLayout = childWithClass<ControlKeysLayout>()
+    val controlsLayout = childWithClass<ControlsLayout>()
     val numbersLayout = childWithClass<NumbersLayout>()
     
     elementsLayout.layout(

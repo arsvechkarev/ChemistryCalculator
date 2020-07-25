@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
+import com.chemistry.calculator.extensions.attrColor
+import com.chemistry.calculator.extensions.color
 import com.chemistry.calculator.extensions.dimen
 import com.chemistry.calculator.extensions.f
 import com.chemistry.calculator.extensions.i
@@ -22,16 +24,16 @@ class ElementsLayout @JvmOverloads constructor(
     context,
     text = "+",
     textSize = this@ElementsLayout.textSize,
-    textColor = Color.BLACK,
-    backgroundColor = Color.GRAY
+    textColor = context.color(R.color.light_text),
+    backgroundColor = context.color(R.color.light_control_button)
   )
   
   private val equalsButton = TextButton(
     context,
     text = "=",
     textSize = this@ElementsLayout.textSize,
-    textColor = Color.WHITE,
-    backgroundColor = Color.GRAY
+    textColor = context.color(R.color.light_text_light),
+    backgroundColor = context.color(R.color.light_equals_button)
   )
   
   init {
@@ -40,8 +42,8 @@ class ElementsLayout @JvmOverloads constructor(
         context,
         text = ELEMENTS[i],
         textSize = textSize,
-        textColor = Color.BLACK,
-        backgroundColor = Color.GRAY
+        textColor = context.attrColor(R.color.light_text),
+        backgroundColor = context.attrColor(R.color.light_element_button)
       ))
     }
     addView(plusButton)

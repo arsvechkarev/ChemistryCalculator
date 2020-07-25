@@ -16,6 +16,7 @@ class TextButton(
   private val textSize: Float,
   private val textColor: Int,
   private val backgroundColor: Int,
+  private val drawWithDescent: Boolean = false,
   var onClicked: (String) -> Unit = {}
 ) : View(context) {
   
@@ -31,15 +32,18 @@ class TextButton(
   private var textYTranslate = -1f
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-    cornersRadius = minOf(w, h) / 20f
+    cornersRadius = minOf(w, h) / 15f
     textPaint.getTextBounds(text, 0, text.length, tempRect)
     textYTranslate = height / 2f + tempRect.height() / 2f
-    tempRect.setEmpty()
   }
   
   override fun onDraw(canvas: Canvas) {
     canvas.drawRoundRect(0f, 0f, width.f, height.f, cornersRadius, cornersRadius, backgroundPaint)
-    canvas.drawText(text, width / 2f, textYTranslate, textPaint)
+    if (drawWithDescent) {
+      canvas.drawText(text, width / 2f, textYTranslate - textPaint.descent(), textPaint)
+    } else {
+      canvas.drawText(text, width / 2f, textYTranslate, textPaint)
+    }
   }
   
   override fun performClick(): Boolean {

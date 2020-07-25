@@ -1,10 +1,10 @@
 package com.chemistry.calculator.keyboard
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
+import com.chemistry.calculator.extensions.attrColor
 import com.chemistry.calculator.extensions.dimen
 import com.chemistry.calculator.extensions.forEachChild
 import com.chemistry.calculator.extensions.i
@@ -24,8 +24,8 @@ class NumbersLayout @JvmOverloads constructor(
         context = context,
         text = ((i + 1) % 10).toString(),
         textSize = textSize,
-        textColor = Color.BLACK,
-        backgroundColor = Color.GRAY
+        textColor = context.attrColor(R.color.light_text),
+        backgroundColor = context.attrColor(R.color.light_element_button)
       ))
     }
   }

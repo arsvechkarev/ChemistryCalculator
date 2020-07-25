@@ -36,13 +36,13 @@
     <com.chemistry.calculator.keyboard.KeyboardLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="#e8e8e8">
+      android:background="?colorKeyboardBg">
 
       <com.chemistry.calculator.keyboard.NumbersLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-      <com.chemistry.calculator.keyboard.ControlKeysLayout
+      <com.chemistry.calculator.keyboard.ControlsLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

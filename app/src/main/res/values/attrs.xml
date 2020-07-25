@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-  <declare-styleable name="BottomSheet">
-    <attr name="defaultState">
-      <enum name="shown" value="0"/>
-      <enum name="hidden" value="1"/>
-    </attr>
-  </declare-styleable>
-
+  <attr name="colorText" format="color"/>
+  <attr name="colorTextLight" format="color"/>
+  <attr name="colorKeyboardBg" format="color"/>
+  <attr name="colorElementButton" format="color"/>
+  <attr name="colorControlButton" format="color"/>
+  <attr name="colorNumberButton" format="color"/>
+  <attr name="colorEqualsButton" format="color"/>
 </resources>

@@ -5,11 +5,13 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
+import com.chemistry.calculator.extensions.attrColor
+import com.chemistry.calculator.extensions.color
 import com.chemistry.calculator.extensions.dimen
 import com.chemistry.calculator.extensions.forEachChild
 import com.chemistry.calculator.extensions.i
 
-class ControlKeysLayout @JvmOverloads constructor(
+class ControlsLayout @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null
 ) : ViewGroup(context, attrs) {
@@ -21,32 +23,35 @@ class ControlKeysLayout @JvmOverloads constructor(
   private val moreButton = TextButton(
     context,
     text = "...",
-    textSize = this@ControlKeysLayout.textSize,
-    textColor = Color.BLACK,
-    backgroundColor = Color.GRAY
+    textSize = context.dimen(R.dimen.text_h0),
+    textColor = context.color(R.color.light_text),
+    backgroundColor = context.color(R.color.light_control_button)
   )
   
   private val openBracketButton = TextButton(
     context,
-    text = "A)",
-    textSize = this@ControlKeysLayout.textSize,
-    textColor = Color.BLACK,
-    backgroundColor = Color.GRAY
+    text = "(",
+    textSize = this@ControlsLayout.textSize,
+    textColor = context.attrColor(R.color.light_text),
+    backgroundColor = context.attrColor(R.color.light_control_button),
+    drawWithDescent = true
   )
   
   private val closeBracketButton = TextButton(
     context,
     text = ")",
-    textSize = this@ControlKeysLayout.textSize,
-    textColor = Color.BLACK,
-    backgroundColor = Color.GRAY
+    textSize = this@ControlsLayout.textSize,
+    textColor = context.attrColor(R.color.light_text),
+    backgroundColor = context.attrColor(R.color.light_control_button),
+    drawWithDescent = true
   )
+  
   private val backspaceButton = TextButton(
     context,
-    text = "<-",
-    textSize = this@ControlKeysLayout.textSize,
-    textColor = Color.BLACK,
-    backgroundColor = Color.GRAY
+    text = "←",
+    textSize = context.dimen(R.dimen.text_h0),
+    textColor = context.attrColor(R.color.light_text),
+    backgroundColor = context.attrColor(R.color.light_control_button)
   )
   
   init {
