@@ -10,6 +10,5 @@
   <dimen name="text_h1">24sp</dimen>
   <dimen name="text_h0">26sp</dimen>
 
-  <dimen name="keyboard_small_padding">4dp</dimen>
-  <dimen name="corners_radius_default">4dp</dimen>
+  <dimen name="keyboard_elements_padding">3dp</dimen>
 </resources>

@@ -33,16 +33,24 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <com.chemistry.calculator.keyboard.KeyboardLayout
       android:layout_width="match_parent"
-      android:layout_height="300dp"
+      android:layout_height="wrap_content"
       android:background="#e8e8e8">
 
       <com.chemistry.calculator.keyboard.NumbersLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+      <com.chemistry.calculator.keyboard.ControlKeysLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <com.chemistry.calculator.keyboard.ElementsLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    </com.chemistry.calculator.keyboard.KeyboardLayout>
 
   </com.chemistry.calculator.BottomSheet>
 
