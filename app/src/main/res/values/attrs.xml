@@ -5,7 +5,7 @@
   <attr name="colorIcon" format="color"/>
   <attr name="colorBackground" format="color"/>
 
-  <attr name="colorEditText" format="color"/>
+  <attr name="colorEditTextBg" format="color"/>
   <attr name="colorKeyboardBg" format="color"/>
   <attr name="colorElementButton" format="color"/>
   <attr name="colorControlButton" format="color"/>

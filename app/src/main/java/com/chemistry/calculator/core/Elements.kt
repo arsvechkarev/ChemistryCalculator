@@ -1,4 +1,4 @@
-package com.chemistry.calculator.views.keyboard
+package com.chemistry.calculator.core
 
 val ELEMENTS = arrayOf(
   "Na","Al","H","C","O",

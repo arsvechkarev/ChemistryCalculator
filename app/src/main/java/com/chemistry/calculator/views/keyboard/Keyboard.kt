@@ -3,7 +3,6 @@ package com.chemistry.calculator.views.keyboard
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import android.view.inputmethod.InputConnection
 import com.chemistry.calculator.extensions.childWithClass
 
 class Keyboard @JvmOverloads constructor(
@@ -11,10 +10,10 @@ class Keyboard @JvmOverloads constructor(
   attrs: AttributeSet? = null
 ) : ViewGroup(context, attrs) {
   
-  var inputConnection: InputConnection? = null
+  var onItemClicked: (String) -> Unit = {}
   
-  private lateinit var elementsLayout:ElementsLayout
-  private lateinit var controlsLayout:ControlsLayout
+  private lateinit var elementsLayout: ElementsLayout
+  private lateinit var controlsLayout: ControlsLayout
   private lateinit var numbersLayout: NumbersLayout
   
   override fun onFinishInflate() {
@@ -22,9 +21,9 @@ class Keyboard @JvmOverloads constructor(
     numbersLayout = childWithClass()
     controlsLayout = childWithClass()
     elementsLayout = childWithClass()
-    numbersLayout.onItemClicked = ::onItemClicked
-    controlsLayout.onItemClicked = ::onItemClicked
-    elementsLayout.onItemClicked = ::onItemClicked
+    numbersLayout.onItemClicked = { onItemClicked(it) }
+    controlsLayout.onItemClicked = { onItemClicked(it) }
+    elementsLayout.onItemClicked = { onItemClicked(it) }
   }
   
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -57,9 +56,5 @@ class Keyboard @JvmOverloads constructor(
     numbersLayout.layout(
       0, 0, measuredWidth, numbersLayout.measuredHeight
     )
-  }
-  
-  private fun onItemClicked(symbol: String) {
-    println("qqq: $symbol")
   }
 }

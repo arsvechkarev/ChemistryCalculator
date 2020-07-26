@@ -13,14 +13,14 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import com.chemistry.calculator.core.async.AndroidThreader
+import com.chemistry.calculator.core.async.Threader
 import com.chemistry.calculator.extensions.tempMatrix
 import com.chemistry.calculator.views.BoxView
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 class ImageProcessor(
   private var activity: AppCompatActivity?,
@@ -28,7 +28,7 @@ class ImageProcessor(
   private var previewView: PreviewView?,
   private var cropRectProvider: (() -> Rect)?,
   private var onStringReady: ((String) -> Unit)?,
-  private val executor: ExecutorService = Executors.newSingleThreadExecutor()
+  private val threader: Threader = AndroidThreader
 ) {
   
   private val textRecognizer = TextRecognizer.Builder(activity).build()
@@ -57,7 +57,7 @@ class ImageProcessor(
           .requireLensFacing(CameraSelector.LENS_FACING_BACK)
           .build()
       imageCapture = ImageCapture.Builder()
-          .setIoExecutor(executor)
+          .setIoExecutor(threader.ioExecutor)
           .setTargetRotation(Surface.ROTATION_0)
           .build()
       preview.setSurfaceProvider(previewView!!.createSurfaceProvider())
@@ -66,7 +66,7 @@ class ImageProcessor(
   }
   
   fun processImage() {
-    imageCapture.takePicture(executor, object : ImageCapture.OnImageCapturedCallback() {
+    imageCapture.takePicture(threader.ioExecutor, object : ImageCapture.OnImageCapturedCallback() {
       
       override fun onCaptureSuccess(image: ImageProxy) {
         val rect = cropRectProvider!!.invoke()
@@ -90,7 +90,6 @@ class ImageProcessor(
     previewView = null
     cropRectProvider = null
     onStringReady = null
-    executor.shutdownNow()
     textRecognizer.release()
   }
   

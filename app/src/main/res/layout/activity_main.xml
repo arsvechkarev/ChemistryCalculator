@@ -48,7 +48,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="250dp"
         android:background="@drawable/bg_edit_text"
+        android:maxLength="20"
+        android:maxLines="1"
         android:padding="6dp"
+        android:textColor="?colorText"
         android:textSize="25sp"/>
 
       <com.chemistry.calculator.views.keyboard.Keyboard

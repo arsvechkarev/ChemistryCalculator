@@ -4,6 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
+import com.chemistry.calculator.core.CLOSE_BRACKET_SYMBOL
+import com.chemistry.calculator.core.DELETE_SYMBOL
+import com.chemistry.calculator.core.MORE_SYMBOL
+import com.chemistry.calculator.core.OPEN_BRACKET_SYMBOL
 import com.chemistry.calculator.extensions.color
 import com.chemistry.calculator.extensions.dimen
 import com.chemistry.calculator.extensions.forEachChild
@@ -22,7 +26,7 @@ class ControlsLayout @JvmOverloads constructor(
   
   private val moreButton = TextButton(
     context,
-    text = "...",
+    text = MORE_SYMBOL,
     textSize = context.dimen(R.dimen.text_h0),
     textColor = context.color(R.color.light_text),
     backgroundColor = context.color(R.color.light_control_button),
@@ -31,7 +35,7 @@ class ControlsLayout @JvmOverloads constructor(
   
   private val openBracketButton = TextButton(
     context,
-    text = "(",
+    text = OPEN_BRACKET_SYMBOL,
     textSize = this@ControlsLayout.textSize,
     textColor = context.color(R.color.light_text),
     backgroundColor = context.color(R.color.light_control_button),
@@ -41,7 +45,7 @@ class ControlsLayout @JvmOverloads constructor(
   
   private val closeBracketButton = TextButton(
     context,
-    text = ")",
+    text = CLOSE_BRACKET_SYMBOL,
     textSize = this@ControlsLayout.textSize,
     textColor = context.color(R.color.light_text),
     backgroundColor = context.color(R.color.light_control_button),
@@ -51,7 +55,7 @@ class ControlsLayout @JvmOverloads constructor(
   
   private val backspaceButton = TextButton(
     context,
-    text = "←",
+    text = DELETE_SYMBOL,
     textSize = context.dimen(R.dimen.text_h0),
     textColor = context.color(R.color.light_text),
     backgroundColor = context.color(R.color.light_control_button),

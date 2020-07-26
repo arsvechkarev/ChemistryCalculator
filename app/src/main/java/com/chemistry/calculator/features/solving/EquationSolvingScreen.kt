@@ -3,22 +3,25 @@ package com.chemistry.calculator.features.solving
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import com.chemistry.calculator.core.inputconnection.AndroidInputConnection
 import com.chemistry.calculator.views.keyboard.Keyboard
 
 class EquationSolvingScreen(
-  private val editText: EditText,
-  private val keyboard: Keyboard
+  editText: EditText,
+  keyboard: Keyboard
 ) {
   
-  private val inputConnection = editText.onCreateInputConnection(EditorInfo())
+  private val keyboardInput = KeyboardInput(
+    AndroidInputConnection(editText.onCreateInputConnection(EditorInfo()))
+  )
   
   init {
     editText.setRawInputType(InputType.TYPE_CLASS_TEXT)
     editText.setTextIsSelectable(true)
-    keyboard.inputConnection = inputConnection
+    keyboard.onItemClicked = keyboardInput::processSymbol
   }
   
-  fun processSymbol(symbol: String) {
-    inputConnection.commitText(symbol, 0)
+  fun processEquation(equation: String) {
+  
   }
 }

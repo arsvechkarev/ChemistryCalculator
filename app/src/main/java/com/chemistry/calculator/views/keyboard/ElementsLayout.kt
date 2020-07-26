@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
+import com.chemistry.calculator.core.ELEMENTS
+import com.chemistry.calculator.core.EQUALS_SYMBOL
+import com.chemistry.calculator.core.PLUS_SYMBOL
 import com.chemistry.calculator.extensions.color
 import com.chemistry.calculator.extensions.dimen
 import com.chemistry.calculator.extensions.f
@@ -22,7 +25,7 @@ class ElementsLayout @JvmOverloads constructor(
   
   private val plusButton = TextButton(
     context,
-    text = "+",
+    text = PLUS_SYMBOL,
     textSize = this@ElementsLayout.textSize,
     textColor = context.color(R.color.light_text),
     backgroundColor = context.color(R.color.light_control_button),
@@ -31,8 +34,8 @@ class ElementsLayout @JvmOverloads constructor(
   
   private val equalsButton = TextButton(
     context,
-    text = "=",
-    textSize = this@ElementsLayout.textSize,
+    text = EQUALS_SYMBOL,
+    textSize = context.dimen(R.dimen.text_h0),
     textColor = context.color(R.color.light_text_light),
     backgroundColor = context.color(R.color.light_equals_button),
     onClicked = { onItemClicked(it) }
@@ -66,7 +69,7 @@ class ElementsLayout @JvmOverloads constructor(
   }
   
   override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-    var left = elementsPadding
+    var left = elementsPadding // TODO (7/26/2020): Optimize cycles
     var top = elementsPadding
     repeat(5) {
       val child = getChildAt(it)
