@@ -1,12 +1,10 @@
 package com.chemistry.calculator.extensions
 
 import android.content.Context
-import android.util.TypedValue
-import androidx.annotation.AttrRes
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.core.content.res.ResourcesCompat
-import com.chemistry.calculator.Application
+import com.chemistry.calculator.core.Application
 
 val Int.f get() = this.toFloat()
 val Float.i get() = this.toInt()

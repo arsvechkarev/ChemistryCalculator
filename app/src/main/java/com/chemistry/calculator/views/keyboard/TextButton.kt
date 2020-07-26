@@ -1,4 +1,4 @@
-package com.chemistry.calculator.keyboard
+package com.chemistry.calculator.views.keyboard
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -31,6 +31,10 @@ class TextButton(
   private var cornersRadius = -1f
   private var textYTranslate = -1f
   
+  init {
+    setOnClickListener { onClicked(text) }
+  }
+  
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     cornersRadius = minOf(w, h) / 15f
     textPaint.getTextBounds(text, 0, text.length, tempRect)
@@ -44,10 +48,5 @@ class TextButton(
     } else {
       canvas.drawText(text, width / 2f, textYTranslate, textPaint)
     }
-  }
-  
-  override fun performClick(): Boolean {
-    onClicked(text)
-    return super.performClick()
   }
 }

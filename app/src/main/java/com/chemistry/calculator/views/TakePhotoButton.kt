@@ -1,4 +1,4 @@
-package com.chemistry.calculator
+package com.chemistry.calculator.views
 
 import android.content.Context
 import android.graphics.Canvas

@@ -1,11 +1,9 @@
-package com.chemistry.calculator.keyboard
+package com.chemistry.calculator.views.keyboard
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.attrColor
 import com.chemistry.calculator.extensions.color
 import com.chemistry.calculator.extensions.dimen
 import com.chemistry.calculator.extensions.forEachChild
@@ -20,38 +18,44 @@ class ControlsLayout @JvmOverloads constructor(
   private val elementsPadding = context.dimen(R.dimen.keyboard_elements_padding)
   private var elementWidth = -1f
   
+  var onItemClicked: (String) -> Unit = {}
+  
   private val moreButton = TextButton(
     context,
     text = "...",
     textSize = context.dimen(R.dimen.text_h0),
     textColor = context.color(R.color.light_text),
-    backgroundColor = context.color(R.color.light_control_button)
+    backgroundColor = context.color(R.color.light_control_button),
+    onClicked = { onItemClicked(it) }
   )
   
   private val openBracketButton = TextButton(
     context,
     text = "(",
     textSize = this@ControlsLayout.textSize,
-    textColor = context.attrColor(R.color.light_text),
-    backgroundColor = context.attrColor(R.color.light_control_button),
-    drawWithDescent = true
+    textColor = context.color(R.color.light_text),
+    backgroundColor = context.color(R.color.light_control_button),
+    drawWithDescent = true,
+    onClicked = { onItemClicked(it) }
   )
   
   private val closeBracketButton = TextButton(
     context,
     text = ")",
     textSize = this@ControlsLayout.textSize,
-    textColor = context.attrColor(R.color.light_text),
-    backgroundColor = context.attrColor(R.color.light_control_button),
-    drawWithDescent = true
+    textColor = context.color(R.color.light_text),
+    backgroundColor = context.color(R.color.light_control_button),
+    drawWithDescent = true,
+    onClicked = { onItemClicked(it) }
   )
   
   private val backspaceButton = TextButton(
     context,
     text = "←",
     textSize = context.dimen(R.dimen.text_h0),
-    textColor = context.attrColor(R.color.light_text),
-    backgroundColor = context.attrColor(R.color.light_control_button)
+    textColor = context.color(R.color.light_text),
+    backgroundColor = context.color(R.color.light_control_button),
+    onClicked = { onItemClicked(it) }
   )
   
   init {

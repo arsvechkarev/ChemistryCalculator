@@ -7,6 +7,9 @@
   <style name="AppTheme.Dark">
     <item name="colorText">@color/light_text</item>
     <item name="colorTextLight">@color/light_text_light</item>
+    <item name="colorIcon">@color/light_icon</item>
+    <item name="colorBackground">@color/light_background</item>
+    <item name="colorEditText">@color/light_edit_text</item>
     <item name="colorKeyboardBg">@color/light_keyboard_bg</item>
     <item name="colorElementButton">@color/light_element_button</item>
     <item name="colorControlButton">@color/light_control_button</item>

@@ -1,4 +1,4 @@
-package com.chemistry.calculator
+package com.chemistry.calculator.core
 
 import android.content.res.Resources
 import timber.log.Timber

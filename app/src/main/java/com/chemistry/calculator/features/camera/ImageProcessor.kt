@@ -1,5 +1,7 @@
-package com.chemistry.calculator
+package com.chemistry.calculator.features.camera
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,8 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import com.chemistry.calculator.extensions.tempMatrix
+import com.chemistry.calculator.views.BoxView
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.text.TextBlock
@@ -35,7 +39,9 @@ class ImageProcessor(
       override fun release() {}
       override fun receiveDetections(detections: Detector.Detections<TextBlock>) {
         val items = detections.detectedItems
-        if (items.size() != 0) { onStringReady?.invoke(items[0].value) }
+        if (items.size() != 0) {
+          onStringReady?.invoke(items[0].value)
+        }
       }
     })
   }
@@ -47,7 +53,7 @@ class ImageProcessor(
       val preview = Preview.Builder()
           .setTargetRotation(Surface.ROTATION_0)
           .build()
-       val cameraSelector = CameraSelector.Builder()
+      val cameraSelector = CameraSelector.Builder()
           .requireLensFacing(CameraSelector.LENS_FACING_BACK)
           .build()
       imageCapture = ImageCapture.Builder()
@@ -86,5 +92,29 @@ class ImageProcessor(
     onStringReady = null
     executor.shutdownNow()
     textRecognizer.release()
+  }
+  
+  fun ImageProxy.toBitmap(): Bitmap {
+    val buffer = planes[0].buffer
+    buffer.rewind()
+    val bytes = ByteArray(buffer.capacity())
+    buffer.get(bytes)
+    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+  }
+  
+  fun Bitmap.rotate(): Bitmap {
+    tempMatrix.reset()
+    tempMatrix.setRotate(90f, 0.5f, 0.5f)
+    return Bitmap.createBitmap(this, 0, 0, width, height, tempMatrix, false)
+  }
+  
+  fun Bitmap.crop(rect: Rect, boxView: BoxView): Bitmap {
+    val widthCoefficient = this.width.toFloat() / boxView.width
+    val heightCoefficient = this.height.toFloat() / boxView.height
+    val x = (rect.left * widthCoefficient).toInt()
+    val y = (rect.top * heightCoefficient).toInt()
+    val width = (rect.width() * widthCoefficient).toInt()
+    val height = (rect.height() * heightCoefficient).toInt()
+    return Bitmap.createBitmap(this, x, y, width, height)
   }
 }

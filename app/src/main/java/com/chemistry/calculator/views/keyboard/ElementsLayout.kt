@@ -1,11 +1,9 @@
-package com.chemistry.calculator.keyboard
+package com.chemistry.calculator.views.keyboard
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.attrColor
 import com.chemistry.calculator.extensions.color
 import com.chemistry.calculator.extensions.dimen
 import com.chemistry.calculator.extensions.f
@@ -20,12 +18,15 @@ class ElementsLayout @JvmOverloads constructor(
   private val elementsPadding = context.dimen(R.dimen.keyboard_elements_padding).toInt()
   private var elementSize = -1f
   
+  var onItemClicked: (String) -> Unit = {}
+  
   private val plusButton = TextButton(
     context,
     text = "+",
     textSize = this@ElementsLayout.textSize,
     textColor = context.color(R.color.light_text),
-    backgroundColor = context.color(R.color.light_control_button)
+    backgroundColor = context.color(R.color.light_control_button),
+    onClicked = { onItemClicked(it) }
   )
   
   private val equalsButton = TextButton(
@@ -33,7 +34,8 @@ class ElementsLayout @JvmOverloads constructor(
     text = "=",
     textSize = this@ElementsLayout.textSize,
     textColor = context.color(R.color.light_text_light),
-    backgroundColor = context.color(R.color.light_equals_button)
+    backgroundColor = context.color(R.color.light_equals_button),
+    onClicked = { onItemClicked(it) }
   )
   
   init {
@@ -42,14 +44,14 @@ class ElementsLayout @JvmOverloads constructor(
         context,
         text = ELEMENTS[i],
         textSize = textSize,
-        textColor = context.attrColor(R.color.light_text),
-        backgroundColor = context.attrColor(R.color.light_element_button)
+        textColor = context.color(R.color.light_text),
+        backgroundColor = context.color(R.color.light_element_button),
+        onClicked = { onItemClicked(it) }
       ))
     }
     addView(plusButton)
     addView(equalsButton)
   }
-  
   
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
     val elementSize = (MeasureSpec.getSize(widthMeasureSpec) - (elementsPadding * 7)) / 6

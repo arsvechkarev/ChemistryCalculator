@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 
-  <com.chemistry.calculator.BottomSheet
+  <com.chemistry.calculator.views.BottomSheet
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,12 +19,12 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-      <com.chemistry.calculator.BoxView
+      <com.chemistry.calculator.views.BoxView
         android:id="@+id/boxView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-      <com.chemistry.calculator.TakePhotoButton
+      <com.chemistry.calculator.views.TakePhotoButton
         android:id="@+id/processImageButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -33,25 +33,47 @@
 
     </FrameLayout>
 
-    <com.chemistry.calculator.keyboard.KeyboardLayout
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="?colorKeyboardBg">
+      android:background="@drawable/bg_bottom_sheet"
+      android:orientation="vertical">
 
-      <com.chemistry.calculator.keyboard.NumbersLayout
+      <EditText
+        android:id="@+id/editText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="250dp"
+        android:background="@drawable/bg_edit_text"
+        android:padding="6dp"
+        android:textSize="25sp"/>
 
-      <com.chemistry.calculator.keyboard.ControlsLayout
+      <com.chemistry.calculator.views.keyboard.Keyboard
+        android:id="@+id/keyboard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?colorKeyboardBg">
 
-      <com.chemistry.calculator.keyboard.ElementsLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <com.chemistry.calculator.views.keyboard.NumbersLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
 
-    </com.chemistry.calculator.keyboard.KeyboardLayout>
+        <com.chemistry.calculator.views.keyboard.ControlsLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
 
-  </com.chemistry.calculator.BottomSheet>
+        <com.chemistry.calculator.views.keyboard.ElementsLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+
+      </com.chemistry.calculator.views.keyboard.Keyboard>
+
+    </LinearLayout>
+
+  </com.chemistry.calculator.views.BottomSheet>
 
 </FrameLayout>

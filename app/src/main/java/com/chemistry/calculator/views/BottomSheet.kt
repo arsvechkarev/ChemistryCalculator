@@ -1,4 +1,4 @@
-package com.chemistry.calculator
+package com.chemistry.calculator.views
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -14,8 +14,10 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import com.chemistry.calculator.BottomSheet.State.HIDDEN
-import com.chemistry.calculator.BottomSheet.State.SHOWN
+import com.chemistry.calculator.R
+import com.chemistry.calculator.extensions.contains
+import com.chemistry.calculator.views.BottomSheet.State.HIDDEN
+import com.chemistry.calculator.views.BottomSheet.State.SHOWN
 import kotlin.math.abs
 
 class BottomSheet @JvmOverloads constructor(
@@ -48,8 +50,10 @@ class BottomSheet @JvmOverloads constructor(
   }
   
   init {
-    val attributes = context.theme.obtainStyledAttributes(attrs, R.styleable.BottomSheet, 0, 0)
-    currentState = when (attributes.getInt(R.styleable.BottomSheet_defaultState, 0)) {
+    val attributes = context.theme.obtainStyledAttributes(attrs,
+      R.styleable.BottomSheet, 0, 0)
+    currentState = when (attributes.getInt(
+      R.styleable.BottomSheet_defaultState, 0)) {
       0 -> SHOWN
       1 -> HIDDEN
       else -> throw IllegalStateException("Unknown default state")

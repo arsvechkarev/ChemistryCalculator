@@ -1,10 +1,10 @@
-package com.chemistry.calculator.keyboard
+package com.chemistry.calculator.views.keyboard
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.attrColor
+import com.chemistry.calculator.extensions.color
 import com.chemistry.calculator.extensions.dimen
 import com.chemistry.calculator.extensions.forEachChild
 import com.chemistry.calculator.extensions.i
@@ -18,14 +18,17 @@ class NumbersLayout @JvmOverloads constructor(
   private val elementsPadding = context.dimen(R.dimen.keyboard_elements_padding)
   private var numberWidth = -1f
   
+  var onItemClicked: (String) -> Unit = {}
+  
   init {
     repeat(10) { i ->
       addView(TextButton(
         context = context,
         text = ((i + 1) % 10).toString(),
         textSize = textSize,
-        textColor = context.attrColor(R.color.light_text),
-        backgroundColor = context.attrColor(R.color.light_element_button)
+        textColor = context.color(R.color.light_text),
+        backgroundColor = context.color(R.color.light_control_button),
+        onClicked = { onItemClicked(it) }
       ))
     }
   }

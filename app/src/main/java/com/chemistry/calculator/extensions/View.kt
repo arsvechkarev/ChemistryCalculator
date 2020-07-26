@@ -1,5 +1,6 @@
 package com.chemistry.calculator.extensions
 
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
@@ -33,3 +34,10 @@ fun ViewGroup.childWithId(@IdRes id: Int): View {
 inline fun <reified T : View> ViewGroup.childWithClass(): T {
   return findChild { child -> child is T } as T
 }
+
+operator fun View.contains(ev: MotionEvent): Boolean {
+  val x = ev.x
+  val y = ev.y
+  return x >= left && y >= top && x <= right && y <= bottom
+}
+
