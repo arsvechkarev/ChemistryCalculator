@@ -38,6 +38,7 @@ class ElementsLayout @JvmOverloads constructor(
     textSize = context.dimen(R.dimen.text_h0),
     textColor = context.color(R.color.light_text_light),
     backgroundColor = context.color(R.color.light_primary),
+    rippleColor = context.color(R.color.light_ripple_light),
     onClicked = { onItemClicked(it) }
   )
   

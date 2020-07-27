@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <attr name="colorPrimary" format="color"/>
+  <attr name="colorPrimaryDark" format="color"/>
+  <attr name="colorShadow" format="color"/>
   <attr name="colorRipple" format="color"/>
+  <attr name="colorRippleLight" format="color"/>
 
   <attr name="colorText" format="color"/>
   <attr name="colorTextLight" format="color"/>

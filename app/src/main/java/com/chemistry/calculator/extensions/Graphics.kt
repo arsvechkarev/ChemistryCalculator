@@ -1,5 +1,6 @@
 package com.chemistry.calculator.extensions
 
+import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Rect
 import android.graphics.RectF
@@ -11,6 +12,12 @@ import android.text.TextUtils
 val tempRect = Rect()
 val tempRectF = RectF()
 val tempMatrix = Matrix()
+
+fun execute(canvas: Canvas, block: Canvas.() -> Unit) {
+  val saveCount = canvas.save()
+  block(canvas)
+  canvas.restoreToCount(saveCount)
+}
 
 fun boringLayoutOf(textPaint: TextPaint, text: CharSequence, maxWidth: Float = -1f): Layout {
   val metrics = BoringLayout.isBoring(text, textPaint)

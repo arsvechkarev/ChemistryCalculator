@@ -23,7 +23,7 @@ class BoxView @JvmOverloads constructor(
 ) : View(context, attrs) {
   
   private val fillScreenPath = Path()
-  private val fillScreenPaint = Paint().apply { color = COLOR_SHADOW }
+  private val fillScreenPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = COLOR_SHADOW }
   private val boxPath = Path()
   private val boxRect = RectF()
   private var cornersRadius = -1f

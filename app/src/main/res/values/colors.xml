@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="light_primary">#00B042</color>
-  <color name="light_ripple">#DCDCDC</color>
+  <color name="light_primary_dark">#0F7529</color>
+  <color name="light_shadow">#BFBFBF</color>
+  <color name="light_ripple">#CFCFCF</color>
+  <color name="light_ripple_light">#EFEFEF</color>
   <color name="light_text">#000000</color>
   <color name="light_text_light">#FFFFFF</color>
   <color name="light_icon">#000000</color>
