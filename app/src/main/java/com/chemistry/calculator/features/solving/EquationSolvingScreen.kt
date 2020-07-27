@@ -12,7 +12,8 @@ class EquationSolvingScreen(
 ) {
   
   private val keyboardInput = KeyboardInput(
-    AndroidInputConnection(editText.onCreateInputConnection(EditorInfo()))
+    AndroidInputConnection(editText.onCreateInputConnection(EditorInfo())),
+    isEditTextEmpty = { editText.text.isEmpty() }
   )
   
   init {

@@ -18,8 +18,11 @@ import com.chemistry.calculator.extensions.isSubscriptNumber
 import com.chemistry.calculator.extensions.toSubscriptDigit
 
 class KeyboardInput(
-  private val inputConnection: InputConnectionInterface
+  private val inputConnection: InputConnectionInterface,
+  private var isEditTextEmpty: () -> Boolean
 ) {
+  
+  private var smartDeletionMode = true
   
   fun processSymbol(symbol: String) {
     when {
@@ -31,23 +34,28 @@ class KeyboardInput(
   }
   
   fun setEquation(equation: String) {
+    smartDeletionMode = false
     inputConnection.commitText(equation)
   }
   
   private fun handleDeleteSymbol() {
     val selectedText: CharSequence? = inputConnection.getSelectedText()
     if (selectedText.isNullOrEmpty()) {
-      val afterText = inputConnection.getTextAfterCursor(1)
-      val beforeText = inputConnection.getTextBeforeCursor(1)
-      
-      if (tryHandleMiddleElementDeletion(afterText)) return
-      if (tryHandleElementDeletion(beforeText)) return
-      if (tryDeletePlusSign(beforeText, afterText)) return
+      if (smartDeletionMode) {
+        val afterText = inputConnection.getTextAfterCursor(1)
+        val beforeText = inputConnection.getTextBeforeCursor(1)
+        if (tryHandleMiddleElementDeletion(afterText)) return
+        if (tryHandleElementDeletion(beforeText)) return
+        if (tryDeletePlusSign(beforeText, afterText)) return
+      }
       
       inputConnection.deleteSurroundingText(1, 0)
     } else {
       // Delete the selection
       inputConnection.commitText("")
+    }
+    if (isEditTextEmpty()) {
+      smartDeletionMode = true
     }
   }
   

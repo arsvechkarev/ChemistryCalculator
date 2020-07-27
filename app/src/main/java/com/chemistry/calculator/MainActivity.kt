@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.keyboard
 import kotlinx.android.synthetic.main.activity_main.previewView
 import kotlinx.android.synthetic.main.activity_main.processImageButton
 
-
 class MainActivity : AppCompatActivity() {
   
   private lateinit var permissionHelper: PermissionHelper
