@@ -3,7 +3,6 @@ package com.chemistry.calculator.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
@@ -15,6 +14,8 @@ import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_MOVE
 import android.view.View
 import com.chemistry.calculator.extensions.i
+import com.chemistry.calculator.extensions.tempRect
+import com.chemistry.calculator.extensions.tempRectF
 
 class BoxView @JvmOverloads constructor(
   context: Context,
@@ -27,25 +28,29 @@ class BoxView @JvmOverloads constructor(
   private val boxRect = RectF()
   private var cornersRadius = -1f
   
-  private val imageDragBoxRect = Rect()
-  private var imageDragBoxSize = -1
+  private val imageDragBoxRect = RectF()
+  private var imageDragBoxSize = -1f
   private val imageDragBox = DragBoxDrawable(context)
   
   private var isMoving = false
   private var lastX = -1f
   private var lastY = -1f
   
-  private var leftDragMaxLimit = -1f
-  private var topDragMaxLimit = -1f
-  private var rightDragMaxLimit = -1f
+  private var leftDragLimit = -1f
+  private var topDragLimit = -1f
+  private var rightDragLimit = -1f
   private var bottomDragMaxLimit = -1f
   
-  private var leftDragMinLimit = -1f
-  private var topDragMinLimit = -1f
-  private var rightDragMinLimit = -1f
-  private var bottomDragMinLimit = -1f
+  private var distanceToLeft = -1f
+  private var distanceToTop = -1f
   
-  val frameBox = Rect()
+  val frameBox: Rect
+    get() {
+      tempRectF.set(boxRect)
+      tempRectF.inset(cornersRadius, cornersRadius)
+      tempRectF.roundOut(tempRect)
+      return tempRect
+    }
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     val left = w / 6f
@@ -53,16 +58,21 @@ class BoxView @JvmOverloads constructor(
     val right = w - left
     val bottom = top + w / 6f
     cornersRadius = left / 15f
-    imageDragBoxSize = w / 25
+    imageDragBoxSize = w / 25f
     initBoxFrame(left, top, right, bottom)
     fillScreenPath.addRect(0f, 0f, w.toFloat(), h.toFloat(), Path.Direction.CW)
     imageDragBoxRect.set(
-      frameBox.right - imageDragBoxSize,
-      frameBox.bottom - imageDragBoxSize,
-      frameBox.right + imageDragBoxSize,
-      frameBox.bottom + imageDragBoxSize
+      boxRect.right - imageDragBoxSize,
+      boxRect.bottom - imageDragBoxSize,
+      boxRect.right + imageDragBoxSize,
+      boxRect.bottom + imageDragBoxSize
     )
-    imageDragBox.bounds = imageDragBoxRect
+    imageDragBox.setBounds(
+      imageDragBoxRect.left.i,
+      imageDragBoxRect.top.i,
+      imageDragBoxRect.right.i,
+      imageDragBoxRect.bottom.i
+    )
   }
   
   @SuppressLint("ClickableViewAccessibility")
@@ -71,36 +81,44 @@ class BoxView @JvmOverloads constructor(
     val y = event.y
     when (event.action) {
       ACTION_DOWN -> {
-        if (imageDragBoxRect.contains(x.i, y.i)) {
+        if (imageDragBoxRect.contains(x, y)) {
           lastX = x
           lastY = y
+          distanceToLeft = x - imageDragBoxRect.left
+          distanceToTop = y - imageDragBoxRect.top
           isMoving = true
           return true
         }
       }
       ACTION_MOVE -> {
-        val xInTheZone = (x > leftDragMaxLimit && x < leftDragMinLimit
-            || x > rightDragMinLimit && x < rightDragMaxLimit)
-        val yInTheZone = (y > topDragMaxLimit && y < topDragMinLimit
-            || y > bottomDragMinLimit && y < bottomDragMaxLimit)
-        if (isMoving && xInTheZone && yInTheZone) {
-          val dx = x - lastX
-          val dy = y - lastY
-          frameBox.offset(dx.i, dy.i)
+        if (isMoving) {
+          val distanceFromFingerToCenterX = imageDragBoxRect.width() / 2f - distanceToLeft
+          val distanceFromFingerToCenterY = imageDragBoxRect.height() / 2f - distanceToTop
+          val newX = x.coerceIn(
+            leftDragLimit - distanceFromFingerToCenterX,
+            rightDragLimit - distanceFromFingerToCenterX
+          )
+          val newY = y.coerceIn(
+            topDragLimit - distanceFromFingerToCenterY,
+            bottomDragMaxLimit - distanceFromFingerToCenterY
+          )
+          imageDragBoxRect.offsetTo(newX - distanceToLeft, newY - distanceToTop)
+          imageDragBox.setBounds(
+            imageDragBoxRect.left.i,
+            imageDragBoxRect.top.i,
+            imageDragBoxRect.right.i,
+            imageDragBoxRect.bottom.i
+          )
+          val dx = newX - lastX
+          val dy = newY - lastY
           boxRect.left -= dx
           boxRect.top -= dy
           boxRect.right += dx
           boxRect.bottom += dy
-          boxRect.left = boxRect.left.coerceIn(leftDragMaxLimit, leftDragMinLimit)
-          boxRect.top = boxRect.top.coerceIn(topDragMaxLimit, topDragMinLimit)
-          boxRect.right = boxRect.right.coerceIn(rightDragMinLimit, rightDragMaxLimit)
-          boxRect.bottom = boxRect.bottom.coerceIn(bottomDragMinLimit, bottomDragMaxLimit)
           boxPath.reset()
           boxPath.addRoundRect(boxRect, cornersRadius, cornersRadius, Path.Direction.CW)
-          imageDragBoxRect.offset(dx.i, dy.i)
-          imageDragBox.bounds = imageDragBoxRect
-          lastX = x
-          lastY = y
+          lastX = newX
+          lastY = newY
           invalidate()
           return true
         }
@@ -116,36 +134,18 @@ class BoxView @JvmOverloads constructor(
     canvas.drawPath(fillScreenPath, fillScreenPaint)
     canvas.restore()
     imageDragBox.draw(canvas)
-    canvas.drawRect(leftDragMaxLimit, topDragMaxLimit, rightDragMaxLimit, bottomDragMaxLimit, Paint().apply {
-      style = Paint.Style.STROKE
-      strokeWidth = 2f
-      color = Color.RED
-    })
-    canvas.drawRect(leftDragMinLimit, topDragMinLimit, rightDragMinLimit, bottomDragMinLimit, Paint().apply {
-      style = Paint.Style.STROKE
-      strokeWidth = 2f
-      color = Color.RED
-    })
   }
   
   private fun initBoxFrame(left: Float, top: Float, right: Float, bottom: Float) {
     boxRect.set(left, top, right, bottom)
     val maxOffset = boxRect.height() / 2
-    leftDragMaxLimit = boxRect.left - maxOffset
-    topDragMaxLimit = boxRect.top - maxOffset
-    rightDragMaxLimit = boxRect.right + maxOffset
+    leftDragLimit = boxRect.right - boxRect.height()
+    topDragLimit = boxRect.bottom - boxRect.height() / 4
+    rightDragLimit = boxRect.right + maxOffset
     bottomDragMaxLimit = boxRect.bottom + maxOffset
-    val minVerticalOffset = boxRect.height() / 4
-    val minHorizontalOffset = boxRect.height()
-    leftDragMinLimit = boxRect.left + minHorizontalOffset
-    topDragMinLimit = boxRect.top + minVerticalOffset
-    rightDragMinLimit = boxRect.right - minHorizontalOffset
-    bottomDragMinLimit = boxRect.bottom - minVerticalOffset
     boxPath.addRoundRect(
       left, top, right, bottom, cornersRadius, cornersRadius, Path.Direction.CW
     )
-    frameBox.set(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
-    frameBox.inset(cornersRadius.i, cornersRadius.i)
   }
   
   companion object {

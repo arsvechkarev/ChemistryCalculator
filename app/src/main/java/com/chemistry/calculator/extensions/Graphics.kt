@@ -2,13 +2,19 @@ package com.chemistry.calculator.extensions
 
 import android.graphics.Matrix
 import android.graphics.Rect
+import android.graphics.RectF
 import android.text.BoringLayout
 import android.text.Layout
 import android.text.TextPaint
 import android.text.TextUtils
 
 val tempRect = Rect()
+val tempRectF = RectF()
 val tempMatrix = Matrix()
+
+fun RectF.toRect(): Rect {
+  return Rect(left.i, top.i, right.i, bottom.i)
+}
 
 fun boringLayoutOf(textPaint: TextPaint, text: CharSequence, maxWidth: Float = -1f): Layout {
   val metrics = BoringLayout.isBoring(text, textPaint)
