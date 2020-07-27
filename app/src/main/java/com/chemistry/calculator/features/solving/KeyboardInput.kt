@@ -30,6 +30,10 @@ class KeyboardInput(
     }
   }
   
+  fun setEquation(equation: String) {
+    inputConnection.commitText(equation)
+  }
+  
   private fun handleDeleteSymbol() {
     val selectedText: CharSequence? = inputConnection.getSelectedText()
     if (selectedText.isNullOrEmpty()) {

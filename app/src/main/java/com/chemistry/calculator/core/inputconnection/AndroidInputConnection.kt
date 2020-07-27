@@ -21,9 +21,6 @@ class AndroidInputConnection(
   override fun commitText(text: CharSequence) {
     inputConnection.commitText(text, 1)
   }
-  override fun commitText(text: CharSequence, cursorPosition: Int) {
-    inputConnection.commitText(text, cursorPosition)
-  }
   
   override fun deleteSurroundingText(beforeLength: Int, afterLength: Int) {
     inputConnection.deleteSurroundingText(beforeLength, afterLength)

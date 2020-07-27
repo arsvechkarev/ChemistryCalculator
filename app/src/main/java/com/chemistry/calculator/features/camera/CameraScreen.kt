@@ -4,7 +4,6 @@ import android.graphics.Rect
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.view.PreviewView
-import com.chemistry.calculator.views.BottomSheet
 import com.chemistry.calculator.views.BoxView
 
 class CameraScreen(
@@ -13,8 +12,7 @@ class CameraScreen(
   private var previewView: PreviewView?,
   private var processImageButton: View?,
   private var cropRectProvider: (() -> Rect)?,
-  private var onStringReady: ((String) -> Unit)?,
-  private var bottomSheet: BottomSheet
+  private var onStringReady: ((String) -> Unit)?
 ) {
   
   private val imageProcessor = ImageProcessor(
@@ -27,10 +25,7 @@ class CameraScreen(
   
   init {
     previewView!!.preferredImplementationMode = PreviewView.ImplementationMode.TEXTURE_VIEW
-    processImageButton!!.setOnClickListener {
-      bottomSheet.show()
-      imageProcessor.processImage()
-    }
+    processImageButton!!.setOnClickListener { imageProcessor.processImage() }
   }
   
   fun startCamera() {

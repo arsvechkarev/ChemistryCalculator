@@ -22,6 +22,6 @@ class EquationSolvingScreen(
   }
   
   fun processEquation(equation: String) {
-  
+    keyboardInput.setEquation(equation)
   }
 }

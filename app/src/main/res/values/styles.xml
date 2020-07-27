@@ -5,6 +5,7 @@
   </style>
 
   <style name="AppTheme.Dark">
+    <item name="colorPrimary">@color/light_primary</item>
     <item name="colorText">@color/light_text</item>
     <item name="colorTextLight">@color/light_text_light</item>
     <item name="colorIcon">@color/light_icon</item>
@@ -14,6 +15,5 @@
     <item name="colorElementButton">@color/light_element_button</item>
     <item name="colorControlButton">@color/light_control_button</item>
     <item name="colorNumberButton">@color/light_number_button</item>
-    <item name="colorEqualsButton">@color/light_equals_button</item>
   </style>
 </resources>

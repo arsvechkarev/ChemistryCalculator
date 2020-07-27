@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <color name="light_primary">#00B042</color>
   <color name="light_text">#000000</color>
   <color name="light_text_light">#FFFFFF</color>
   <color name="light_icon">#FFFFFF</color>
@@ -9,5 +10,4 @@
   <color name="light_element_button">#FFFFFF</color>
   <color name="light_control_button">#FAFAFA</color>
   <color name="light_number_button">#FFFFFF</color>
-  <color name="light_equals_button">#00B042</color>
 </resources>
