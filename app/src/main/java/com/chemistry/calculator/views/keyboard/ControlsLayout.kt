@@ -53,13 +53,14 @@ class ControlsLayout @JvmOverloads constructor(
     onClicked = { onItemClicked(it) }
   )
   
-  private val backspaceButton = TextButton(
+  private val backspaceButton = ClickAndHoldTextButton(
     context,
     text = DELETE_SYMBOL,
     textSize = context.dimen(R.dimen.text_h0),
     textColor = context.color(R.color.light_text),
     backgroundColor = context.color(R.color.light_control_button),
-    onClicked = { onItemClicked(it) }
+    onClicked = { onItemClicked(it) },
+    onHold = { onItemClicked(it) }
   )
   
   init {

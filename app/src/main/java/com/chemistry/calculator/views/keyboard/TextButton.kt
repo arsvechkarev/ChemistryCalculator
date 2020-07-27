@@ -15,9 +15,9 @@ import com.chemistry.calculator.extensions.color
 import com.chemistry.calculator.extensions.tempRect
 
 @SuppressLint("ViewConstructor") // Created only through code
-class TextButton(
+open class TextButton(
   context: Context,
-  private val text: String,
+  protected val text: String,
   private val textSize: Float,
   private val textColor: Int,
   private val backgroundColor: Int,

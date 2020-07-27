@@ -1,24 +1,21 @@
 package com.chemistry.calculator.features.solving
 
-import android.text.InputType
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import com.chemistry.calculator.core.inputconnection.AndroidInputConnection
+import com.chemistry.calculator.views.EquationEditText
 import com.chemistry.calculator.views.keyboard.Keyboard
 
 class EquationSolvingScreen(
-  editText: EditText,
+  equationEditText: EquationEditText,
   keyboard: Keyboard
 ) {
   
   private val keyboardInput = KeyboardInput(
-    AndroidInputConnection(editText.onCreateInputConnection(EditorInfo())),
-    isEditTextEmpty = { editText.text.isEmpty() }
+    AndroidInputConnection(equationEditText.onCreateInputConnection(EditorInfo())),
+    isEditTextEmpty = { equationEditText.text?.isEmpty() == true }
   )
   
   init {
-    editText.setRawInputType(InputType.TYPE_CLASS_TEXT)
-    editText.setTextIsSelectable(true)
     keyboard.onItemClicked = keyboardInput::processSymbol
   }
   

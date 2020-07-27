@@ -49,8 +49,8 @@
       android:background="@drawable/bg_bottom_sheet"
       android:orientation="vertical">
 
-      <EditText
-        android:id="@+id/editText"
+      <com.chemistry.calculator.views.EquationEditText
+        android:id="@+id/equationEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -58,9 +58,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="200dp"
         android:background="@drawable/bg_edit_text"
-        android:maxLength="20"
+        android:maxLength="18"
         android:maxLines="1"
-        android:padding="6dp"
+        android:padding="8dp"
         android:textColor="?colorText"
         android:textSize="25sp"/>
 
