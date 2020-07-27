@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.bottomSheet
 import kotlinx.android.synthetic.main.activity_main.boxView
 import kotlinx.android.synthetic.main.activity_main.editText
 import kotlinx.android.synthetic.main.activity_main.keyboard
+import kotlinx.android.synthetic.main.activity_main.openKeyboardButton
 import kotlinx.android.synthetic.main.activity_main.previewView
 import kotlinx.android.synthetic.main.activity_main.processImageButton
 
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     } else {
       permissionHelper.requestCameraPermission()
     }
+    openKeyboardButton.setOnClickListener { bottomSheet.show() }
   }
   
   private fun processEquation(symbol: String) {

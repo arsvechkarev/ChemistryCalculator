@@ -69,31 +69,9 @@ class ElementsLayout @JvmOverloads constructor(
   }
   
   override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-    var left = elementsPadding // TODO (7/26/2020): Optimize cycles
-    var top = elementsPadding
-    repeat(5) {
-      val child = getChildAt(it)
-      child.layout(left, top, (left + elementSize).i, top + elementSize.i)
-      left += (elementSize + elementsPadding).i
-    }
-    left = elementsPadding
-    top = elementsPadding * 2 + elementSize.i
-    repeat(5) {
-      val child = getChildAt(it + 5)
-      child.layout(left, top, (left + elementSize).i, top + elementSize.i)
-      left += (elementSize + elementsPadding).i
-    }
-    left = elementsPadding
-    top = elementsPadding * 3 + elementSize.i * 2
-    repeat(5) {
-      val child = getChildAt(it + 10)
-      child.layout(left, top, (left + elementSize).i, top + elementSize.i)
-      left += (elementSize + elementsPadding).i
-    }
-    
-    getChildAt(14).bottom
-    measuredHeight
-    elementsPadding
+    layoutElements(elementsPadding, 0)
+    layoutElements(elementsPadding * 2 + elementSize.i, 5)
+    layoutElements(elementsPadding * 3 + elementSize.i * 2, 10)
     
     plusButton.layout(
       (elementSize * 5).i + (elementsPadding * 6),
@@ -107,5 +85,14 @@ class ElementsLayout @JvmOverloads constructor(
       width - elementsPadding,
       height - elementsPadding
     )
+  }
+  
+  private fun layoutElements(top: Int, offset: Int) {
+    var left = elementsPadding
+    repeat(5) { i ->
+      val child = getChildAt(i + offset)
+      child.layout(left, top, (left + elementSize).i, top + elementSize.i)
+      left += (elementSize + elementsPadding).i
+    }
   }
 }

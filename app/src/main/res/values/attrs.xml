@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <attr name="colorPrimary" format="color"/>
+  <attr name="colorRipple" format="color"/>
 
   <attr name="colorText" format="color"/>
   <attr name="colorTextLight" format="color"/>
   <attr name="colorIcon" format="color"/>
+  <attr name="colorFrameBoxIcon" format="color"/>
   <attr name="colorBackground" format="color"/>
+  <attr name="colorButtonBackground" format="color"/>
 
   <attr name="colorEditTextBg" format="color"/>
   <attr name="colorKeyboardBg" format="color"/>

@@ -24,12 +24,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-      <com.chemistry.calculator.views.TakePhotoButton
+      <com.chemistry.calculator.views.TakePictureButton
         android:id="@+id/processImageButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/take_picture_button_size"
+        android:layout_height="@dimen/take_picture_button_size"
         android:layout_gravity="center|bottom"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="@dimen/take_picture_button_m_bottom"/>
+
+      <com.chemistry.calculator.views.ClickableImage
+        android:id="@+id/openKeyboardButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="36dp"
+        android:padding="8dp"
+        app:imageSrc="@drawable/ic_edit"/>
 
     </FrameLayout>
 

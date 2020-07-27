@@ -4,12 +4,15 @@
     <item name="android:windowTranslucentNavigation">true</item>
   </style>
 
-  <style name="AppTheme.Dark">
+  <style name="AppTheme.Light">
     <item name="colorPrimary">@color/light_primary</item>
+    <item name="colorRipple">@color/light_ripple</item>
     <item name="colorText">@color/light_text</item>
     <item name="colorTextLight">@color/light_text_light</item>
     <item name="colorIcon">@color/light_icon</item>
+    <item name="colorFrameBoxIcon">@color/light_frame_box_icon</item>
     <item name="colorBackground">@color/light_background</item>
+    <item name="colorButtonBackground">@color/light_button_background</item>
     <item name="colorEditTextBg">@color/light_edit_text_bg</item>
     <item name="colorKeyboardBg">@color/light_keyboard_bg</item>
     <item name="colorElementButton">@color/light_element_button</item>

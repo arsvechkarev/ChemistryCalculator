@@ -11,12 +11,6 @@ fun ViewGroup.forEachChild(action: (View) -> Unit) {
   }
 }
 
-fun ViewGroup.forEachChildIndexed(action: (Int, View) -> Unit) {
-  repeat(childCount) { i ->
-    action(i, getChildAt(i))
-  }
-}
-
 inline fun ViewGroup.findChild(predicate: (View) -> Boolean): View {
   for (i in 0 until childCount) {
     val child = getChildAt(i)
@@ -25,10 +19,6 @@ inline fun ViewGroup.findChild(predicate: (View) -> Boolean): View {
     }
   }
   throw IllegalStateException("No child matching predicate")
-}
-
-fun ViewGroup.childWithId(@IdRes id: Int): View {
-  return findChild { child -> child.id == id }
 }
 
 inline fun <reified T : View> ViewGroup.childWithClass(): T {
@@ -40,4 +30,3 @@ operator fun View.contains(ev: MotionEvent): Boolean {
   val y = ev.y
   return x >= left && y >= top && x <= right && y <= bottom
 }
-

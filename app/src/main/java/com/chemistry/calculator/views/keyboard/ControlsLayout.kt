@@ -85,12 +85,7 @@ class ControlsLayout @JvmOverloads constructor(
   override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
     var left = elementsPadding
     forEachChild { child ->
-      child.layout(
-        left.i,
-        0,
-        (left + elementWidth).i,
-        height
-      )
+      child.layout(left.i, 0, (left + elementWidth).i, height)
       left += elementWidth + elementsPadding
     }
   }

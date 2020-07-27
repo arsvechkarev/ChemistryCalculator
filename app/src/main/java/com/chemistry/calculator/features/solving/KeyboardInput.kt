@@ -22,7 +22,7 @@ class KeyboardInput(
   private var isEditTextEmpty: () -> Boolean
 ) {
   
-  private var smartDeletionMode = true
+  private var smartErasingMode = true
   
   fun processSymbol(symbol: String) {
     when {
@@ -34,14 +34,14 @@ class KeyboardInput(
   }
   
   fun setEquation(equation: String) {
-    smartDeletionMode = false
+    smartErasingMode = false
     inputConnection.commitText(equation)
   }
   
   private fun handleDeleteSymbol() {
     val selectedText: CharSequence? = inputConnection.getSelectedText()
     if (selectedText.isNullOrEmpty()) {
-      if (smartDeletionMode) {
+      if (smartErasingMode) {
         val afterText = inputConnection.getTextAfterCursor(1)
         val beforeText = inputConnection.getTextBeforeCursor(1)
         if (tryHandleMiddleElementDeletion(afterText)) return
@@ -55,7 +55,7 @@ class KeyboardInput(
       inputConnection.commitText("")
     }
     if (isEditTextEmpty()) {
-      smartDeletionMode = true
+      smartErasingMode = true
     }
   }
   

@@ -12,10 +12,6 @@ val tempRect = Rect()
 val tempRectF = RectF()
 val tempMatrix = Matrix()
 
-fun RectF.toRect(): Rect {
-  return Rect(left.i, top.i, right.i, bottom.i)
-}
-
 fun boringLayoutOf(textPaint: TextPaint, text: CharSequence, maxWidth: Float = -1f): Layout {
   val metrics = BoringLayout.isBoring(text, textPaint)
   if (maxWidth == -1f) {

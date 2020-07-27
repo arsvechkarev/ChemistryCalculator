@@ -13,4 +13,7 @@
   <dimen name="keyboard_elements_padding">2.5dp</dimen>
   <dimen name="bottom_sheet_radius">12dp</dimen>
   <dimen name="edit_text_radius">6dp</dimen>
+
+  <dimen name="take_picture_button_size">70dp</dimen>
+  <dimen name="take_picture_button_m_bottom">50dp</dimen>
 </resources>
