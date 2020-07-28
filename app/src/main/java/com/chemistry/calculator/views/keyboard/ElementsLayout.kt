@@ -7,10 +7,10 @@ import com.chemistry.calculator.R
 import com.chemistry.calculator.core.ELEMENTS
 import com.chemistry.calculator.core.EQUALS_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
-import com.chemistry.calculator.extensions.color
-import com.chemistry.calculator.extensions.dimen
-import com.chemistry.calculator.extensions.f
-import com.chemistry.calculator.extensions.i
+import com.chemistry.calculator.utils.color
+import com.chemistry.calculator.utils.dimen
+import com.chemistry.calculator.utils.f
+import com.chemistry.calculator.utils.i
 
 class ElementsLayout @JvmOverloads constructor(
   context: Context,

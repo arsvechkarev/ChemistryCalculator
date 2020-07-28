@@ -1,9 +1,8 @@
-package com.chemistry.calculator.extensions
+package com.chemistry.calculator.utils
 
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 
 fun ViewGroup.forEachChild(action: (View) -> Unit) {
   repeat(childCount) { i ->

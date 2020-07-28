@@ -15,14 +15,14 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import com.chemistry.calculator.core.async.AndroidThreader
 import com.chemistry.calculator.core.async.Threader
-import com.chemistry.calculator.extensions.tempMatrix
+import com.chemistry.calculator.utils.tempMatrix
 import com.chemistry.calculator.views.BoxView
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
 
-class ImageProcessor(
+class CameraXImageProcessor(
   private var activity: AppCompatActivity?,
   private var boxView: BoxView?,
   private var previewView: PreviewView?,

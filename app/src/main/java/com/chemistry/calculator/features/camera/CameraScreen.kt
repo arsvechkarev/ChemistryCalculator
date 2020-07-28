@@ -1,35 +1,28 @@
 package com.chemistry.calculator.features.camera
 
 import android.graphics.Rect
+import android.view.TextureView
 import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.view.PreviewView
+import com.chemistry.calculator.features.camera.opengl.CameraRenderer
 import com.chemistry.calculator.views.BoxView
 
 class CameraScreen(
   private var activity: AppCompatActivity?,
   private var boxView: BoxView?,
-  private var previewView: PreviewView?,
+  private var previewView: TextureView?,
   private var processImageButton: View?,
   private var cropRectProvider: (() -> Rect)?,
   private var onStringReady: ((String) -> Unit)?
 ) {
   
-  private val imageProcessor = ImageProcessor(
-    activity,
-    boxView,
-    previewView,
-    cropRectProvider,
-    onStringReady
-  )
+  private val openGlCameraRenderer = CameraRenderer(activity!!)
   
   init {
-    previewView!!.preferredImplementationMode = PreviewView.ImplementationMode.TEXTURE_VIEW
-    processImageButton!!.setOnClickListener { imageProcessor.processImage() }
-  }
-  
-  fun startCamera() {
-    imageProcessor.startCamera()
+    val textureView = TextureView(activity!!)
+    textureView!!.surfaceTextureListener = openGlCameraRenderer
+    activity!!.setContentView(textureView)
   }
   
   fun release() {
@@ -39,6 +32,5 @@ class CameraScreen(
     processImageButton = null
     cropRectProvider = null
     onStringReady = null
-    imageProcessor.release()
   }
 }

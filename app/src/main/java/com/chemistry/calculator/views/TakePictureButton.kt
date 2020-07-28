@@ -13,10 +13,10 @@ import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.AccelerateDecelerateInterpolator
-import com.chemistry.calculator.extensions.cancelIfRunning
-import com.chemistry.calculator.extensions.color
-import com.chemistry.calculator.extensions.execute
+import com.chemistry.calculator.utils.AccelerateDecelerateInterpolator
+import com.chemistry.calculator.utils.cancelIfRunning
+import com.chemistry.calculator.utils.color
+import com.chemistry.calculator.utils.execute
 
 class TakePictureButton @JvmOverloads constructor(
   context: Context,

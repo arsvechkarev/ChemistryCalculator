@@ -10,7 +10,7 @@ import android.graphics.drawable.shapes.OvalShape
 import android.util.AttributeSet
 import android.view.View
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.color
+import com.chemistry.calculator.utils.color
 
 class ClickableImage @JvmOverloads constructor(
   context: Context,

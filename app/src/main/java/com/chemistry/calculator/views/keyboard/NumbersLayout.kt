@@ -4,10 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.color
-import com.chemistry.calculator.extensions.dimen
-import com.chemistry.calculator.extensions.forEachChild
-import com.chemistry.calculator.extensions.i
+import com.chemistry.calculator.utils.color
+import com.chemistry.calculator.utils.dimen
+import com.chemistry.calculator.utils.forEachChild
+import com.chemistry.calculator.utils.i
 
 class NumbersLayout @JvmOverloads constructor(
   context: Context,

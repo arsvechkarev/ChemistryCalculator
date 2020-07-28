@@ -8,10 +8,10 @@ import com.chemistry.calculator.core.CLOSE_BRACKET_SYMBOL
 import com.chemistry.calculator.core.DELETE_SYMBOL
 import com.chemistry.calculator.core.MORE_SYMBOL
 import com.chemistry.calculator.core.OPEN_BRACKET_SYMBOL
-import com.chemistry.calculator.extensions.color
-import com.chemistry.calculator.extensions.dimen
-import com.chemistry.calculator.extensions.forEachChild
-import com.chemistry.calculator.extensions.i
+import com.chemistry.calculator.utils.color
+import com.chemistry.calculator.utils.dimen
+import com.chemistry.calculator.utils.forEachChild
+import com.chemistry.calculator.utils.i
 
 class ControlsLayout @JvmOverloads constructor(
   context: Context,

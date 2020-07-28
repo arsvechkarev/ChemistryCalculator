@@ -1,4 +1,4 @@
-package com.chemistry.calculator.extensions
+package com.chemistry.calculator.utils
 
 import android.graphics.Canvas
 import android.graphics.Matrix

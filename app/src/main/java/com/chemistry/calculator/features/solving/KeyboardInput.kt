@@ -5,17 +5,17 @@ import com.chemistry.calculator.core.DELETE_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
 import com.chemistry.calculator.core.SPACE_HTML_SYMBOL
 import com.chemistry.calculator.core.inputconnection.InputConnectionInterface
-import com.chemistry.calculator.extensions.isDigit
-import com.chemistry.calculator.extensions.isLetter
-import com.chemistry.calculator.extensions.isLowercaseLetter
-import com.chemistry.calculator.extensions.isNotBracket
-import com.chemistry.calculator.extensions.isNotLetter
-import com.chemistry.calculator.extensions.isNotSubscriptNumber
-import com.chemistry.calculator.extensions.isOpenBracket
-import com.chemistry.calculator.extensions.isPlus
-import com.chemistry.calculator.extensions.isSpace
-import com.chemistry.calculator.extensions.isSubscriptNumber
-import com.chemistry.calculator.extensions.toSubscriptDigit
+import com.chemistry.calculator.utils.isDigit
+import com.chemistry.calculator.utils.isLetter
+import com.chemistry.calculator.utils.isLowercaseLetter
+import com.chemistry.calculator.utils.isNotBracket
+import com.chemistry.calculator.utils.isNotLetter
+import com.chemistry.calculator.utils.isNotSubscriptNumber
+import com.chemistry.calculator.utils.isOpenBracket
+import com.chemistry.calculator.utils.isPlus
+import com.chemistry.calculator.utils.isSpace
+import com.chemistry.calculator.utils.isSubscriptNumber
+import com.chemistry.calculator.utils.toSubscriptDigit
 
 class KeyboardInput(
   private val inputConnection: InputConnectionInterface,

@@ -11,8 +11,8 @@ import android.graphics.drawable.shapes.RoundRectShape
 import android.text.TextPaint
 import android.view.View
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.color
-import com.chemistry.calculator.extensions.tempRect
+import com.chemistry.calculator.utils.color
+import com.chemistry.calculator.utils.tempRect
 
 @SuppressLint("ViewConstructor") // Created only through code
 open class TextButton(

@@ -8,7 +8,7 @@ import android.graphics.PixelFormat
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.color
+import com.chemistry.calculator.utils.color
 
 class DragBoxDrawable(context: Context) : Drawable() {
   

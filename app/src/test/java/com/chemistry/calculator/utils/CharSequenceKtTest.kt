@@ -1,4 +1,4 @@
-package com.chemistry.calculator.extensions
+package com.chemistry.calculator.utils
 
 import org.junit.Assert.*
 import org.junit.Test

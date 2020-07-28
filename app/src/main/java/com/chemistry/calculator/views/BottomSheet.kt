@@ -15,7 +15,7 @@ import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.chemistry.calculator.R
-import com.chemistry.calculator.extensions.contains
+import com.chemistry.calculator.utils.contains
 import com.chemistry.calculator.views.BottomSheet.State.HIDDEN
 import com.chemistry.calculator.views.BottomSheet.State.SHOWN
 import kotlin.math.abs

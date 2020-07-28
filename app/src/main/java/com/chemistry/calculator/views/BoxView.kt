@@ -13,9 +13,9 @@ import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_MOVE
 import android.view.View
-import com.chemistry.calculator.extensions.i
-import com.chemistry.calculator.extensions.tempRect
-import com.chemistry.calculator.extensions.tempRectF
+import com.chemistry.calculator.utils.i
+import com.chemistry.calculator.utils.tempRect
+import com.chemistry.calculator.utils.tempRectF
 
 class BoxView @JvmOverloads constructor(
   context: Context,

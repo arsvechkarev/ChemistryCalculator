@@ -1,4 +1,4 @@
-package com.chemistry.calculator.extensions
+package com.chemistry.calculator.utils
 
 import com.chemistry.calculator.core.CLOSE_BRACKET_SYMBOL
 import com.chemistry.calculator.core.OPEN_BRACKET_SYMBOL

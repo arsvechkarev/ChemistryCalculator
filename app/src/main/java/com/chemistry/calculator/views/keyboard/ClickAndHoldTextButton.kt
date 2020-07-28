@@ -7,7 +7,7 @@ import android.os.Message
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_UP
-import com.chemistry.calculator.extensions.postDelayed
+import com.chemistry.calculator.utils.postDelayed
 
 @SuppressLint("ViewConstructor") // Created only through code
 class ClickAndHoldTextButton constructor(

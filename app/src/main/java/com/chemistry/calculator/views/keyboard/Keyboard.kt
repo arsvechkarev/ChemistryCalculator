@@ -3,7 +3,7 @@ package com.chemistry.calculator.views.keyboard
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import com.chemistry.calculator.extensions.childWithClass
+import com.chemistry.calculator.utils.childWithClass
 
 class Keyboard @JvmOverloads constructor(
   context: Context,
