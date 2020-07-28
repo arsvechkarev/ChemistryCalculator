@@ -1,7 +1,7 @@
 package com.chemistry.calculator.features.solving
 
 import androidx.core.text.HtmlCompat
-import com.chemistry.calculator.core.DELETE_SYMBOL
+import com.chemistry.calculator.core.BACKSPACE_SYMBOL
 import com.chemistry.calculator.core.EQUALS_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
 import com.chemistry.calculator.core.inputconnection.InputConnectionInterface
@@ -26,7 +26,7 @@ class KeyboardInput(
   
   fun processSymbol(symbol: String) {
     when {
-      symbol == DELETE_SYMBOL -> handleDeleteSymbol()
+      symbol == BACKSPACE_SYMBOL -> handleDeleteSymbol()
       symbol == EQUALS_SYMBOL -> onEqualsClicked()
       symbol == PLUS_SYMBOL -> processPlusSymbol()
       symbol.isDigit -> processDigit(symbol)

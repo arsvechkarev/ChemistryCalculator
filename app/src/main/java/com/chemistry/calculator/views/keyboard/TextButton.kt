@@ -11,7 +11,9 @@ import android.graphics.drawable.shapes.RoundRectShape
 import android.text.TextPaint
 import android.view.View
 import com.chemistry.calculator.R
+import com.chemistry.calculator.core.ELEMENT_BUTTON_CORNERS_COEFFICIENT
 import com.chemistry.calculator.utils.color
+import com.chemistry.calculator.utils.createRoundedRipple
 import com.chemistry.calculator.utils.tempRect
 
 @SuppressLint("ViewConstructor") // Created only through code
@@ -41,10 +43,10 @@ open class TextButton(
   }
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-    cornersRadius = minOf(w, h) / 15f
+    cornersRadius = minOf(w, h) / ELEMENT_BUTTON_CORNERS_COEFFICIENT
     textPaint.getTextBounds(text, 0, text.length, tempRect)
     textYTranslate = height / 2f + tempRect.height() / 2f
-    setRippleBackground()
+    background = createRoundedRipple(cornersRadius, backgroundColor, rippleColor)
   }
   
   override fun onDraw(canvas: Canvas) {
@@ -53,19 +55,5 @@ open class TextButton(
     } else {
       canvas.drawText(text, width / 2f, textYTranslate, textPaint)
     }
-  }
-  
-  private fun setRippleBackground() {
-    val r = cornersRadius
-    val roundCornersShape = RoundRectShape(floatArrayOf(r, r, r, r, r, r, r, r), null, null)
-    val backgroundDrawable = ShapeDrawable().apply {
-      shape = roundCornersShape
-      paint.color = backgroundColor
-    }
-    val maskDrawable = ShapeDrawable().apply {
-      shape = roundCornersShape
-      paint.color = rippleColor
-    }
-    background = RippleDrawable(ColorStateList.valueOf(rippleColor), backgroundDrawable, maskDrawable)
   }
 }

@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.chemistry.calculator.R
+import com.chemistry.calculator.core.BACKSPACE_SYMBOL
 import com.chemistry.calculator.core.CLOSE_BRACKET_SYMBOL
-import com.chemistry.calculator.core.DELETE_SYMBOL
 import com.chemistry.calculator.core.MORE_SYMBOL
 import com.chemistry.calculator.core.OPEN_BRACKET_SYMBOL
 import com.chemistry.calculator.utils.color
@@ -53,11 +53,11 @@ class ControlsLayout @JvmOverloads constructor(
     onClicked = { onItemClicked(it) }
   )
   
-  private val backspaceButton = ClickAndHoldTextButton(
+  private val backspaceButton = ClickAndHoldIconButton(
     context,
-    text = DELETE_SYMBOL,
-    textSize = context.dimen(R.dimen.text_h0),
-    textColor = context.color(R.color.light_text),
+    id = BACKSPACE_SYMBOL,
+    iconRes = R.drawable.ic_backspace,
+    iconColor = context.color(R.color.light_text),
     backgroundColor = context.color(R.color.light_control_button),
     onClicked = { onItemClicked(it) },
     onHold = { onItemClicked(it) }

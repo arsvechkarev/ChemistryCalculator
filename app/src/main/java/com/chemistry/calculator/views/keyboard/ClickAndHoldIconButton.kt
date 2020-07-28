@@ -10,15 +10,15 @@ import android.view.MotionEvent.ACTION_UP
 import com.chemistry.calculator.utils.postDelayed
 
 @SuppressLint("ViewConstructor") // Created only through code
-class ClickAndHoldTextButton constructor(
+class ClickAndHoldIconButton constructor(
   context: Context,
-  text: String,
-  textSize: Float,
-  textColor: Int,
+  id: String,
+  iconRes: Int,
+  iconColor: Int,
   backgroundColor: Int,
   onClicked: (String) -> Unit,
   private val onHold: (String) -> Unit
-) : TextButton(context, text, textSize, textColor, backgroundColor, onClicked = onClicked) {
+) : IconButton(context, id, iconRes, iconColor, backgroundColor, onClicked = onClicked) {
   
   private var isHoldingNow = false
   
@@ -27,7 +27,7 @@ class ClickAndHoldTextButton constructor(
     
     override fun handleMessage(msg: Message) {
       if (isHoldingNow) {
-        onHold(text)
+        onHold(id)
         sendEmptyMessageDelayed(WHAT, DELAY_HOLDING)
       }
     }
