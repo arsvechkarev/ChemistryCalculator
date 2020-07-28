@@ -1,18 +1,15 @@
-package com.chemistry.calculator.features.camera.opengl;
+package com.chemistry.calculator.features.camera;
 
-import android.content.Context;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
-import com.chemistry.calculator.features.camera.Shaders;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-/**
- * @author nekocode (nekocode.cn@gmail.com)
- */
+public class CameraFilter {
 
-public abstract class CameraFilter {
+  private int program = MyGLUtils.buildProgram(Shaders.INSTANCE.getVERTEX_SHADER(),
+      Shaders.INSTANCE.getFRAGMENT_SHADER());
 
   static final float SQUARE_COORDS[] = {
       1.0f, -1.0f,
@@ -78,7 +75,6 @@ public abstract class CameraFilter {
   }
 
   final public void draw(int cameraTexId, int canvasWidth, int canvasHeight) {
-    // TODO move?
     // Create camera render buffer
     if (CAMERA_RENDER_BUF == null ||
         CAMERA_RENDER_BUF.getWidth() != canvasWidth ||
@@ -117,7 +113,13 @@ public abstract class CameraFilter {
     iFrame++;
   }
 
-  abstract void onDraw(int cameraTexId, int canvasWidth, int canvasHeight);
+  void onDraw(int cameraTexId, int canvasWidth, int canvasHeight) {
+    setupShaderInputs(program,
+        new int[]{canvasWidth, canvasHeight},
+        new int[]{cameraTexId},
+        new int[][]{});
+    GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
+  }
 
   void setupShaderInputs(int program, int[] iResolution, int[] iChannels,
       int[][] iChannelResolutions) {

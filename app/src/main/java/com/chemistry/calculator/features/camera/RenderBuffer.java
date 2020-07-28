@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.chemistry.calculator.features.camera.opengl;
+package com.chemistry.calculator.features.camera;
 
 import android.opengl.GLES20;
 import java.nio.ByteBuffer;
@@ -25,10 +25,11 @@ import javax.microedition.khronos.opengles.GL10;
  * @author nekocode (nekocode.cn@gmail.com)
  */
 public class RenderBuffer {
-    private int texId = 0;
-    private int activeTexUnit = 0;
-    private int renderBufferId = 0;
-    private int frameBufferId = 0;
+
+    private int texId;
+    private int activeTexUnit;
+    private int renderBufferId;
+    private int frameBufferId;
 
     private int width, height;
 

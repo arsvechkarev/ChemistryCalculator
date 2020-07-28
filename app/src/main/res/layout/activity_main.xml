@@ -5,89 +5,89 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-<!--  <TextureView-->
-<!--    android:id="@+id/previewView"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"/>-->
+  <TextureView
+    android:id="@+id/previewView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
-<!--  <com.chemistry.calculator.views.BottomSheet-->
-<!--    android:id="@+id/bottomSheet"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    app:defaultState="hidden">-->
-<!---->
-<!--    <FrameLayout-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="match_parent"-->
-<!--      android:clipChildren="false">-->
-<!---->
-<!--      <com.chemistry.calculator.views.BoxView-->
-<!--        android:id="@+id/boxView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
-<!---->
-<!--      <com.chemistry.calculator.views.TakePictureButton-->
-<!--        android:id="@+id/processImageButton"-->
-<!--        android:layout_width="@dimen/take_picture_button_size"-->
-<!--        android:layout_height="@dimen/take_picture_button_size"-->
-<!--        android:layout_gravity="center|bottom"-->
-<!--        android:layout_marginBottom="@dimen/take_picture_button_m_bottom"/>-->
-<!---->
-<!--      <com.chemistry.calculator.views.ClickableImage-->
-<!--        android:id="@+id/openKeyboardButton"-->
-<!--        android:layout_width="40dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_gravity="bottom|end"-->
-<!--        android:layout_margin="36dp"-->
-<!--        android:padding="8dp"-->
-<!--        app:imageSrc="@drawable/ic_edit"/>-->
-<!---->
-<!--    </FrameLayout>-->
-<!---->
-<!--    <LinearLayout-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:background="@drawable/bg_bottom_sheet"-->
-<!--      android:orientation="vertical">-->
-<!---->
-<!--      <com.chemistry.calculator.views.EquationEditText-->
-<!--        android:id="@+id/equationEditText"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:layout_marginBottom="200dp"-->
-<!--        android:background="@drawable/bg_edit_text"-->
-<!--        android:maxLength="18"-->
-<!--        android:maxLines="1"-->
-<!--        android:padding="8dp"-->
-<!--        android:textColor="?colorText"-->
-<!--        android:textSize="25sp"/>-->
-<!---->
-<!--      <com.chemistry.calculator.views.keyboard.Keyboard-->
-<!--        android:id="@+id/keyboard"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom"-->
-<!--        android:background="?colorKeyboardBg">-->
-<!---->
-<!--        <com.chemistry.calculator.views.keyboard.NumbersLayout-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"/>-->
-<!---->
-<!--        <com.chemistry.calculator.views.keyboard.ControlsLayout-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"/>-->
-<!---->
-<!--        <com.chemistry.calculator.views.keyboard.ElementsLayout-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"/>-->
-<!---->
-<!--      </com.chemistry.calculator.views.keyboard.Keyboard>-->
-<!---->
-<!--    </LinearLayout>-->
-<!---->
-<!--  </com.chemistry.calculator.views.BottomSheet>-->
-<!---->
+  <com.chemistry.calculator.views.BottomSheet
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:defaultState="hidden">
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:clipChildren="false">
+
+      <com.chemistry.calculator.views.BoxView
+        android:id="@+id/boxView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+      <com.chemistry.calculator.views.TakePictureButton
+        android:id="@+id/processImageButton"
+        android:layout_width="@dimen/take_picture_button_size"
+        android:layout_height="@dimen/take_picture_button_size"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="@dimen/take_picture_button_m_bottom"/>
+
+      <com.chemistry.calculator.views.ClickableImage
+        android:id="@+id/openKeyboardButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="36dp"
+        android:padding="8dp"
+        app:imageSrc="@drawable/ic_edit"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_bottom_sheet"
+      android:orientation="vertical">
+
+      <com.chemistry.calculator.views.EquationEditText
+        android:id="@+id/equationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/bg_edit_text"
+        android:maxLength="18"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:textColor="?colorText"
+        android:textSize="25sp"/>
+
+      <com.chemistry.calculator.views.keyboard.Keyboard
+        android:id="@+id/keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?colorKeyboardBg">
+
+        <com.chemistry.calculator.views.keyboard.NumbersLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+
+        <com.chemistry.calculator.views.keyboard.ControlsLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+
+        <com.chemistry.calculator.views.keyboard.ElementsLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+
+      </com.chemistry.calculator.views.keyboard.Keyboard>
+
+    </LinearLayout>
+
+  </com.chemistry.calculator.views.BottomSheet>
+
 </FrameLayout>

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.chemistry.calculator.features.camera.opengl;
+package com.chemistry.calculator.features.camera;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -107,7 +107,7 @@ public class CameraRenderer implements Runnable, TextureView.SurfaceTextureListe
   @Override
   public void run() {
     initGL(surfaceTexture);
-    selectedFilter = new OriginalFilter();
+    selectedFilter = new CameraFilter();
     selectedFilter.onAttach();
 
     // Create texture for camera preview
