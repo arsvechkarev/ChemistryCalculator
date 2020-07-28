@@ -1,9 +1,6 @@
 package com.chemistry.calculator
 
 import android.os.Bundle
-import android.view.TextureView
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.chemistry.calculator.core.Application
 import com.chemistry.calculator.core.async.AndroidThreader
@@ -11,7 +8,6 @@ import com.chemistry.calculator.features.camera.CameraScreen
 import com.chemistry.calculator.features.solving.EquationSolvingScreen
 import kotlinx.android.synthetic.main.activity_main.bottomSheet
 import kotlinx.android.synthetic.main.activity_main.boxView
-import kotlinx.android.synthetic.main.activity_main.container
 import kotlinx.android.synthetic.main.activity_main.equationEditText
 import kotlinx.android.synthetic.main.activity_main.keyboard
 import kotlinx.android.synthetic.main.activity_main.openKeyboardButton

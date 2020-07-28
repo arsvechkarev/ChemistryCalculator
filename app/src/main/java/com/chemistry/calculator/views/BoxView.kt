@@ -1,8 +1,10 @@
 package com.chemistry.calculator.views
 
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
@@ -13,7 +15,9 @@ import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_MOVE
 import android.view.View
+import com.chemistry.calculator.utils.AccelerateDecelerateInterpolator
 import com.chemistry.calculator.utils.i
+import com.chemistry.calculator.utils.lerpColor
 import com.chemistry.calculator.utils.tempRect
 import com.chemistry.calculator.utils.tempRectF
 
@@ -43,6 +47,16 @@ class BoxView @JvmOverloads constructor(
   
   private var distanceToLeft = -1f
   private var distanceToTop = -1f
+  
+  private val appearanceAnimator = ValueAnimator().apply {
+    duration = APPEARANCE_DURATION
+    interpolator = AccelerateDecelerateInterpolator
+    addUpdateListener {
+      val fraction = it.animatedValue as Float
+      fillScreenPaint.color = lerpColor(Color.BLACK, COLOR_SHADOW, fraction)
+      invalidate()
+    }
+  }
   
   val frameBox: Rect
     get() {
@@ -148,7 +162,13 @@ class BoxView @JvmOverloads constructor(
     )
   }
   
+  fun animateAppearance() {
+    appearanceAnimator.setFloatValues(0f, 1f)
+    appearanceAnimator.start()
+  }
+  
   companion object {
-    const val COLOR_SHADOW = 0x77000000
+    private const val COLOR_SHADOW = 0x77000000
+    private const val APPEARANCE_DURATION = 600L
   }
 }

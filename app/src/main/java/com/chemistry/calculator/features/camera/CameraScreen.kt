@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.view.TextureView
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.chemistry.calculator.core.async.AndroidThreader
 import com.chemistry.calculator.views.BoxView
 
 class CameraScreen(
@@ -15,8 +16,9 @@ class CameraScreen(
   private var onStringReady: ((String) -> Unit)?
 ) {
   
-  private val openGlCameraRenderer = CameraRenderer(
-    activity!!)
+  private val openGlCameraRenderer = CameraRenderer(activity!!, onPreviewStarted = {
+    AndroidThreader.onMainThread { boxView?.animateAppearance() }
+  })
   
   fun startCamera() {
     previewView!!.surfaceTextureListener = openGlCameraRenderer
