@@ -28,12 +28,12 @@ class MainActivity : AppCompatActivity() {
   }
   
   private fun initializeScreen() {
-    cameraScreen = CameraScreen(this, boxView, previewView, processImageButton,
-      boxView::frameBox, ::processEquation)
+//    cameraScreen = CameraScreen(this, boxView, previewView, processImageButton,
+//      boxView::frameBox, ::processEquation)
     equationSolvingScreen = EquationSolvingScreen(equationEditText, keyboard)
     permissionHelper = PermissionHelper(this)
     if (permissionHelper.isCameraGranted) {
-      cameraScreen.startCamera()
+//      cameraScreen.startCamera()
     } else {
       permissionHelper.requestCameraPermission()
     }
@@ -49,6 +49,6 @@ class MainActivity : AppCompatActivity() {
   
   override fun onStop() {
     super.onStop()
-    cameraScreen.release()
+//    cameraScreen.release()
   }
 }

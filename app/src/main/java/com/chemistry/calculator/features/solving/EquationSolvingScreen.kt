@@ -10,9 +10,23 @@ class EquationSolvingScreen(
   keyboard: Keyboard
 ) {
   
+  private val solver = Solver()
+  
   private val keyboardInput = KeyboardInput(
     AndroidInputConnection(equationEditText.onCreateInputConnection(EditorInfo())),
-    isEditTextEmpty = { equationEditText.text?.isEmpty() == true }
+    isEditTextEmpty = { equationEditText.text?.isEmpty() == true },
+    onStartSolving = {
+      solver.Work(equationEditText.text!!.toString(), object : ResultCallback {
+        
+        override fun error(message: String) {
+          println("qqq: error $message")
+        }
+  
+        override fun success(result: String) {
+          println("qqq: success $result")
+        }
+      })
+    }
   )
   
   init {

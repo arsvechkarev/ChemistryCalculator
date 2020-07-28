@@ -2,6 +2,7 @@ package com.chemistry.calculator.features.solving
 
 import androidx.core.text.HtmlCompat
 import com.chemistry.calculator.core.DELETE_SYMBOL
+import com.chemistry.calculator.core.EQUALS_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
 import com.chemistry.calculator.core.SPACE_HTML_SYMBOL
 import com.chemistry.calculator.core.inputconnection.InputConnectionInterface
@@ -19,7 +20,8 @@ import com.chemistry.calculator.utils.toSubscriptDigit
 
 class KeyboardInput(
   private val inputConnection: InputConnectionInterface,
-  private var isEditTextEmpty: () -> Boolean
+  private var isEditTextEmpty: () -> Boolean,
+  private var onStartSolving: () -> Unit
 ) {
   
   private var smartErasingMode = true
@@ -27,6 +29,7 @@ class KeyboardInput(
   fun processSymbol(symbol: String) {
     when {
       symbol == DELETE_SYMBOL -> handleDeleteSymbol()
+      symbol == EQUALS_SYMBOL -> onStartSolving()
       symbol == PLUS_SYMBOL -> processPlusSymbol()
       symbol.isDigit -> processDigit(symbol)
       else -> inputConnection.commitText(symbol)
@@ -36,6 +39,7 @@ class KeyboardInput(
   fun setEquation(equation: String) {
     smartErasingMode = false
     inputConnection.commitText(equation)
+    onStartSolving()
   }
   
   private fun handleDeleteSymbol() {
@@ -108,7 +112,7 @@ class KeyboardInput(
   
   private fun processPlusSymbol() {
     val text = HtmlCompat.fromHtml(
-      "$SPACE_HTML_SYMBOL$PLUS_SYMBOL$SPACE_HTML_SYMBOL", HtmlCompat.FROM_HTML_MODE_COMPACT
+      "$PLUS_SYMBOL", HtmlCompat.FROM_HTML_MODE_COMPACT
     )
     inputConnection.commitText(text)
   }
@@ -121,7 +125,7 @@ class KeyboardInput(
     if (beforeText.isNotLetter && beforeText.isNotBracket && beforeText.isNotSubscriptNumber) {
       inputConnection.commitText(symbol)
     } else {
-      inputConnection.commitText(symbol.toSubscriptDigit())
+      inputConnection.commitText(symbol)
     }
   }
 }
