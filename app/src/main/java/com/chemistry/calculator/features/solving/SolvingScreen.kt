@@ -6,25 +6,21 @@ import com.chemistry.calculator.views.EquationEditText
 import com.chemistry.calculator.views.keyboard.Keyboard
 import timber.log.Timber
 
-class EquationSolvingScreen(
+class SolvingScreen(
   equationEditText: EquationEditText,
   keyboard: Keyboard
 ) {
   
-  private val solver = EquationSolver(object : EquationCallback {
-    override fun success(result: String) {
-      Timber.d(result)
-    }
-    
-    override fun error(message: String) {
-      Timber.d(message)
-    }
+  private val solver = EquationSolver(onSuccess = {
+    Timber.d(it)
+  }, onError = {
+    Timber.d(it)
   })
   
   private val keyboardInput = KeyboardInput(
     AndroidInputConnection(equationEditText.onCreateInputConnection(EditorInfo())),
     isEditTextEmpty = { equationEditText.text?.isEmpty() == true },
-    onEqualsClicked = { solver.process(equationEditText.text!!.toString()) }
+    onEqualsClicked = { solver.startSolving(equationEditText.text!!.toString()) }
   )
   
   init {

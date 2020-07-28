@@ -3,7 +3,7 @@ package com.chemistry.calculator.features.solving
 /**
  * Callback for equation solving
  */
-interface EquationCallback {
+interface SolvingCallback {
   
   fun success(result: String)
   

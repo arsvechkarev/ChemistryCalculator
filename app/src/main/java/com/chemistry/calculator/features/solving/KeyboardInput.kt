@@ -4,6 +4,7 @@ import androidx.core.text.HtmlCompat
 import com.chemistry.calculator.core.BACKSPACE_SYMBOL
 import com.chemistry.calculator.core.EQUALS_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
+import com.chemistry.calculator.core.SPACE_HTML_SYMBOL
 import com.chemistry.calculator.core.inputconnection.InputConnectionInterface
 import com.chemistry.calculator.utils.isDigit
 import com.chemistry.calculator.utils.isLetter
@@ -15,6 +16,7 @@ import com.chemistry.calculator.utils.isOpenBracket
 import com.chemistry.calculator.utils.isPlus
 import com.chemistry.calculator.utils.isSpace
 import com.chemistry.calculator.utils.isSubscriptNumber
+import com.chemistry.calculator.utils.toSubscriptDigit
 
 class KeyboardInput(
   private val inputConnection: InputConnectionInterface,
@@ -110,7 +112,7 @@ class KeyboardInput(
   
   private fun processPlusSymbol() {
     val text = HtmlCompat.fromHtml(
-      "$PLUS_SYMBOL", HtmlCompat.FROM_HTML_MODE_COMPACT
+      "$SPACE_HTML_SYMBOL$PLUS_SYMBOL$SPACE_HTML_SYMBOL", HtmlCompat.FROM_HTML_MODE_COMPACT
     )
     inputConnection.commitText(text)
   }
@@ -123,7 +125,7 @@ class KeyboardInput(
     if (beforeText.isNotLetter && beforeText.isNotBracket && beforeText.isNotSubscriptNumber) {
       inputConnection.commitText(symbol)
     } else {
-      inputConnection.commitText(symbol)
+      inputConnection.commitText(symbol.toSubscriptDigit())
     }
   }
 }

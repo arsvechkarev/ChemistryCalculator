@@ -26,6 +26,12 @@ val CharSequence.isPlus: Boolean
 val CharSequence.isOpenBracket: Boolean
   get() = this == OPEN_BRACKET_SYMBOL
 
+val Char.isBracket: Boolean
+  get() {
+    val s = this.toString()
+    return s == OPEN_BRACKET_SYMBOL || s == CLOSE_BRACKET_SYMBOL
+  }
+
 val CharSequence.isNotBracket: Boolean
   get() = this != OPEN_BRACKET_SYMBOL && this != CLOSE_BRACKET_SYMBOL
 
@@ -34,6 +40,9 @@ val CharSequence.isSubscriptNumber: Boolean
 
 val CharSequence.isNotSubscriptNumber: Boolean
   get() = !isSubscriptNumber
+
+val Char.isSubscriptNumber: Boolean
+  get() = this.toString() in SUBSCRIPT_NUMBERS
 
 fun CharSequence.toSubscriptDigit(): String {
   assertThat(length == 1)

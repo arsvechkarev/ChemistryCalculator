@@ -5,20 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.chemistry.calculator.core.Application
 import com.chemistry.calculator.core.async.AndroidThreader
 import com.chemistry.calculator.features.camera.CameraScreen
-import com.chemistry.calculator.features.solving.EquationSolvingScreen
+import com.chemistry.calculator.features.solving.SolvingScreen
 import kotlinx.android.synthetic.main.activity_main.bottomSheet
-import kotlinx.android.synthetic.main.activity_main.boxView
 import kotlinx.android.synthetic.main.activity_main.equationEditText
 import kotlinx.android.synthetic.main.activity_main.keyboard
 import kotlinx.android.synthetic.main.activity_main.openKeyboardButton
-import kotlinx.android.synthetic.main.activity_main.previewView
-import kotlinx.android.synthetic.main.activity_main.processImageButton
 
 class MainActivity : AppCompatActivity() {
   
   private lateinit var permissionHelper: PermissionHelper
   private lateinit var cameraScreen: CameraScreen
-  private lateinit var equationSolvingScreen: EquationSolvingScreen
+  private lateinit var solvingScreen: SolvingScreen
   
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -30,7 +27,7 @@ class MainActivity : AppCompatActivity() {
   private fun initializeScreen() {
 //    cameraScreen = CameraScreen(this, boxView, previewView, processImageButton,
 //      boxView::frameBox, ::processEquation)
-    equationSolvingScreen = EquationSolvingScreen(equationEditText, keyboard)
+    solvingScreen = SolvingScreen(equationEditText, keyboard)
     permissionHelper = PermissionHelper(this)
     if (permissionHelper.isCameraGranted) {
 //      cameraScreen.startCamera()
@@ -43,7 +40,7 @@ class MainActivity : AppCompatActivity() {
   private fun processEquation(symbol: String) {
     AndroidThreader.onMainThread {
       bottomSheet.show()
-      equationSolvingScreen.processEquation(symbol)
+      solvingScreen.processEquation(symbol)
     }
   }
   
