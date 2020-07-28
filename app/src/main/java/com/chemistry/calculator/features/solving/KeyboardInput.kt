@@ -4,7 +4,6 @@ import androidx.core.text.HtmlCompat
 import com.chemistry.calculator.core.DELETE_SYMBOL
 import com.chemistry.calculator.core.EQUALS_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
-import com.chemistry.calculator.core.SPACE_HTML_SYMBOL
 import com.chemistry.calculator.core.inputconnection.InputConnectionInterface
 import com.chemistry.calculator.utils.isDigit
 import com.chemistry.calculator.utils.isLetter
@@ -16,12 +15,11 @@ import com.chemistry.calculator.utils.isOpenBracket
 import com.chemistry.calculator.utils.isPlus
 import com.chemistry.calculator.utils.isSpace
 import com.chemistry.calculator.utils.isSubscriptNumber
-import com.chemistry.calculator.utils.toSubscriptDigit
 
 class KeyboardInput(
   private val inputConnection: InputConnectionInterface,
   private var isEditTextEmpty: () -> Boolean,
-  private var onStartSolving: () -> Unit
+  private var onEqualsClicked: () -> Unit
 ) {
   
   private var smartErasingMode = true
@@ -29,7 +27,7 @@ class KeyboardInput(
   fun processSymbol(symbol: String) {
     when {
       symbol == DELETE_SYMBOL -> handleDeleteSymbol()
-      symbol == EQUALS_SYMBOL -> onStartSolving()
+      symbol == EQUALS_SYMBOL -> onEqualsClicked()
       symbol == PLUS_SYMBOL -> processPlusSymbol()
       symbol.isDigit -> processDigit(symbol)
       else -> inputConnection.commitText(symbol)
@@ -39,7 +37,7 @@ class KeyboardInput(
   fun setEquation(equation: String) {
     smartErasingMode = false
     inputConnection.commitText(equation)
-    onStartSolving()
+    onEqualsClicked()
   }
   
   private fun handleDeleteSymbol() {

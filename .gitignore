@@ -12,4 +12,4 @@
 /captures
 .externalNativeBuild
 .cxx
-/app/src/main/java/com/chemistry/calculator/features/solving/Solver.java
+/app/src/main/java/com/chemistry/calculator/features/solving/EquationSolver.java
