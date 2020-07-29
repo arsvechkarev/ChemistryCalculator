@@ -3,6 +3,7 @@ package com.chemistry.calculator.features.solving
 import androidx.core.text.HtmlCompat
 import com.chemistry.calculator.core.BACKSPACE_SYMBOL
 import com.chemistry.calculator.core.EQUALS_SYMBOL
+import com.chemistry.calculator.core.MORE_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
 import com.chemistry.calculator.core.SPACE_HTML_SYMBOL
 import com.chemistry.calculator.core.inputconnection.InputConnectionInterface
@@ -21,6 +22,8 @@ import com.chemistry.calculator.utils.toSubscriptDigit
 class KeyboardInput(
   private val inputConnection: InputConnectionInterface,
   private var isEditTextEmpty: () -> Boolean,
+  private var onMoreClicked: () -> Unit,
+  private var onBackspaceClicked: () -> Unit,
   private var onEqualsClicked: () -> Unit
 ) {
   
@@ -28,7 +31,8 @@ class KeyboardInput(
   
   fun processSymbol(symbol: String) {
     when {
-      symbol == BACKSPACE_SYMBOL -> handleDeleteSymbol()
+      symbol == MORE_SYMBOL -> onMoreClicked()
+      symbol == BACKSPACE_SYMBOL -> onBackspaceClicked()
       symbol == EQUALS_SYMBOL -> onEqualsClicked()
       symbol == PLUS_SYMBOL -> processPlusSymbol()
       symbol.isDigit -> processDigit(symbol)

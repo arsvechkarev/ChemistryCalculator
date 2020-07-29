@@ -17,9 +17,9 @@ import com.chemistry.calculator.utils.createRoundedRipple
 import com.chemistry.calculator.utils.tempRect
 
 @SuppressLint("ViewConstructor") // Created only through code
-open class TextButton(
+class TextButton(
   context: Context,
-  protected val text: String,
+  private val text: String,
   private val textSize: Float,
   private val textColor: Int,
   private val backgroundColor: Int,

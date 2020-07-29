@@ -3,6 +3,9 @@ package com.chemistry.calculator.views.keyboard
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.view.View
 import androidx.annotation.DrawableRes
 import com.chemistry.calculator.R
@@ -15,7 +18,7 @@ open class IconButton constructor(
   context: Context,
   private val id: String,
   @DrawableRes private val iconRes: Int,
-  private val iconColor: Int,
+  iconColor: Int,
   private val backgroundColor: Int,
   private val rippleColor: Int = context.color(R.color.light_ripple),
   var onClicked: (String) -> Unit = {}
@@ -26,6 +29,7 @@ open class IconButton constructor(
   
   init {
     setOnClickListener { onClicked(id) }
+    drawable.colorFilter = PorterDuffColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP)
   }
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

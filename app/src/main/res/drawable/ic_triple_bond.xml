@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:name="vector"
+  android:width="@dimen/icon_default_size"
+  android:height="@dimen/icon_default_size"
+  android:viewportWidth="24"
+  android:viewportHeight="24">
+  <path
+    android:pathData="M 4 7 L 20 7 M 4 12 L 20 12 M 4 17 L 20 17"
+    android:strokeWidth="2"
+    android:strokeColor="#000000"/>
+</vector>

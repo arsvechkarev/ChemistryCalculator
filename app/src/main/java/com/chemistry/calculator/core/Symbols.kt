@@ -1,8 +1,10 @@
 package com.chemistry.calculator.core
 
 const val MORE_SYMBOL = "..."
-const val SINGULAR_BOND_SYMBOL = "-"
+const val SINGULAR_BOND_KEYBOARD_SYMBOL = "-"
+const val SINGULAR_BOND_TEXT_SYMBOL = "—"
 const val DOUBLE_BOND_SYMBOL = "="
+const val TRIPLE_BOND_SYMBOL = "≡"
 const val OPEN_BRACKET_SYMBOL = "("
 const val CLOSE_BRACKET_SYMBOL = ")"
 const val BACKSPACE_SYMBOL = "←"

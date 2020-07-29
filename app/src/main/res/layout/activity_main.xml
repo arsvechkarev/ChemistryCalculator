@@ -70,21 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?colorKeyboardBg">
-
-        <com.chemistry.calculator.views.keyboard.NumbersLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-
-        <com.chemistry.calculator.views.keyboard.ControlsLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-
-        <com.chemistry.calculator.views.keyboard.ElementsLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-
-      </com.chemistry.calculator.views.keyboard.Keyboard>
+        android:background="?colorKeyboardBg"/>
 
     </LinearLayout>
 

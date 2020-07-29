@@ -1,5 +1,6 @@
 package com.chemistry.calculator.features.solving
 
+import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import com.chemistry.calculator.core.inputconnection.AndroidInputConnection
 import com.chemistry.calculator.views.EquationEditText
@@ -20,6 +21,10 @@ class SolvingScreen(
   private val keyboardInput = KeyboardInput(
     AndroidInputConnection(equationEditText.onCreateInputConnection(EditorInfo())),
     isEditTextEmpty = { equationEditText.text?.isEmpty() == true },
+    onMoreClicked = { keyboard.toggleMoreButton() },
+    onBackspaceClicked = {
+      equationEditText.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
+    },
     onEqualsClicked = { solver.startSolving(equationEditText.text!!.toString()) }
   )
   

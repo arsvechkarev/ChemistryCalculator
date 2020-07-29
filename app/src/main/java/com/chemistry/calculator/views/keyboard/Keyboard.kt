@@ -3,58 +3,200 @@ package com.chemistry.calculator.views.keyboard
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
-import com.chemistry.calculator.utils.childWithClass
+import com.chemistry.calculator.R
+import com.chemistry.calculator.core.BACKSPACE_SYMBOL
+import com.chemistry.calculator.core.CLOSE_BRACKET_SYMBOL
+import com.chemistry.calculator.core.DOUBLE_BOND_SYMBOL
+import com.chemistry.calculator.core.ELEMENTS
+import com.chemistry.calculator.core.EQUALS_SYMBOL
+import com.chemistry.calculator.core.MORE_SYMBOL
+import com.chemistry.calculator.core.OPEN_BRACKET_SYMBOL
+import com.chemistry.calculator.core.PLUS_SYMBOL
+import com.chemistry.calculator.core.SINGULAR_BOND_KEYBOARD_SYMBOL
+import com.chemistry.calculator.core.TRIPLE_BOND_SYMBOL
+import com.chemistry.calculator.utils.addViews
+import com.chemistry.calculator.utils.ceilInt
+import com.chemistry.calculator.utils.color
+import com.chemistry.calculator.utils.dimen
+import com.chemistry.calculator.utils.forViews
+import com.chemistry.calculator.utils.i
+import com.chemistry.calculator.views.keyboard.CombinedButton.MODE.TEXT
+import kotlin.math.ceil
 
 class Keyboard @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null
 ) : ViewGroup(context, attrs) {
   
+  private val numberTextSize = context.dimen(R.dimen.text_h2)
+  private val textSize = context.dimen(R.dimen.text_h1)
+  private val textColor = context.color(R.color.light_text)
+  private val elementBackgroundColor = context.color(R.color.light_element_button)
+  private val controlBackgroundColor = context.color(R.color.light_control_button)
+  private val elementsPadding = context.dimen(R.dimen.keyboard_elements_padding)
+  
+  private var numberHeight = -1f
+  private var numberWidth = -1f
+  private var controlsHeight = -1f
+  private var controlsWidth = -1f
+  private var elementSize = -1f
+  
   var onItemClicked: (String) -> Unit = {}
   
-  private lateinit var elementsLayout: ElementsLayout
-  private lateinit var controlsLayout: ControlsLayout
-  private lateinit var numbersLayout: NumbersLayout
+  private val equalsButton = TextButton(
+    context, EQUALS_SYMBOL, context.dimen(R.dimen.text_h0),
+    context.color(R.color.light_text_light), context.color(R.color.light_primary),
+    rippleColor = context.color(R.color.light_ripple_light), onClicked = { onItemClicked(it) }
+  )
   
-  override fun onFinishInflate() {
-    super.onFinishInflate()
-    numbersLayout = childWithClass()
-    controlsLayout = childWithClass()
-    elementsLayout = childWithClass()
-    numbersLayout.onItemClicked = { onItemClicked(it) }
-    controlsLayout.onItemClicked = { onItemClicked(it) }
-    elementsLayout.onItemClicked = { onItemClicked(it) }
+  private val moreButton = TextButton(context, MORE_SYMBOL, context.dimen(R.dimen.text_h0), textColor,
+    controlBackgroundColor, onClicked = { onItemClicked(it) })
+  
+  private val combinedButton1 = CombinedButton(
+    context, R.drawable.ic_singular_bond, SINGULAR_BOND_KEYBOARD_SYMBOL,
+    OPEN_BRACKET_SYMBOL, textSize,
+    textColor, controlBackgroundColor,
+    currentMode = TEXT,
+    drawWithDescent = true,
+    onClicked = { onItemClicked(it) }
+  )
+  
+  private val combinedButton2 = CombinedButton(
+    context, R.drawable.ic_double_bond, DOUBLE_BOND_SYMBOL,
+    CLOSE_BRACKET_SYMBOL, textSize,
+    textColor, controlBackgroundColor,
+    currentMode = TEXT,
+    drawWithDescent = true,
+    onClicked = { onItemClicked(it) }
+  )
+  
+  private val combinedButton3 = CombinedButton(
+    context, R.drawable.ic_triple_bond, TRIPLE_BOND_SYMBOL,
+    PLUS_SYMBOL, textSize,
+    textColor, controlBackgroundColor,
+    currentMode = TEXT,
+    onClicked = { onItemClicked(it) }
+  )
+  
+  private val backspaceButton = ClickAndHoldIconButton(context, BACKSPACE_SYMBOL, R.drawable.ic_backspace,
+    textColor, controlBackgroundColor, onClicked = { onItemClicked(it) }, onDown = { onItemClicked(it) })
+  
+  init {
+    repeat(20) { i ->
+      addView(TextButton(
+        context, ELEMENTS[i], textSize, textColor,
+        elementBackgroundColor, onClicked = { onItemClicked(it) }
+      ))
+    }
+    
+    addView(TextButton(
+      context, ELEMENTS[20], textSize, textColor,
+      elementBackgroundColor, onClicked = { onItemClicked(it) }
+    ))
+    
+    addView(TextButton(
+      context, ELEMENTS[21], textSize, textColor,
+      elementBackgroundColor, onClicked = { onItemClicked(it) }
+    ))
+    
+    addViews(equalsButton, combinedButton3, moreButton, combinedButton1, combinedButton2, backspaceButton)
+    
+    repeat(10) { i ->
+      addView(TextButton(
+        context, ((i + 1) % 10).toString(), numberTextSize, textColor,
+        controlBackgroundColor, onClicked = { onItemClicked(it) }
+      ))
+    }
+  }
+  
+  fun toggleMoreButton() {
+    combinedButton1.toggleMode()
+    combinedButton2.toggleMode()
+    combinedButton3.toggleMode()
   }
   
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-    elementsLayout.measure(widthMeasureSpec, heightMeasureSpec)
-    var totalHeight = elementsLayout.measuredHeight
-    
-    controlsLayout.measure(widthMeasureSpec, heightMeasureSpec)
-    totalHeight += controlsLayout.measuredHeight
-    
-    numbersLayout.measure(widthMeasureSpec, heightMeasureSpec)
-    totalHeight += numbersLayout.measuredHeight
-    
+    val width = MeasureSpec.getSize(widthMeasureSpec)
+    val elementWidth = (width - (elementsPadding * 7)) / 6
+    val numberHeight = numberTextSize.i * 2
+    val sum = elementWidth * 5 + numberHeight + elementsPadding * 7
     setMeasuredDimension(
-      resolveSize(MeasureSpec.getSize(widthMeasureSpec), widthMeasureSpec),
-      resolveSize(totalHeight, heightMeasureSpec)
+      resolveSize(width, widthMeasureSpec),
+      resolveSize(ceil(sum).toInt(), heightMeasureSpec)
     )
   }
   
+  override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+    elementSize = (w - elementsPadding * 7) / 6
+    numberHeight = numberTextSize * 2
+    numberWidth = (w - elementsPadding * 11) / 10
+    controlsWidth = w / 5f
+    controlsHeight = elementSize
+  }
+  
   override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-    elementsLayout.layout(
-      0,
-      numbersLayout.measuredHeight + controlsLayout.measuredHeight,
-      measuredWidth,
-      measuredHeight
+    val startTop = numberHeight + controlsHeight + elementsPadding * 3
+    layoutElements(startTop, 0)
+    layoutElements(startTop + elementSize + elementsPadding, 5)
+    layoutElements(startTop + elementSize * 2 + elementsPadding * 2, 10)
+    layoutElements(startTop + elementSize * 3 + elementsPadding * 3, 15)
+    
+    val edgeElement = getChildAt(4)
+    val paddingInt = elementsPadding.ceilInt()
+    val elementSizeInt = elementSize.toInt()
+    equalsButton.layout(
+      edgeElement.right + paddingInt,
+      (height - elementSize * 2 - paddingInt * 2).toInt(),
+      width - paddingInt,
+      height - paddingInt
     )
-    controlsLayout.layout(
-      0, numbersLayout.measuredHeight, measuredWidth,
-      numbersLayout.measuredHeight + controlsLayout.measuredHeight
+    
+    val element20 = getChildAt(20)
+    element20.layout(
+      equalsButton.left,
+      equalsButton.top - elementSizeInt - paddingInt,
+      equalsButton.right,
+      equalsButton.top - paddingInt
     )
-    numbersLayout.layout(
-      0, 0, measuredWidth, numbersLayout.measuredHeight
+    
+    getChildAt(21).layout(
+      element20.left,
+      element20.top - elementSizeInt - paddingInt,
+      element20.right,
+      element20.top - paddingInt
     )
+    
+    val firstChild = getChildAt(0)
+    moreButton.layout(
+      paddingInt, firstChild.top - elementSizeInt,
+      paddingInt + elementSizeInt, firstChild.top - paddingInt
+    )
+    
+    var left = moreButton.right + paddingInt
+    forViews(combinedButton1, combinedButton2, combinedButton3, backspaceButton) { view ->
+      view.layout(left, moreButton.top, (left + controlsWidth).i, moreButton.bottom)
+      left += controlsWidth.toInt() + paddingInt
+    }
+    
+    var right = width - elementsPadding
+    repeat(10) { i ->
+      val child = getChildAt(childCount - i - 1)
+      child.layout(
+        (right - numberWidth).i,
+        paddingInt,
+        right.i,
+        combinedButton1.top - paddingInt
+      )
+      right -= numberWidth + elementsPadding
+    }
+  }
+  
+  private fun layoutElements(top: Float, offset: Int) {
+    var left = elementsPadding.i
+    repeat(5) { i ->
+      val child = getChildAt(i + offset)
+      child.layout(left, top.i, left + elementSize.i, (top + elementSize).i)
+      left += (elementSize + elementsPadding).i
+    }
   }
 }

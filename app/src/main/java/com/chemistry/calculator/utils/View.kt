@@ -8,6 +8,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 
+fun ViewGroup.forViews(vararg views: View, action: (View) -> Unit) {
+  for (view in views) action(view)
+}
+
 fun ViewGroup.forEachChild(action: (View) -> Unit) {
   repeat(childCount) { i ->
     action(getChildAt(i))
@@ -32,6 +36,12 @@ operator fun View.contains(ev: MotionEvent): Boolean {
   val x = ev.x
   val y = ev.y
   return x >= left && y >= top && x <= right && y <= bottom
+}
+
+fun ViewGroup.addViews(vararg views: View) {
+  for (view in views) {
+    addView(view)
+  }
 }
 
 fun createRoundedRipple(cornersRadius: Float, backgroundColor: Int, rippleColor: Int): RippleDrawable {
