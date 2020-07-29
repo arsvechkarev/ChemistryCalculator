@@ -22,9 +22,6 @@ class SolvingScreen(
     AndroidInputConnection(equationEditText.onCreateInputConnection(EditorInfo())),
     isEditTextEmpty = { equationEditText.text?.isEmpty() == true },
     onMoreClicked = { keyboard.toggleMoreButton() },
-    onBackspaceClicked = {
-      equationEditText.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
-    },
     onEqualsClicked = { solver.startSolving(equationEditText.text!!.toString()) }
   )
   

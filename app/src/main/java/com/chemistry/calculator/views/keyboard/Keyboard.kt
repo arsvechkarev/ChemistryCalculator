@@ -79,7 +79,7 @@ class Keyboard @JvmOverloads constructor(
   )
   
   private val backspaceButton = ClickAndHoldIconButton(context, BACKSPACE_SYMBOL, R.drawable.ic_backspace,
-    textColor, controlBackgroundColor, onClicked = { onItemClicked(it) }, onDown = { onItemClicked(it) })
+    textColor, controlBackgroundColor, onClicked = { onItemClicked(it) }, onHold = { onItemClicked(it) })
   
   init {
     repeat(20) { i ->

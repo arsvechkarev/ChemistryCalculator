@@ -23,7 +23,6 @@ class KeyboardInput(
   private val inputConnection: InputConnectionInterface,
   private var isEditTextEmpty: () -> Boolean,
   private var onMoreClicked: () -> Unit,
-  private var onBackspaceClicked: () -> Unit,
   private var onEqualsClicked: () -> Unit
 ) {
   
@@ -32,7 +31,7 @@ class KeyboardInput(
   fun processSymbol(symbol: String) {
     when {
       symbol == MORE_SYMBOL -> onMoreClicked()
-      symbol == BACKSPACE_SYMBOL -> onBackspaceClicked()
+      symbol == BACKSPACE_SYMBOL -> handleDeleteSymbol()
       symbol == EQUALS_SYMBOL -> onEqualsClicked()
       symbol == PLUS_SYMBOL -> processPlusSymbol()
       symbol.isDigit -> processDigit(symbol)
