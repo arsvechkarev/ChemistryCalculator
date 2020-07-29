@@ -27,10 +27,6 @@ class EquationSolver(
   
   fun startSolving(equation: String) {
     val transformedEquation = transformEquation(equation)
-    if (transformedEquation.length < 3) {
-      onError("Too short")
-      return
-    }
     hardcoreSolver.process(transformedEquation)
   }
   
@@ -48,6 +44,7 @@ class EquationSolver(
   }
   
   private fun transformResult(result: String): String {
+    // TODO (7/29/2020): implement this
     return result
   }
 }

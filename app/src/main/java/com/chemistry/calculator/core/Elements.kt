@@ -1,14 +1,11 @@
 package com.chemistry.calculator.core
 
 val ELEMENTS = arrayOf(
-  "Na", "Al", "H", "C", "O",
-  "Cl", "Mg", "K", "P", "S",
-  "Fe", "Cu", "Be", "Zn", "Ca",
-  "Fe", "Cu", "Be", "Zn", "Ca",
-  "Fe", "Fe",
+  "H", "Li", "Be", "C", "O",
+  "N", "Mg", "F", "B", "AL",
+  "Cu", "P", "S", "Cl", "K",
+  "Sr", "Ag", "Sr", "Zn", "Si",
+  "Ca", "Na",
   
-  "Lo", "Ho"
+  "Cs", "Au"
 )
-// 1,2,3 periods (except Ne, He, Ar)
-
-// 15 + 16 + 12
