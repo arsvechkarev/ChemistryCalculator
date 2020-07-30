@@ -1,6 +1,5 @@
 package com.chemistry.calculator.features.solving
 
-import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import com.chemistry.calculator.core.inputconnection.AndroidInputConnection
 import com.chemistry.calculator.views.EquationEditText
@@ -26,6 +25,7 @@ class SolvingScreen(
   )
   
   init {
+    equationEditText.requestFocus()
     keyboard.onItemClicked = keyboardInput::processSymbol
   }
   

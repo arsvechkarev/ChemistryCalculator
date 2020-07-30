@@ -36,6 +36,11 @@ class ClickAndHoldIconButton constructor(
     }
   }
   
+  fun onItemClicked() {
+    isHoldingNow.set(false)
+  }
+  
+  @SuppressLint("ClickableViewAccessibility")
   override fun onTouchEvent(event: MotionEvent): Boolean {
     when (event.action) {
       ACTION_DOWN -> {

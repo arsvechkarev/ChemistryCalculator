@@ -22,8 +22,6 @@ import com.chemistry.calculator.utils.color
 import com.chemistry.calculator.utils.dimen
 import com.chemistry.calculator.utils.forViews
 import com.chemistry.calculator.utils.i
-import com.chemistry.calculator.utils.invisible
-import com.chemistry.calculator.utils.visible
 import com.chemistry.calculator.views.keyboard.CombinedButton.MODE.TEXT
 import kotlin.math.ceil
 
@@ -52,11 +50,11 @@ class Keyboard @JvmOverloads constructor(
   private val equalsButton = TextButton(
     context, EQUALS_SYMBOL, context.dimen(R.dimen.text_h0),
     context.color(R.color.light_text_light), context.color(R.color.light_primary),
-    rippleColor = context.color(R.color.light_ripple_light), onClicked = { onItemClicked(it) }
+    rippleColor = context.color(R.color.light_ripple_light), onClicked = { processItem(it) }
   )
   
   private val moreButton = TextButton(context, MORE_SYMBOL, context.dimen(R.dimen.text_h0), textColor,
-    controlBackgroundColor, onClicked = { onItemClicked(it) })
+    controlBackgroundColor, onClicked = { processItem(it) })
   
   private val combinedButton1 = CombinedButton(
     context, R.drawable.ic_singular_bond, SINGULAR_BOND_KEYBOARD_SYMBOL,
@@ -64,7 +62,7 @@ class Keyboard @JvmOverloads constructor(
     textColor, controlBackgroundColor,
     currentMode = TEXT,
     drawWithDescent = true,
-    onClicked = { onItemClicked(it) }
+    onClicked = { processItem(it) }
   )
   
   private val combinedButton2 = CombinedButton(
@@ -73,7 +71,7 @@ class Keyboard @JvmOverloads constructor(
     textColor, controlBackgroundColor,
     currentMode = TEXT,
     drawWithDescent = true,
-    onClicked = { onItemClicked(it) }
+    onClicked = { processItem(it) }
   )
   
   private val combinedButton3 = CombinedButton(
@@ -81,28 +79,28 @@ class Keyboard @JvmOverloads constructor(
     PLUS_SYMBOL, textSize,
     textColor, controlBackgroundColor,
     currentMode = TEXT,
-    onClicked = { onItemClicked(it) }
+    onClicked = { processItem(it) }
   )
   
   private val backspaceButton = ClickAndHoldIconButton(context, BACKSPACE_SYMBOL, R.drawable.ic_backspace,
-    textColor, controlBackgroundColor, onClicked = { onItemClicked(it) }, onHold = { onItemClicked(it) })
+    textColor, controlBackgroundColor, onClicked = { processItem(it) }, onHold = { processItem(it) })
   
   init {
     repeat(20) { i ->
       addView(TextButton(
         context, ELEMENTS[i], textSize, textColor,
-        elementBackgroundColor, onClicked = { onItemClicked(it) }
+        elementBackgroundColor, onClicked = { processItem(it) }
       ))
     }
     
     addView(TextButton(
       context, ELEMENTS[20], textSize, textColor,
-      elementBackgroundColor, onClicked = { onItemClicked(it) }
+      elementBackgroundColor, onClicked = { processItem(it) }
     ))
     
     addView(TextButton(
       context, ELEMENTS[21], textSize, textColor,
-      elementBackgroundColor, onClicked = { onItemClicked(it) }
+      elementBackgroundColor, onClicked = { processItem(it) }
     ))
     
     addViews(equalsButton, combinedButton3, moreButton, combinedButton1, combinedButton2, backspaceButton)
@@ -110,7 +108,7 @@ class Keyboard @JvmOverloads constructor(
     repeat(10) { i ->
       addView(TextButton(
         context, ((i + 1) % 10).toString(), numberTextSize, textColor,
-        controlBackgroundColor, onClicked = { onItemClicked(it) }
+        controlBackgroundColor, onClicked = { processItem(it) }
       ))
     }
   }
@@ -222,5 +220,12 @@ class Keyboard @JvmOverloads constructor(
       child.layout(left, top.i, left + elementSize.i, (top + elementSize).i)
       left += (elementSize + elementsPadding).i
     }
+  }
+  
+  private fun processItem(item: String) {
+    if (item != BACKSPACE_SYMBOL) {
+      backspaceButton.onItemClicked()
+    }
+    onItemClicked(item)
   }
 }
