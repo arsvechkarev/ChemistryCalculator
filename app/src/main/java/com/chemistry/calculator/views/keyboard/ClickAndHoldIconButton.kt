@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_UP
 import com.chemistry.calculator.utils.postDelayed
+import java.util.concurrent.atomic.AtomicBoolean
 
 @SuppressLint("ViewConstructor") // Created only through code
 class ClickAndHoldIconButton constructor(
@@ -20,13 +21,15 @@ class ClickAndHoldIconButton constructor(
   private val onHold: (String) -> Unit
 ) : IconButton(context, id, iconRes, iconColor, backgroundColor, onClicked = onClicked) {
   
-  private var isHoldingNow = false
+  private var isHoldingNow = AtomicBoolean(false)
+  
+  private val initiatorHandler = Handler()
   
   @SuppressLint("HandlerLeak")
   private val holdHandler = object : Handler() {
     
     override fun handleMessage(msg: Message) {
-      if (isHoldingNow) {
+      if (isHoldingNow.get()) {
         onHold(id)
         sendEmptyMessageDelayed(WHAT, DELAY_HOLDING)
       }
@@ -36,12 +39,13 @@ class ClickAndHoldIconButton constructor(
   override fun onTouchEvent(event: MotionEvent): Boolean {
     when (event.action) {
       ACTION_DOWN -> {
-        isHoldingNow = true
-        handler.postDelayed(DELAY_START_HOLDING) { holdHandler.sendEmptyMessage(WHAT) }
+        isHoldingNow.set(true)
+        initiatorHandler.postDelayed(DELAY_START_HOLDING) { holdHandler.sendEmptyMessage(WHAT) }
       }
       ACTION_UP -> {
-        isHoldingNow = false
-        holdHandler.removeCallbacksAndMessages(null)
+        isHoldingNow.set(false)
+        holdHandler.sendEmptyMessage(WHAT)
+        initiatorHandler.removeCallbacksAndMessages(null)
       }
     }
     return super.onTouchEvent(event)
@@ -50,6 +54,7 @@ class ClickAndHoldIconButton constructor(
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
     holdHandler.removeCallbacksAndMessages(null)
+    initiatorHandler.removeCallbacksAndMessages(null)
   }
   
   companion object {

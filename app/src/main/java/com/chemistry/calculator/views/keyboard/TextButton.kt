@@ -2,12 +2,8 @@ package com.chemistry.calculator.views.keyboard
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.drawable.RippleDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.RoundRectShape
 import android.text.TextPaint
 import android.view.View
 import com.chemistry.calculator.R
@@ -19,7 +15,7 @@ import com.chemistry.calculator.utils.tempRect
 @SuppressLint("ViewConstructor") // Created only through code
 class TextButton(
   context: Context,
-  private val text: String,
+  private var text: String,
   private val textSize: Float,
   private val textColor: Int,
   private val backgroundColor: Int,
@@ -40,6 +36,13 @@ class TextButton(
     setOnClickListener { onClicked(text) }
     isClickable = true
     isFocusable = true
+  }
+  
+  fun updateText(newText: String) {
+    if (newText != text) {
+      text = newText
+      invalidate()
+    }
   }
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

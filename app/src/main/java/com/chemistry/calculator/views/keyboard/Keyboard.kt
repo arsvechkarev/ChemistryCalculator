@@ -2,12 +2,14 @@ package com.chemistry.calculator.views.keyboard
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.view.ViewGroup
 import com.chemistry.calculator.R
 import com.chemistry.calculator.core.BACKSPACE_SYMBOL
 import com.chemistry.calculator.core.CLOSE_BRACKET_SYMBOL
 import com.chemistry.calculator.core.DOUBLE_BOND_SYMBOL
 import com.chemistry.calculator.core.ELEMENTS
+import com.chemistry.calculator.core.ELEMENTS_2
 import com.chemistry.calculator.core.EQUALS_SYMBOL
 import com.chemistry.calculator.core.MORE_SYMBOL
 import com.chemistry.calculator.core.OPEN_BRACKET_SYMBOL
@@ -20,6 +22,8 @@ import com.chemistry.calculator.utils.color
 import com.chemistry.calculator.utils.dimen
 import com.chemistry.calculator.utils.forViews
 import com.chemistry.calculator.utils.i
+import com.chemistry.calculator.utils.invisible
+import com.chemistry.calculator.utils.visible
 import com.chemistry.calculator.views.keyboard.CombinedButton.MODE.TEXT
 import kotlin.math.ceil
 
@@ -40,6 +44,8 @@ class Keyboard @JvmOverloads constructor(
   private var controlsHeight = -1f
   private var controlsWidth = -1f
   private var elementSize = -1f
+  
+  private var isShowingPrimaryElements = true
   
   var onItemClicked: (String) -> Unit = {}
   
@@ -113,6 +119,13 @@ class Keyboard @JvmOverloads constructor(
     combinedButton1.toggleMode()
     combinedButton2.toggleMode()
     combinedButton3.toggleMode()
+    
+    if (isShowingPrimaryElements) {
+      changeText(ELEMENTS_2, View.INVISIBLE)
+    } else {
+      changeText(ELEMENTS, View.VISIBLE)
+    }
+    isShowingPrimaryElements = !isShowingPrimaryElements
   }
   
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -189,6 +202,17 @@ class Keyboard @JvmOverloads constructor(
       )
       right -= numberWidth + elementsPadding
     }
+  }
+  
+  private fun changeText(elementsText: Array<String>, viewVisibility: Int) {
+    repeat(18) { i ->
+      val textButton = getChildAt(i) as TextButton
+      textButton.updateText(elementsText[i])
+    }
+    getChildAt(18).visibility = viewVisibility
+    getChildAt(19).visibility = viewVisibility
+    (getChildAt(20) as TextButton).updateText(elementsText[elementsText.size - 2])
+    (getChildAt(21) as TextButton).updateText(elementsText.last())
   }
   
   private fun layoutElements(top: Float, offset: Int) {

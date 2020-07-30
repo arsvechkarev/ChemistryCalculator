@@ -8,7 +8,15 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 
-fun ViewGroup.forViews(vararg views: View, action: (View) -> Unit) {
+fun View.visible() {
+  visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+  visibility = View.INVISIBLE
+}
+
+fun forViews(vararg views: View, action: (View) -> Unit) {
   for (view in views) action(view)
 }
 
