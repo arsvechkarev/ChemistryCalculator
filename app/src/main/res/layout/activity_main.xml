@@ -14,7 +14,7 @@
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:defaultState="hidden">
+    app:defaultState="shown">
 
     <FrameLayout
       android:layout_width="match_parent"
@@ -44,9 +44,10 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <com.chemistry.calculator.views.EquationLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_marginTop="60dp"
       android:background="@drawable/bg_bottom_sheet"
       android:orientation="vertical">
 
@@ -54,25 +55,45 @@
         android:id="@+id/equationEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/bg_edit_text"
         android:maxLength="18"
         android:maxLines="1"
         android:padding="8dp"
         android:textColor="?colorText"
-        android:textSize="25sp"/>
+        android:textSize="21sp"/>
+
+      <TextView
+        android:id="@+id/textSolution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="70dp"
+        android:text="3H20 + 3Na(OH) -> \n3H2 + 3NaOHP"
+        android:textColor="@android:color/black"
+        android:textSize="26sp"/>
+
+      <TextView
+        android:id="@+id/textError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="70dp"
+        android:text="3H20 + 3Na(OH) -> \n3H2 + 3NaOHP"
+        android:textColor="@android:color/black"
+        android:textSize="26sp"/>
 
       <com.chemistry.calculator.views.keyboard.Keyboard
         android:id="@+id/keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:background="?colorKeyboardBg"/>
 
-    </LinearLayout>
+    </com.chemistry.calculator.views.EquationLayout>
 
   </com.chemistry.calculator.views.BottomSheet>
 

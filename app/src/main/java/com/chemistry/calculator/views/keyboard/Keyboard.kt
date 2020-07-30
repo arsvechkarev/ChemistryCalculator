@@ -53,8 +53,12 @@ class Keyboard @JvmOverloads constructor(
     rippleColor = context.color(R.color.light_ripple_light), onClicked = { processItem(it) }
   )
   
-  private val moreButton = TextButton(context, MORE_SYMBOL, context.dimen(R.dimen.text_h0), textColor,
-    controlBackgroundColor, onClicked = { processItem(it) })
+  private val moreButton = CombinedButton(
+    context, R.drawable.ic_arrow_back, MORE_SYMBOL,
+    MORE_SYMBOL, context.dimen(R.dimen.text_h0), textColor,
+    controlBackgroundColor, currentMode = TEXT,
+    onClicked = { processItem(it) }
+  )
   
   private val combinedButton1 = CombinedButton(
     context, R.drawable.ic_singular_bond, SINGULAR_BOND_KEYBOARD_SYMBOL,
@@ -114,6 +118,7 @@ class Keyboard @JvmOverloads constructor(
   }
   
   fun toggleMoreButton() {
+    moreButton.toggleMode()
     combinedButton1.toggleMode()
     combinedButton2.toggleMode()
     combinedButton3.toggleMode()
@@ -141,7 +146,7 @@ class Keyboard @JvmOverloads constructor(
     elementSize = (w - elementsPadding * 7) / 6
     numberHeight = numberTextSize * 2
     numberWidth = (w - elementsPadding * 11) / 10
-    controlsWidth = w / 5f
+    controlsWidth = (w - elementsPadding * 6) / 5
     controlsHeight = elementSize
   }
   
@@ -178,14 +183,15 @@ class Keyboard @JvmOverloads constructor(
     )
     
     val firstChild = getChildAt(0)
-    moreButton.layout(
-      paddingInt, firstChild.top - elementSizeInt,
-      paddingInt + elementSizeInt, firstChild.top - paddingInt
-    )
     
-    var left = moreButton.right + paddingInt
-    forViews(combinedButton1, combinedButton2, combinedButton3, backspaceButton) { view ->
-      view.layout(left, moreButton.top, (left + controlsWidth).i, moreButton.bottom)
+    var left = paddingInt
+    forViews(moreButton, combinedButton1, combinedButton2, combinedButton3, backspaceButton) { view ->
+      view.layout(
+        left,
+        firstChild.top - paddingInt - controlsHeight.i,
+        (left + controlsWidth).i,
+        firstChild.top - paddingInt
+      )
       left += controlsWidth.toInt() + paddingInt
     }
     

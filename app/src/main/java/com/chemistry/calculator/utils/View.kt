@@ -7,6 +7,9 @@ import android.graphics.drawable.shapes.RoundRectShape
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 fun View.visible() {
   visibility = View.VISIBLE
@@ -64,4 +67,16 @@ fun createRoundedRipple(cornersRadius: Float, backgroundColor: Int, rippleColor:
     paint.color = rippleColor
   }
   return RippleDrawable(ColorStateList.valueOf(rippleColor), backgroundDrawable, maskDrawable)
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun View.withParams(block: View.(ViewGroup.MarginLayoutParams) -> Unit) {
+  contract {
+    callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+  }
+  block.invoke(this, layoutParams as ViewGroup.MarginLayoutParams)
+}
+
+fun View.layoutView(left: Int, top: Int, right: Int, bottom: Int) {
+  layout(left, top, right, bottom)
 }

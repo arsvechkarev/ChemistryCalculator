@@ -41,6 +41,7 @@ class BottomSheet @JvmOverloads constructor(
   private var lastY = -1f
   private var velocityTracker: VelocityTracker? = null
   private var slideRange = 0
+  private var slideViewTopMargin = 0
   
   private val slideViewAnimator = ValueAnimator().apply {
     addUpdateListener {
@@ -65,7 +66,7 @@ class BottomSheet @JvmOverloads constructor(
     currentState = SHOWN
     post {
       slideViewAnimator.duration = DEFAULT_DURATION
-      slideViewAnimator.setIntValues(slideView.top, height - slideRange)
+      slideViewAnimator.setIntValues(slideView.top, height - slideRange + slideViewTopMargin)
       slideViewAnimator.start()
     }
   }
@@ -90,6 +91,7 @@ class BottomSheet @JvmOverloads constructor(
     measureChildWithMargins(mainView, widthMeasureSpec, 0, heightMeasureSpec, 0)
     measureChildWithMargins(slideView, widthMeasureSpec, 0, heightMeasureSpec, 0)
     slideRange = slideView.measuredHeight
+    slideViewTopMargin = (slideView.layoutParams as MarginLayoutParams).topMargin
     setMeasuredDimension(widthSize, heightSize)
   }
   
@@ -98,18 +100,18 @@ class BottomSheet @JvmOverloads constructor(
     check(childCount == 2)
     val parentLeft = l + paddingLeft
     val parentTop = t + paddingTop
-    val parentBottom = b - t - paddingBottom
+    val parentBottom = b - paddingBottom
     for (i in 0 until childCount) {
       val child = getChildAt(i)
       val params = child.layoutParams as MarginLayoutParams
       if (child === slideView) {
         val slideViewTop = when (currentState) {
           SHOWN -> parentBottom - slideView.measuredHeight + params.topMargin
-          HIDDEN -> b - t
+          HIDDEN -> b
         }
         child.layout(
           parentLeft + params.marginStart,
-          slideViewTop,
+          parentTop + slideViewTop,
           parentLeft + slideView.measuredWidth,
           parentBottom - params.bottomMargin
         )
@@ -173,7 +175,7 @@ class BottomSheet @JvmOverloads constructor(
           velocityTracker!!.addMovement(event)
           val distance = event.y - lastY
           var newTop = slideView.top + distance.toInt()
-          val maxTop = height - slideRange
+          val maxTop = height - slideRange + slideViewTopMargin
           if (newTop <= maxTop) newTop = maxTop
           slideView.top = newTop
           lastY = event.y
@@ -193,7 +195,7 @@ class BottomSheet @JvmOverloads constructor(
           val middlePoint = height - slideRange * 0.65
           val endY = if (slideView.top < middlePoint) {
             currentState = SHOWN
-            height - slideRange
+            height - slideRange + slideViewTopMargin
           } else {
             currentState = HIDDEN
             height
