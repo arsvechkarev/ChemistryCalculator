@@ -10,6 +10,9 @@
   <dimen name="text_h1">24sp</dimen>
   <dimen name="text_h0">36sp</dimen>
 
+  <dimen name="text_equation_min">@dimen/text_h3</dimen>
+  <dimen name="text_equation_max">40sp</dimen>
+
   <dimen name="keyboard_elements_padding">2.5dp</dimen>
   <dimen name="bottom_sheet_radius">12dp</dimen>
   <dimen name="edit_text_radius">6dp</dimen>

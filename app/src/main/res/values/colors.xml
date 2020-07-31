@@ -2,6 +2,7 @@
 <resources>
   <color name="light_primary">#005FC5</color>
   <color name="light_primary_dark">#033E7E</color>
+  <color name="light_error">#C80A0A</color>
   <color name="light_shadow">#BFBFBF</color>
   <color name="light_ripple">#CFCFCF</color>
   <color name="light_ripple_light">#EFEFEF</color>

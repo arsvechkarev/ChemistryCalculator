@@ -7,6 +7,7 @@
   <style name="AppTheme.Light">
     <item name="colorPrimary">@color/light_primary</item>
     <item name="colorPrimaryDark">@color/light_primary_dark</item>
+    <item name="colorError">@color/light_error</item>
     <item name="colorShadow">@color/light_shadow</item>
     <item name="colorRipple">@color/light_ripple</item>
     <item name="colorRippleLight">@color/light_ripple_light</item>

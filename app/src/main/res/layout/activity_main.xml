@@ -70,8 +70,8 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="70dp"
-        android:textColor="@android:color/black"
-        android:textSize="22sp"
+        android:textColor="?colorText"
+        android:textStyle="bold"
         android:visibility="invisible"/>
 
       <TextView
@@ -81,7 +81,7 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="70dp"
-        android:textColor="@android:color/black"
+        android:textColor="?colorError"
         android:textSize="22sp"
         android:visibility="invisible"/>
 

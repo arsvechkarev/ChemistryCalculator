@@ -103,8 +103,8 @@ class BottomSheet @JvmOverloads constructor(
       val params = child.layoutParams as MarginLayoutParams
       if (child === slideView) {
         val slideViewTop = when (currentState) {
-          SHOWN -> height - slideView.measuredHeight
-          HIDDEN -> height
+          SHOWN -> height - slideRange + slideViewTopMargin
+          HIDDEN -> height + slideViewTopMargin
         }
         child.layout(
           parentLeft + params.marginStart,
