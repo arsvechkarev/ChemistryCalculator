@@ -21,9 +21,10 @@ import com.chemistry.calculator.utils.toSubscriptDigit
 
 class KeyboardInput(
   private val inputConnection: InputConnectionInterface,
-  private var isEditTextEmpty: () -> Boolean,
-  private var onMoreClicked: () -> Unit,
-  private var onEqualsClicked: () -> Unit
+  private val isEditTextEmpty: () -> Boolean,
+  private val isCommittingAllowed: (String) -> Boolean,
+  private val onMoreClicked: () -> Unit,
+  private val onEqualsClicked: () -> Unit
 ) {
   
   private var smartErasingMode = true
@@ -35,13 +36,13 @@ class KeyboardInput(
       symbol == EQUALS_SYMBOL -> onEqualsClicked()
       symbol == PLUS_SYMBOL -> processPlusSymbol()
       symbol.isDigit -> processDigit(symbol)
-      else -> inputConnection.commitText(symbol)
+      else -> commitText(symbol)
     }
   }
   
   fun setEquation(equation: String) {
     smartErasingMode = false
-    inputConnection.commitText(equation)
+    commitText(equation)
     onEqualsClicked()
   }
   
@@ -59,7 +60,7 @@ class KeyboardInput(
       inputConnection.deleteSurroundingText(1, 0)
     } else {
       // Delete the selection
-      inputConnection.commitText("")
+      commitText("")
     }
     if (isEditTextEmpty()) {
       smartErasingMode = true
@@ -94,7 +95,7 @@ class KeyboardInput(
       if (afterText.isPlus) {
         // ..._|+_...
         inputConnection.deleteSurroundingText(1, 2)
-      } else if (!afterText.isSpace) {
+      } else {
         // ..._+_|...
         inputConnection.deleteSurroundingText(3, 0)
       }
@@ -117,7 +118,7 @@ class KeyboardInput(
     val text = HtmlCompat.fromHtml(
       "$SPACE_HTML_SYMBOL$PLUS_SYMBOL$SPACE_HTML_SYMBOL", HtmlCompat.FROM_HTML_MODE_COMPACT
     )
-    inputConnection.commitText(text)
+    commitText(text)
   }
   
   private fun processDigit(symbol: String) {
@@ -126,9 +127,15 @@ class KeyboardInput(
     if (beforeText.isOpenBracket) return
     if (afterText.isLowercaseLetter) return
     if (beforeText.isNotLetter && beforeText.isNotBracket && beforeText.isNotSubscriptNumber) {
-      inputConnection.commitText(symbol)
+      commitText(symbol)
     } else {
-      inputConnection.commitText(symbol.toSubscriptDigit())
+      commitText(symbol.toSubscriptDigit())
+    }
+  }
+  
+  private fun commitText(symbol: CharSequence) {
+    if (isCommittingAllowed(symbol.toString())) {
+      inputConnection.commitText(symbol)
     }
   }
 }

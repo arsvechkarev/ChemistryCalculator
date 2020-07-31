@@ -21,6 +21,11 @@ class SolvingScreen(
     AndroidInputConnection(equationEditText.onCreateInputConnection(EditorInfo())),
     isEditTextEmpty = { equationEditText.text?.isEmpty() == true },
     onMoreClicked = { keyboard.toggleMoreButton() },
+    isCommittingAllowed = { symbolToAdd ->
+      val newText = (equationEditText.text?.toString() ?: "") + symbolToAdd
+      val textWidth = equationEditText.paint.measureText(newText)
+      return@KeyboardInput textWidth / equationEditText.width < 0.9f
+    },
     onEqualsClicked = { solver.startSolving(equationEditText.text!!.toString()) }
   )
   

@@ -32,10 +32,10 @@ class EquationLayout @JvmOverloads constructor(
     val height = MeasureSpec.getSize(heightMeasureSpec)
     val wSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY)
     val hSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST)
-    equationEditText.measure(wSpec, hSpec)
-    textSolution.measure(wSpec, hSpec)
-    textError.measure(wSpec, hSpec)
-    keyboard.measure(wSpec, hSpec)
+    measureChildWithMargins(equationEditText, wSpec, 0, hSpec, 0)
+    measureChildWithMargins(textSolution, wSpec, 0, hSpec, 0)
+    measureChildWithMargins(textError, wSpec, 0, hSpec, 0)
+    measureChildWithMargins(keyboard, wSpec, 0, hSpec, 0)
     super.onMeasure(widthMeasureSpec, heightMeasureSpec)
   }
   

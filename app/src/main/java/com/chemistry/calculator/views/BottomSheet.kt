@@ -81,39 +81,36 @@ class BottomSheet @JvmOverloads constructor(
   }
   
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-    val widthMode = MeasureSpec.getMode(widthMeasureSpec)
     val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-    val heightMode = MeasureSpec.getMode(heightMeasureSpec)
     val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-    performMeasureChecks(widthMode, heightMode)
+    performMeasureChecks()
     mainView = getChildAt(0)
     slideView = getChildAt(1)
-    measureChildWithMargins(mainView, widthMeasureSpec, 0, heightMeasureSpec, 0)
-    measureChildWithMargins(slideView, widthMeasureSpec, 0, heightMeasureSpec, 0)
-    slideRange = slideView.measuredHeight
     slideViewTopMargin = (slideView.layoutParams as MarginLayoutParams).topMargin
+    val wSpec = MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.AT_MOST)
+    val hSpec = MeasureSpec.makeMeasureSpec(heightSize - slideViewTopMargin, MeasureSpec.EXACTLY)
+    slideView.measure(wSpec, hSpec)
+    measureChildWithMargins(mainView, widthMeasureSpec, 0, heightMeasureSpec, 0)
+    slideRange = slideView.measuredHeight
     setMeasuredDimension(widthSize, heightSize)
   }
   
   override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-    if (!changed) return
-    check(childCount == 2)
     val parentLeft = l + paddingLeft
     val parentTop = t + paddingTop
-    val parentBottom = b - paddingBottom
     for (i in 0 until childCount) {
       val child = getChildAt(i)
       val params = child.layoutParams as MarginLayoutParams
       if (child === slideView) {
         val slideViewTop = when (currentState) {
-          SHOWN -> parentBottom - slideView.measuredHeight + params.topMargin
-          HIDDEN -> b
+          SHOWN -> height - slideView.measuredHeight
+          HIDDEN -> height
         }
         child.layout(
           parentLeft + params.marginStart,
-          parentTop + slideViewTop,
+          slideViewTop,
           parentLeft + slideView.measuredWidth,
-          parentBottom - params.bottomMargin
+          slideViewTop + slideView.measuredHeight - slideViewTopMargin
         )
       } else {
         check(child === mainView)
@@ -232,13 +229,7 @@ class BottomSheet @JvmOverloads constructor(
     slideViewAnimator.cancel()
   }
   
-  private fun performMeasureChecks(widthMode: Int, heightMode: Int) {
-    check(widthMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.AT_MOST) {
-      "Width must have an exact value or MATCH_PARENT"
-    }
-    check(heightMode == MeasureSpec.EXACTLY || heightMode == MeasureSpec.AT_MOST) {
-      "Height must have an exact value or MATCH_PARENT"
-    }
+  private fun performMeasureChecks() {
     check(childCount == 2) { "Layout must have exactly 2 children" }
   }
   
