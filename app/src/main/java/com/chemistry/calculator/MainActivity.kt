@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_main.bottomSheet
 import kotlinx.android.synthetic.main.activity_main.equationEditText
 import kotlinx.android.synthetic.main.activity_main.keyboard
 import kotlinx.android.synthetic.main.activity_main.openKeyboardButton
+import kotlinx.android.synthetic.main.activity_main.textError
+import kotlinx.android.synthetic.main.activity_main.textSolution
 
 class MainActivity : AppCompatActivity() {
   
@@ -25,12 +27,12 @@ class MainActivity : AppCompatActivity() {
   }
   
   private fun initializeScreen() {
-//    cameraScreen = CameraScreen(this, boxView, previewView, processImageButton,
-//      boxView::frameBox, ::processEquation)
-    solvingScreen = SolvingScreen(equationEditText, keyboard)
+    //    cameraScreen = CameraScreen(this, boxView, previewView, processImageButton,
+    //      boxView::frameBox, ::processEquation)
+    solvingScreen = SolvingScreen(equationEditText, textSolution, textError, keyboard)
     permissionHelper = PermissionHelper(this)
     if (permissionHelper.isCameraGranted) {
-//      cameraScreen.startCamera()
+      //      cameraScreen.startCamera()
     } else {
       permissionHelper.requestCameraPermission()
     }
@@ -46,6 +48,6 @@ class MainActivity : AppCompatActivity() {
   
   override fun onStop() {
     super.onStop()
-//    cameraScreen.release()
+    //    cameraScreen.release()
   }
 }

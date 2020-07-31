@@ -1,11 +1,40 @@
 package com.chemistry.calculator.utils
 
-import android.animation.Animator
+import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 
-const val DURATION_DEFAULT = 400L
+fun View.animateInvisible(andThen: () -> Unit = {}) {
+  if (visibility == INVISIBLE) {
+    andThen()
+    return
+  }
+  animate()
+      .alpha(0f)
+      .setInterpolator(AccelerateDecelerateInterpolator)
+      .setDuration(DURATION_SMALL)
+      .doOnEnd {
+        invisible()
+        alpha = 1f
+        andThen()
+      }
+      .start()
+}
 
-val AccelerateDecelerateInterpolator = android.view.animation.AccelerateDecelerateInterpolator()
-
-fun Animator.cancelIfRunning() {
-  if (isRunning) cancel()
+fun View.makeVisibleAndMove(onStart: () -> Unit = {}, onEnd: () -> Unit = {}) {
+  if (visibility == VISIBLE) {
+    animateInvisible(andThen = { makeVisibleAndMove(onStart, onEnd) })
+    return
+  }
+  onStart()
+  alpha = 0f
+  visible()
+  translationY = -height / 2f
+  animate()
+      .setInterpolator(AccelerateDecelerateInterpolator)
+      .setDuration(DURATION_DEFAULT)
+      .alpha(1f)
+      .translationY(0f)
+      .doOnEnd { onEnd() }
+      .start()
 }

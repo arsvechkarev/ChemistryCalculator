@@ -15,12 +15,10 @@ class EquationSolver(
     
     override fun success(result: String) {
       val transformResult = transformResult(result)
-      Timber.d(result)
       onSuccess(transformResult)
     }
     
     override fun error(message: String) {
-      Timber.d(message)
       onError(message)
     }
   })

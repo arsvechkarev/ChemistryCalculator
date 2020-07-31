@@ -131,6 +131,14 @@ class Keyboard @JvmOverloads constructor(
     isShowingPrimaryElements = !isShowingPrimaryElements
   }
   
+  fun blockEqualsButton() {
+    equalsButton.isEnabled = false
+  }
+  
+  fun unblockEqualsButton() {
+    equalsButton.isEnabled = true
+  }
+  
   override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
     val width = MeasureSpec.getSize(widthMeasureSpec)
     val elementWidth = (width - (elementsPadding * 7)) / 6
