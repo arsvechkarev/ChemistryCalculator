@@ -3,7 +3,7 @@ package com.chemistry.calculator.utils
 import android.util.Size
 import java.lang.Long.signum
 
-object CompareSizesByArea : Comparator<Size> {
+object AreaComparator : Comparator<Size> {
   
   // We cast here to ensure the multiplications won't overflow
   override fun compare(lhs: Size, rhs: Size) =

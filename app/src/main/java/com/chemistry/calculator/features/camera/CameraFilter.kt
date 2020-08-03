@@ -19,15 +19,13 @@ class CameraFilter {
   fun onAttach() {
     iFrame = 0
   }
-
+  
   fun draw(cameraTexId: Int, canvasWidth: Int, canvasHeight: Int) {
     // Create camera render buffer
     if (CAMERA_RENDER_BUF == null || CAMERA_RENDER_BUF!!.width != canvasWidth || CAMERA_RENDER_BUF!!.height != canvasHeight) {
-      CAMERA_RENDER_BUF = RenderBuffer(
-        canvasWidth, canvasHeight,
-        BUF_ACTIVE_TEX_UNIT)
+      CAMERA_RENDER_BUF = RenderBuffer(canvasWidth, canvasHeight, BUF_ACTIVE_TEX_UNIT)
     }
-
+    
     // Use shaders
     GLES20.glUseProgram(PROGRAM)
     val iChannel0Location = GLES20.glGetUniformLocation(
@@ -45,7 +43,7 @@ class CameraFilter {
     GLES20.glEnableVertexAttribArray(vTexCoordLocation)
     GLES20.glVertexAttribPointer(vTexCoordLocation, 2, GLES20.GL_FLOAT, false, 4 * 2,
       ROATED_TEXTURE_COORD_BUF)
-
+    
     // Render to texture
     CAMERA_RENDER_BUF!!.bind()
     GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
@@ -55,13 +53,13 @@ class CameraFilter {
     onDraw(CAMERA_RENDER_BUF!!.texId, canvasWidth, canvasHeight)
     iFrame++
   }
-
+  
   fun onDraw(cameraTexId: Int, canvasWidth: Int, canvasHeight: Int) {
     setupShaderInputs(program, intArrayOf(canvasWidth, canvasHeight), intArrayOf(cameraTexId),
       arrayOf())
     GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
   }
-
+  
   fun setupShaderInputs(program: Int, iResolution: IntArray, iChannels: IntArray,
                         iChannelResolutions: Array<IntArray>) {
     setupShaderInputs(program, VERTEX_BUF,
@@ -69,7 +67,7 @@ class CameraFilter {
       iChannels,
       iChannelResolutions)
   }
-
+  
   fun setupShaderInputs(program: Int, vertex: FloatBuffer?, textureCoord: FloatBuffer?,
                         iResolution: IntArray, iChannels: IntArray, iChannelResolutions: Array<IntArray>) {
     GLES20.glUseProgram(program)
@@ -107,7 +105,7 @@ class CameraFilter {
     GLES20.glUniform3fv(iChannelResolutionLocation,
       _iChannelResolutions.size, FloatBuffer.wrap(_iChannelResolutions))
   }
-
+  
   companion object {
     val SQUARE_COORDS = floatArrayOf(
       1.0f, -1.0f,
@@ -130,13 +128,14 @@ class CameraFilter {
       0.0f, 0.0f,
       0.0f, 1.0f)
     private var ROATED_TEXTURE_COORD_BUF: FloatBuffer? = null
+    
     @JvmStatic
     fun release() {
       PROGRAM = 0
       CAMERA_RENDER_BUF = null
     }
   }
-
+  
   init {
     // Setup default Buffers
     if (VERTEX_BUF == null) {

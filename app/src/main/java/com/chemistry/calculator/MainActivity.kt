@@ -7,9 +7,12 @@ import com.chemistry.calculator.core.async.AndroidThreader
 import com.chemistry.calculator.features.camera.CameraScreen
 import com.chemistry.calculator.features.solving.SolvingScreen
 import kotlinx.android.synthetic.main.activity_main.bottomSheet
+import kotlinx.android.synthetic.main.activity_main.boxView
 import kotlinx.android.synthetic.main.activity_main.equationEditText
 import kotlinx.android.synthetic.main.activity_main.keyboard
 import kotlinx.android.synthetic.main.activity_main.openKeyboardButton
+import kotlinx.android.synthetic.main.activity_main.previewView
+import kotlinx.android.synthetic.main.activity_main.processImageButton
 import kotlinx.android.synthetic.main.activity_main.textError
 import kotlinx.android.synthetic.main.activity_main.textSolution
 
@@ -27,12 +30,11 @@ class MainActivity : AppCompatActivity() {
   }
   
   private fun initializeScreen() {
-    //    cameraScreen = CameraScreen(this, boxView, previewView, processImageButton,
-    //      boxView::frameBox, ::processEquation)
+    cameraScreen = CameraScreen(this, boxView, previewView, processImageButton, ::processEquation)
     solvingScreen = SolvingScreen(equationEditText, textSolution, textError, keyboard)
     permissionHelper = PermissionHelper(this)
     if (permissionHelper.isCameraGranted) {
-      //      cameraScreen.startCamera()
+      cameraScreen.startCamera()
     } else {
       permissionHelper.requestCameraPermission()
     }
@@ -48,6 +50,6 @@ class MainActivity : AppCompatActivity() {
   
   override fun onStop() {
     super.onStop()
-    //    cameraScreen.release()
+    cameraScreen.release()
   }
 }

@@ -15,7 +15,9 @@ import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_MOVE
 import android.view.View
+import com.chemistry.calculator.R
 import com.chemistry.calculator.utils.AccelerateDecelerateInterpolator
+import com.chemistry.calculator.utils.color
 import com.chemistry.calculator.utils.i
 import com.chemistry.calculator.utils.lerpColor
 import com.chemistry.calculator.utils.tempRect
@@ -35,6 +37,17 @@ class BoxView @JvmOverloads constructor(
   private val imageDragBoxRect = RectF()
   private var imageDragBoxSize = -1f
   private val imageDragBox = DragBoxDrawable(context)
+  
+  private var cornersSize = -1f
+  private var cornersMargin = -1f
+  private var cornersQuadLargeMargin = -1f
+  private var cornersQuadSmallMargin = -1f
+  private val cornersPath = Path()
+  private val cornersPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    strokeJoin = Paint.Join.ROUND
+    strokeCap = Paint.Cap.ROUND
+    color = context.color(R.color.light_primary)
+  }
   
   private var isMoving = false
   private var lastX = -1f
@@ -66,6 +79,11 @@ class BoxView @JvmOverloads constructor(
       return tempRect
     }
   
+  fun animateAppearance() {
+    appearanceAnimator.setFloatValues(0f, 1f)
+    appearanceAnimator.start()
+  }
+  
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     val left = w / 6f
     val top = w / 4f
@@ -87,6 +105,11 @@ class BoxView @JvmOverloads constructor(
       imageDragBoxRect.right.i,
       imageDragBoxRect.bottom.i
     )
+    cornersSize = boxRect.height() / 6f
+    cornersMargin = boxRect.height() / 15f
+    cornersQuadLargeMargin = boxRect.height() / 30f
+    cornersQuadSmallMargin = boxRect.height() / 60f
+    updateCorners()
   }
   
   @SuppressLint("ClickableViewAccessibility")
@@ -129,6 +152,7 @@ class BoxView @JvmOverloads constructor(
           boxRect.top -= dy
           boxRect.right += dx
           boxRect.bottom += dy
+          updateCorners()
           boxPath.reset()
           boxPath.addRoundRect(boxRect, cornersRadius, cornersRadius, Path.Direction.CW)
           lastX = newX
@@ -148,6 +172,7 @@ class BoxView @JvmOverloads constructor(
     canvas.drawPath(fillScreenPath, fillScreenPaint)
     canvas.restore()
     imageDragBox.draw(canvas)
+    canvas.drawPath(cornersPath, cornersPaint)
   }
   
   private fun initBoxFrame(left: Float, top: Float, right: Float, bottom: Float) {
@@ -162,9 +187,33 @@ class BoxView @JvmOverloads constructor(
     )
   }
   
-  fun animateAppearance() {
-    appearanceAnimator.setFloatValues(0f, 1f)
-    appearanceAnimator.start()
+  private fun updateCorners() {
+    val left = boxRect.left
+    val top = boxRect.top
+    val right = boxRect.right
+    val bottom = boxRect.bottom
+    with(cornersPath) {
+      reset()
+      moveTo(left + cornersMargin, top + cornersMargin + cornersSize)
+//      cubicTo(
+//        left + cornersMargin, top + cornersMargin - cornersQuadLargeMargin,
+//        left + cornersMargin - cornersQuadLargeMargin, top + cornersMargin,
+//        left + cornersMargin + cornersSize, top + cornersMargin
+//      )
+      quadTo(left + cornersMargin - cornersQuadLargeMargin, top + cornersMargin - cornersQuadLargeMargin,
+        left + cornersMargin + cornersSize, top + cornersMargin)
+      close()
+      
+      moveTo(left + cornersMargin, bottom - cornersMargin - cornersSize)
+      quadTo(left + cornersMargin - cornersQuadLargeMargin, bottom - cornersMargin + cornersQuadLargeMargin,
+        left + cornersMargin + cornersSize, bottom - cornersMargin)
+      close()
+      
+      moveTo(right - cornersMargin - cornersSize, top + cornersMargin)
+      quadTo(right - cornersMargin + cornersQuadLargeMargin, top + cornersMargin - cornersQuadLargeMargin,
+        right - cornersMargin, top + cornersMargin + cornersSize)
+      close()
+    }
   }
   
   companion object {

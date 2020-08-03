@@ -1,6 +1,5 @@
 package com.chemistry.calculator.features.camera
 
-import android.graphics.Rect
 import android.view.TextureView
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -12,11 +11,10 @@ class CameraScreen(
   private var boxView: BoxView?,
   private var previewView: TextureView?,
   private var processImageButton: View?,
-  private var cropRectProvider: (() -> Rect)?,
   private var onStringReady: ((String) -> Unit)?
 ) {
   
-  private val openGlCameraRenderer = CameraRenderer(activity!!, onPreviewStarted = {
+  private val openGlCameraRenderer = CameraRenderer(onPreviewStarted = {
     AndroidThreader.onMainThread { boxView?.animateAppearance() }
   })
   
@@ -29,7 +27,6 @@ class CameraScreen(
     boxView = null
     previewView = null
     processImageButton = null
-    cropRectProvider = null
     onStringReady = null
   }
 }

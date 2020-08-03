@@ -1,6 +1,5 @@
 package com.chemistry.calculator.features.camera
 
-import android.content.Context
 import android.graphics.SurfaceTexture
 import android.hardware.Camera
 import android.opengl.GLES11Ext
@@ -19,7 +18,6 @@ import javax.microedition.khronos.egl.EGLDisplay
 import javax.microedition.khronos.egl.EGLSurface
 
 class CameraRenderer(
-  private val context: Context,
   private var onPreviewStarted: (() -> Unit)? = null
 ) : TextureView.SurfaceTextureListener, Runnable {
   
