@@ -3,7 +3,6 @@ package com.chemistry.calculator.views.keyboard
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.annotation.DrawableRes
 import com.chemistry.calculator.R
 import com.chemistry.calculator.core.ELEMENT_BUTTON_CORNERS_COEFFICIENT
 import com.chemistry.calculator.utils.color
-import com.chemistry.calculator.utils.createRoundedRipple
+import com.chemistry.calculator.utils.createClickableBackground
 
 @SuppressLint("ViewConstructor")
 open class IconButton constructor(
@@ -32,6 +31,10 @@ open class IconButton constructor(
     drawable.colorFilter = PorterDuffColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP)
   }
   
+  fun getStringId(): String {
+    return id
+  }
+  
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     cornersRadius = minOf(w, h) / ELEMENT_BUTTON_CORNERS_COEFFICIENT
     val iconSize = minOf(w, h) / 2
@@ -41,7 +44,7 @@ open class IconButton constructor(
       w / 2 + iconSize / 2,
       h / 2 + iconSize / 2
     )
-    background = createRoundedRipple(cornersRadius, backgroundColor, rippleColor)
+    background = createClickableBackground(cornersRadius, backgroundColor, rippleColor)
   }
   
   override fun onDraw(canvas: Canvas) {

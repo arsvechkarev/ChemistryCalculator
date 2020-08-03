@@ -2,7 +2,7 @@ package com.chemistry.calculator.features.solving
 
 import androidx.core.text.HtmlCompat
 import com.chemistry.calculator.core.BACKSPACE_SYMBOL
-import com.chemistry.calculator.core.EQUALS_SYMBOL
+import com.chemistry.calculator.core.SOLVE_SYMBOL
 import com.chemistry.calculator.core.MORE_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
 import com.chemistry.calculator.core.SPACE_HTML_SYMBOL
@@ -33,7 +33,7 @@ class KeyboardInput(
     when {
       symbol == MORE_SYMBOL -> onMoreClicked()
       symbol == BACKSPACE_SYMBOL -> handleDeleteSymbol()
-      symbol == EQUALS_SYMBOL -> onEqualsClicked()
+      symbol == SOLVE_SYMBOL -> onEqualsClicked()
       symbol == PLUS_SYMBOL -> processPlusSymbol()
       symbol.isDigit -> processDigit(symbol)
       else -> commitText(symbol)

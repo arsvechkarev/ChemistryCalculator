@@ -1,9 +1,13 @@
 package com.chemistry.calculator.utils
 
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.StateListDrawable
 import android.graphics.drawable.shapes.RoundRectShape
+import android.os.Build
+import android.util.StateSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +59,7 @@ fun ViewGroup.addViews(vararg views: View) {
   }
 }
 
-fun createRoundedRipple(cornersRadius: Float, backgroundColor: Int, rippleColor: Int): RippleDrawable {
+fun createClickableBackground(cornersRadius: Float, backgroundColor: Int, rippleColor: Int): Drawable {
   val roundCornersShape = RoundRectShape(floatArrayOf(cornersRadius, cornersRadius, cornersRadius,
     cornersRadius, cornersRadius, cornersRadius, cornersRadius, cornersRadius), null, null)
   val backgroundDrawable = ShapeDrawable().apply {
@@ -66,7 +70,14 @@ fun createRoundedRipple(cornersRadius: Float, backgroundColor: Int, rippleColor:
     shape = roundCornersShape
     paint.color = rippleColor
   }
-  return RippleDrawable(ColorStateList.valueOf(rippleColor), backgroundDrawable, maskDrawable)
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    return RippleDrawable(ColorStateList.valueOf(rippleColor), backgroundDrawable, maskDrawable)
+  } else {
+    return StateListDrawable().apply {
+      addState(intArrayOf(android.R.attr.state_pressed), maskDrawable)
+      addState(StateSet.WILD_CARD, backgroundDrawable)
+    }
+  }
 }
 
 @OptIn(ExperimentalContracts::class)

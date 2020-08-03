@@ -11,7 +11,7 @@ import android.view.View
 import com.chemistry.calculator.R
 import com.chemistry.calculator.core.ELEMENT_BUTTON_CORNERS_COEFFICIENT
 import com.chemistry.calculator.utils.color
-import com.chemistry.calculator.utils.createRoundedRipple
+import com.chemistry.calculator.utils.createClickableBackground
 import com.chemistry.calculator.utils.tempRect
 import com.chemistry.calculator.views.keyboard.CombinedButton.MODE.ICON
 import com.chemistry.calculator.views.keyboard.CombinedButton.MODE.TEXT
@@ -65,7 +65,7 @@ class CombinedButton constructor(
     cornersRadius = minOf(w, h) / ELEMENT_BUTTON_CORNERS_COEFFICIENT
     textPaint.getTextBounds(text, 0, text.length, tempRect)
     textYTranslate = height / 2f + tempRect.height() / 2f
-    background = createRoundedRipple(cornersRadius, backgroundColor, rippleColor)
+    background = createClickableBackground(cornersRadius, backgroundColor, rippleColor)
     val iconSize = minOf(w, h) / 2
     drawable.setBounds(
       w / 2 - iconSize / 2,

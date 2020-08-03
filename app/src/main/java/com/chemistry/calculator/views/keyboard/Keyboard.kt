@@ -10,7 +10,7 @@ import com.chemistry.calculator.core.CLOSE_BRACKET_SYMBOL
 import com.chemistry.calculator.core.DOUBLE_BOND_SYMBOL
 import com.chemistry.calculator.core.ELEMENTS
 import com.chemistry.calculator.core.ELEMENTS_2
-import com.chemistry.calculator.core.EQUALS_SYMBOL
+import com.chemistry.calculator.core.SOLVE_SYMBOL
 import com.chemistry.calculator.core.MORE_SYMBOL
 import com.chemistry.calculator.core.OPEN_BRACKET_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
@@ -48,7 +48,7 @@ class Keyboard @JvmOverloads constructor(
   var onItemClicked: (String) -> Unit = {}
   
   private val equalsButton = TextButton(
-    context, EQUALS_SYMBOL, context.dimen(R.dimen.text_h0),
+    context, SOLVE_SYMBOL, context.dimen(R.dimen.text_h0),
     context.color(R.color.light_text_light), context.color(R.color.light_primary),
     rippleColor = context.color(R.color.light_ripple_light), onClicked = { processItem(it) }
   )
