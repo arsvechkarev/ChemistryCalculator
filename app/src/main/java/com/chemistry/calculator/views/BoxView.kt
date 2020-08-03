@@ -41,7 +41,6 @@ class BoxView @JvmOverloads constructor(
   private var cornersSize = -1f
   private var cornersMargin = -1f
   private var cornersQuadLargeMargin = -1f
-  private var cornersQuadSmallMargin = -1f
   private val cornersPath = Path()
   private val cornersPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
     strokeJoin = Paint.Join.ROUND
@@ -107,8 +106,7 @@ class BoxView @JvmOverloads constructor(
     )
     cornersSize = boxRect.height() / 6f
     cornersMargin = boxRect.height() / 15f
-    cornersQuadLargeMargin = boxRect.height() / 30f
-    cornersQuadSmallMargin = boxRect.height() / 60f
+    cornersQuadLargeMargin = boxRect.height() / 40f
     updateCorners()
   }
   
@@ -192,26 +190,33 @@ class BoxView @JvmOverloads constructor(
     val top = boxRect.top
     val right = boxRect.right
     val bottom = boxRect.bottom
+    cornersPath.reset()
     with(cornersPath) {
-      reset()
+      // Top left corner
       moveTo(left + cornersMargin, top + cornersMargin + cornersSize)
-//      cubicTo(
-//        left + cornersMargin, top + cornersMargin - cornersQuadLargeMargin,
-//        left + cornersMargin - cornersQuadLargeMargin, top + cornersMargin,
-//        left + cornersMargin + cornersSize, top + cornersMargin
-//      )
-      quadTo(left + cornersMargin - cornersQuadLargeMargin, top + cornersMargin - cornersQuadLargeMargin,
-        left + cornersMargin + cornersSize, top + cornersMargin)
+      cubicTo(
+        left + cornersMargin, top + cornersMargin - cornersQuadLargeMargin,
+        left + cornersMargin - cornersQuadLargeMargin, top + cornersMargin,
+        left + cornersMargin + cornersSize, top + cornersMargin
+      )
       close()
       
+      // Bottom left corner
       moveTo(left + cornersMargin, bottom - cornersMargin - cornersSize)
-      quadTo(left + cornersMargin - cornersQuadLargeMargin, bottom - cornersMargin + cornersQuadLargeMargin,
-        left + cornersMargin + cornersSize, bottom - cornersMargin)
+      cubicTo(
+        left + cornersMargin, bottom - cornersMargin + cornersQuadLargeMargin,
+        left + cornersMargin - cornersQuadLargeMargin, bottom - cornersMargin,
+        left + cornersMargin + cornersSize, bottom - cornersMargin
+      )
       close()
-      
+  
+      // Top right corner
       moveTo(right - cornersMargin - cornersSize, top + cornersMargin)
-      quadTo(right - cornersMargin + cornersQuadLargeMargin, top + cornersMargin - cornersQuadLargeMargin,
-        right - cornersMargin, top + cornersMargin + cornersSize)
+      cubicTo(
+        right - cornersMargin + cornersQuadLargeMargin, top + cornersMargin,
+        right - cornersMargin, top + cornersMargin - cornersQuadLargeMargin,
+        right - cornersMargin, top + cornersMargin + cornersSize
+      )
       close()
     }
   }
