@@ -21,7 +21,7 @@ open class IconButton constructor(
   private val backgroundColor: Int,
   private val rippleColor: Int = context.color(R.color.light_ripple),
   var onClicked: (String) -> Unit = {}
-) : View(context) {
+) : View(context), ItemButton {
   
   private val drawable = context.getDrawable(iconRes)!!
   private var cornersRadius = -1f
@@ -31,9 +31,8 @@ open class IconButton constructor(
     drawable.colorFilter = PorterDuffColorFilter(iconColor, PorterDuff.Mode.SRC_ATOP)
   }
   
-  fun getStringId(): String {
-    return id
-  }
+  override val itemId: String
+    get() = id
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     cornersRadius = minOf(w, h) / ELEMENT_BUTTON_CORNERS_COEFFICIENT

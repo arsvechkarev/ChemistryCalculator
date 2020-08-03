@@ -29,7 +29,7 @@ class CombinedButton constructor(
   private val rippleColor: Int = context.color(R.color.light_ripple),
   private var currentMode: MODE = TEXT,
   var onClicked: (String) -> Unit = {}
-) : View(context) {
+) : View(context), ItemButton {
   
   private val drawable = context.getDrawable(iconRes)!!
   private var textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -60,6 +60,14 @@ class CombinedButton constructor(
     }
     invalidate()
   }
+  
+  override val itemId: String
+    get() {
+      when (currentMode) {
+        ICON -> return iconId
+        TEXT -> return text
+      }
+    }
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     cornersRadius = minOf(w, h) / ELEMENT_BUTTON_CORNERS_COEFFICIENT

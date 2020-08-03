@@ -6,30 +6,34 @@ import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.chemistry.calculator.MainActivity
 import com.chemistry.calculator.screens.CameraScreen
 import com.chemistry.calculator.screens.SolvingScreen
-import com.chemistry.calculator.utils.sleep
+import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4ClassRunner::class)
-class BasicEquationTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+class DetectingFailuresTest {
   
   @get:Rule
   val rule = ActivityTestRule(MainActivity::class.java)
   
   @Test
-  fun typing_H2SO4() {
+  fun test1_Detecting_input_error() {
     onScreen<CameraScreen> { openKeyboardButton.click() }
     onScreen<SolvingScreen> {
       editText.hasEmptyText()
       
-      button_H.click()
-      button_2.click()
-      button_S.click()
-      button_O.click()
-      button_4.click()
+      button_Be.click()
+      button_C.click()
       
-      editText.hasText("H₂SO₄")
+      editText.hasText("BeC")
+      
+      buttonSolve.click()
+  
+      textError.isDisplayed()
+      textSolution.isNotDisplayed()
     }
   }
 }

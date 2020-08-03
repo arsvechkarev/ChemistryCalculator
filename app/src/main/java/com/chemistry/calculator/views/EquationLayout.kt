@@ -67,7 +67,7 @@ class EquationLayout @JvmOverloads constructor(
         left = params.leftMargin,
         top = top,
         right = parentWidth - params.rightMargin,
-        bottom = top + textSolution.measuredHeight
+        bottom = top + textError.measuredHeight
       )
     }
     

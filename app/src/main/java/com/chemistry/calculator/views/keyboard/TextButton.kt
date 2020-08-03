@@ -22,7 +22,7 @@ class TextButton(
   private val drawWithDescent: Boolean = false,
   private val rippleColor: Int = context.color(R.color.light_ripple),
   var onClicked: (String) -> Unit = {}
-) : View(context) {
+) : View(context), ItemButton {
   
   private var textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
     textAlign = Paint.Align.CENTER
@@ -48,6 +48,9 @@ class TextButton(
   fun getText(): String {
     return text
   }
+  
+  override val itemId: String
+    get() = text
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     cornersRadius = minOf(w, h) / ELEMENT_BUTTON_CORNERS_COEFFICIENT
