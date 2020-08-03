@@ -7,7 +7,6 @@ import android.opengl.GLES20
 import android.opengl.GLUtils
 import android.util.Pair
 import android.view.TextureView
-import com.chemistry.calculator.features.camera.CameraFilter.Companion.release
 import com.chemistry.calculator.features.camera.MyGLUtils.genTexture
 import timber.log.Timber
 import java.io.IOException
@@ -34,7 +33,7 @@ class CameraRenderer(
   private var camera: Camera? = null
   private var cameraSurfaceTexture: SurfaceTexture? = null
   private var cameraTextureId = 0
-  private var selectedFilter: CameraFilter? = null
+  private var cameraFilter: CameraFilter? = null
   
   override fun onSurfaceTextureUpdated(surface: SurfaceTexture) = Unit
   
@@ -51,7 +50,7 @@ class CameraRenderer(
     if (renderThread != null && renderThread!!.isAlive) {
       renderThread!!.interrupt()
     }
-    release()
+    cameraFilter!!.release()
     onPreviewStarted = null
     return true
   }
@@ -77,8 +76,7 @@ class CameraRenderer(
   
   override fun run() {
     initGL(surfaceTexture!!)
-    selectedFilter = CameraFilter()
-    selectedFilter!!.onAttach()
+    cameraFilter = CameraFilter()
     
     // Create texture for camera preview
     cameraTextureId = genTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES)
@@ -108,7 +106,7 @@ class CameraRenderer(
         synchronized(this) { cameraSurfaceTexture!!.updateTexImage() }
         
         // Draw camera preview
-        selectedFilter!!.draw(cameraTextureId, gwidth, gheight)
+        cameraFilter!!.draw(cameraTextureId, gwidth, gheight)
         
         // Flush
         GLES20.glFlush()
@@ -142,7 +140,7 @@ class CameraRenderer(
     val configs = arrayOfNulls<EGLConfig>(1)
     val configSpec = intArrayOf(
       EGL10.EGL_RENDERABLE_TYPE,
-      EGL_OPENGL_ES2_BIT,
+      EGL_OPEN_GL_ES2_BIT,
       EGL10.EGL_RED_SIZE, 8,
       EGL10.EGL_GREEN_SIZE, 8,
       EGL10.EGL_BLUE_SIZE, 8,
@@ -199,7 +197,7 @@ class CameraRenderer(
   }
   
   companion object {
-    private const val EGL_OPENGL_ES2_BIT = 4
+    private const val EGL_OPEN_GL_ES2_BIT = 4
     private const val EGL_CONTEXT_CLIENT_VERSION = 0x3098
     private const val DRAW_INTERVAL = 1000 / 30
   }
