@@ -10,7 +10,7 @@ import com.chemistry.calculator.R
 import com.chemistry.calculator.core.ELEMENT_BUTTON_CORNERS_COEFFICIENT
 import com.chemistry.calculator.utils.color
 import com.chemistry.calculator.utils.createClickableBackground
-import com.chemistry.calculator.utils.tempRect
+import com.chemistry.calculator.utils.TEMP_RECT
 
 @SuppressLint("ViewConstructor") // Created only through code
 class TextButton(
@@ -54,8 +54,8 @@ class TextButton(
   
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     cornersRadius = minOf(w, h) / ELEMENT_BUTTON_CORNERS_COEFFICIENT
-    textPaint.getTextBounds(text, 0, text.length, tempRect)
-    textYTranslate = height / 2f + tempRect.height() / 2f
+    textPaint.getTextBounds(text, 0, text.length, TEMP_RECT)
+    textYTranslate = height / 2f + TEMP_RECT.height() / 2f
     background = createClickableBackground(cornersRadius, backgroundColor, rippleColor)
   }
   

@@ -1,25 +1,15 @@
 package com.chemistry.calculator.features.camera
 
-import android.content.Context
 import android.graphics.Bitmap
-import android.os.Environment
+import android.graphics.Rect
 import android.view.TextureView
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.chemistry.calculator.core.async.AndroidThreader
 import com.chemistry.calculator.views.BoxView
-import timber.log.Timber
-import java.io.File
-import java.io.FileOutputStream
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-
-private val Context.picturesDirectory: File
-  get() {
-    val picturesDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-    return File(picturesDirectory, "${File.separator}Chem${File.separator}Pics")
-  }
+import com.google.android.gms.vision.Detector
+import com.google.android.gms.vision.Frame
+import com.google.android.gms.vision.text.TextBlock
 
 class CameraScreen(
   private var activity: AppCompatActivity?,
@@ -29,6 +19,8 @@ class CameraScreen(
   private var onStringReady: ((String) -> Unit)?
 ) {
   
+  private val textRecognizer = CameraScreenDi.provideTextRecognizer(activity!!)
+  
   private val openGlCameraRenderer = TextureRenderer(onPreviewStarted = {
     AndroidThreader.onMainThread { boxView?.animateAppearance() }
   })
@@ -37,17 +29,21 @@ class CameraScreen(
     boxView!!.setOnClickListener {
       openGlCameraRenderer.onClick()
     }
-    processImageButton!!.setOnClickListener {
-      val bitmap = previewView!!.bitmap
-      val directory = it.context.picturesDirectory
-      directory.mkdirs()
-      val dateFormat = SimpleDateFormat("yyyy_MM_dd-HH_mm_ss", Locale.getDefault())
-      val timestamp = dateFormat.format(Date())
-      val projectFile = File(directory, "Image_$timestamp.png")
-      Timber.d("Saving image, file = ${projectFile.path}")
-      FileOutputStream(projectFile).use {
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+    textRecognizer.setProcessor(object : Detector.Processor<TextBlock> {
+      override fun release() {}
+      override fun receiveDetections(detections: Detector.Detections<TextBlock>) {
+        val items = detections.detectedItems
+        if (items.size() != 0) {
+          onStringReady?.invoke(items[0].value)
+        }
       }
+    })
+    processImageButton!!.setOnClickListener {
+      val bitmap = previewView!!.bitmap.crop(boxView!!.frameBox)
+      val frame = Frame.Builder()
+          .setBitmap(bitmap)
+          .build()
+      textRecognizer.receiveFrame(frame)
     }
   }
   
@@ -61,5 +57,9 @@ class CameraScreen(
     previewView = null
     processImageButton = null
     onStringReady = null
+  }
+  
+  private fun Bitmap.crop(rect: Rect): Bitmap {
+    return Bitmap.createBitmap(this, rect.left, rect.top, rect.width(), rect.height())
   }
 }

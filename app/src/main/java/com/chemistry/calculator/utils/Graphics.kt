@@ -4,16 +4,11 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Rect
 import android.graphics.RectF
-import android.text.BoringLayout
-import android.text.Layout
-import android.text.TextPaint
-import android.text.TextUtils
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-val tempRect = Rect()
-val tempRectF = RectF()
-val tempMatrix = Matrix()
+val TEMP_RECT = Rect()
+val TEMP_RECT_F = RectF()
 
 fun execute(canvas: Canvas, block: Canvas.() -> Unit) {
   val saveCount = canvas.save()
@@ -27,11 +22,10 @@ fun lerpColor(startColor: Int, endColor: Int, fraction: Float): Int {
   var startG = (startColor shr 8 and 0xff) / 255.0f
   var startB = (startColor and 0xff) / 255.0f
   
-  val endInt = endColor
-  val endA = (endInt shr 24 and 0xff) / 255.0f
-  var endR = (endInt shr 16 and 0xff) / 255.0f
-  var endG = (endInt shr 8 and 0xff) / 255.0f
-  var endB = (endInt and 0xff) / 255.0f
+  val endA = (endColor shr 24 and 0xff) / 255.0f
+  var endR = (endColor shr 16 and 0xff) / 255.0f
+  var endG = (endColor shr 8 and 0xff) / 255.0f
+  var endB = (endColor and 0xff) / 255.0f
   
   // convert from sRGB to linear
   startR = startR.toDouble().pow(2.2).toFloat()

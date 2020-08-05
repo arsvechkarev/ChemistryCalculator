@@ -18,11 +18,12 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import com.chemistry.calculator.R
 import com.chemistry.calculator.utils.AccelerateDecelerateInterpolator
+import com.chemistry.calculator.utils.TEMP_RECT
+import com.chemistry.calculator.utils.TEMP_RECT_F
 import com.chemistry.calculator.utils.color
+import com.chemistry.calculator.utils.execute
 import com.chemistry.calculator.utils.i
 import com.chemistry.calculator.utils.lerpColor
-import com.chemistry.calculator.utils.tempRect
-import com.chemistry.calculator.utils.tempRectF
 
 class BoxView @JvmOverloads constructor(
   context: Context,
@@ -73,10 +74,10 @@ class BoxView @JvmOverloads constructor(
   
   val frameBox: Rect
     get() {
-      tempRectF.set(boxRect)
-      tempRectF.inset(cornersRadius, cornersRadius)
-      tempRectF.roundOut(tempRect)
-      return tempRect
+      TEMP_RECT_F.set(boxRect)
+      TEMP_RECT_F.inset(cornersRadius, cornersRadius)
+      TEMP_RECT_F.roundOut(TEMP_RECT)
+      return TEMP_RECT
     }
   
   fun animateAppearance() {
@@ -168,11 +169,11 @@ class BoxView @JvmOverloads constructor(
   }
   
   override fun onDraw(canvas: Canvas) {
-    canvas.save()
-    @Suppress("DEPRECATION")
-    canvas.clipPath(boxPath, Region.Op.DIFFERENCE)
-    canvas.drawPath(fillScreenPath, fillScreenPaint)
-    canvas.restore()
+    execute(canvas) {
+      @Suppress("DEPRECATION")
+      clipPath(boxPath, Region.Op.DIFFERENCE)
+      drawPath(fillScreenPath, fillScreenPaint)
+    }
     imageDragBox.draw(canvas)
     canvas.drawPath(cornersPath, cornersPaint)
   }
@@ -213,7 +214,7 @@ class BoxView @JvmOverloads constructor(
         left + cornersMargin + cornersSize, bottom - cornersMargin
       )
       close()
-  
+      
       // Top right corner
       moveTo(right - cornersMargin - cornersSize, top + cornersMargin)
       cubicTo(
