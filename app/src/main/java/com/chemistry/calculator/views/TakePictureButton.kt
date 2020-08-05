@@ -10,6 +10,7 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
+import android.view.MotionEvent.ACTION_MOVE
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import com.chemistry.calculator.R
@@ -17,6 +18,7 @@ import com.chemistry.calculator.utils.AccelerateDecelerateInterpolator
 import com.chemistry.calculator.utils.cancelIfRunning
 import com.chemistry.calculator.utils.color
 import com.chemistry.calculator.utils.execute
+import com.chemistry.calculator.utils.happenedIn
 
 class TakePictureButton @JvmOverloads constructor(
   context: Context,
@@ -62,22 +64,34 @@ class TakePictureButton @JvmOverloads constructor(
         scaleAnimator.start()
         return true
       }
+      ACTION_MOVE -> {
+        if (!(event happenedIn this)) {
+          scaleAnimator.cancelIfRunning()
+          scaleAnimator.duration = 160
+          scaleAnimator.setFloatValues(scaleFactor, 1.07f, 1f)
+          scaleAnimator.start()
+          return false
+        }
+      }
       ACTION_UP -> {
         scaleAnimator.cancelIfRunning()
         scaleAnimator.duration = 160
         scaleAnimator.setFloatValues(scaleFactor, 1.07f, 1f)
         scaleAnimator.start()
-        return performClick()
+        if (event happenedIn this) {
+          performClick()
+        }
+        return true
       }
     }
-    return false
+    return true
   }
   
   override fun onDraw(canvas: Canvas) {
     execute(canvas) {
-      canvas.scale(scaleFactor, scaleFactor, width / 2f, height / 2f)
-      canvas.drawCircle(width / 2f, height / 2f, width / 2f, shadowPaint)
-      canvas.drawCircle(width / 2f, height / 2f, width / 2f - circleOffset, circlePaint)
+      scale(scaleFactor, scaleFactor, width / 2f, height / 2f)
+      drawCircle(width / 2f, height / 2f, width / 2f, shadowPaint)
+      drawCircle(width / 2f, height / 2f, width / 2f - circleOffset, circlePaint)
     }
   }
 }

@@ -47,10 +47,22 @@ inline fun <reified T : View> ViewGroup.childWithClass(): T {
   return findChild { child -> child is T } as T
 }
 
-operator fun View.contains(ev: MotionEvent): Boolean {
-  val x = ev.x
-  val y = ev.y
+/**
+ * Checks whether [event] happened in the [View] relative to its parent
+ */
+operator fun View.contains(event: MotionEvent): Boolean {
+  val x = event.x
+  val y = event.y
   return x >= left && y >= top && x <= right && y <= bottom
+}
+
+/**
+ * Checks whether [MotionEvent] happened in the [view] relative to itself
+ */
+infix fun MotionEvent.happenedIn(view: View): Boolean {
+  val x = x
+  val y = y
+  return x >= 0 && y >= 0 && x <= view.width && y <= view.height
 }
 
 fun ViewGroup.addViews(vararg views: View) {

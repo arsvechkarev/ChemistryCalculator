@@ -39,9 +39,9 @@ class BoxView @JvmOverloads constructor(
   private var imageDragBoxSize = -1f
   private val imageDragBox = DragBoxDrawable(context)
   
-  private var cornersSize = -1f
-  private var cornersMargin = -1f
-  private var cornersQuadLargeMargin = -1f
+  private var cornersSize = -1f // Width and height of a corner
+  private var cornersMargin = -1f // Distance from a corner to the frame box edge
+  private var cornersQuadLargeMargin = -1f // Margin for cubicTo() function
   private val cornersPath = Path()
   private val cornersPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
     strokeJoin = Paint.Join.ROUND
@@ -105,7 +105,7 @@ class BoxView @JvmOverloads constructor(
       imageDragBoxRect.right.i,
       imageDragBoxRect.bottom.i
     )
-    cornersSize = boxRect.height() / 6f
+    cornersSize = boxRect.height() / 7f
     cornersMargin = boxRect.height() / 15f
     cornersQuadLargeMargin = boxRect.height() / 40f
     updateCorners()
