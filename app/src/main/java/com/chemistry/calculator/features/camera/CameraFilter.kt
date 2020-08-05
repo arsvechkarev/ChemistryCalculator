@@ -42,19 +42,17 @@ class CameraFilter {
     private const val I_FRAME = "iFrame"
   }
   
-  private val program = MyGLUtils.buildProgram(VERTEX_SHADER, FRAGMENT_SHADER)
+  private val program = GLHelper.buildProgram(VERTEX_SHADER, FRAGMENT_SHADER)
   private val startTime = System.currentTimeMillis()
   
   private var cameraRenderBuffer: RenderBuffer? = null
   
   private val rotatedTextureCoordinatesBuffer: FloatBuffer
   
-  private var PROGRAM = MyGLUtils.buildProgram(VERTEX_SHADER, FRAGMENT_SHADER_RTT)
-  
+  private val PROGRAM = GLHelper.buildProgram(VERTEX_SHADER, FRAGMENT_SHADER_RTT)
   
   private val vertexBuffer: FloatBuffer
   private val textureCoordinatesBuffer: FloatBuffer
-  
   
   private var iFrame = 0
   
@@ -102,13 +100,13 @@ class CameraFilter {
     GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
     cameraRenderBuffer!!.unbind()
     GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
-    onDraw(cameraRenderBuffer!!.texId, canvasWidth, canvasHeight)
+    onDraw(canvasWidth, canvasHeight)
     iFrame++
   }
   
-  fun onDraw(cameraTexId: Int, canvasWidth: Int, canvasHeight: Int) {
+  fun onDraw(canvasWidth: Int, canvasHeight: Int) {
     setupShaderInputs(program, vertexBuffer, textureCoordinatesBuffer,
-      intArrayOf(canvasWidth, canvasHeight), cameraTexId)
+      intArrayOf(canvasWidth, canvasHeight), cameraRenderBuffer!!.textureId)
     GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
   }
   
@@ -126,9 +124,9 @@ class CameraFilter {
     val vPositionLocation = GLES20.glGetAttribLocation(program, V_POSITION)
     GLES20.glEnableVertexAttribArray(vPositionLocation)
     GLES20.glVertexAttribPointer(vPositionLocation, 2, GLES20.GL_FLOAT, false, 4 * 2, vertex)
-    val vTexCoordLocation = GLES20.glGetAttribLocation(program, V_TEX_COORDINATE)
-    GLES20.glEnableVertexAttribArray(vTexCoordLocation)
-    GLES20.glVertexAttribPointer(vTexCoordLocation, 2, GLES20.GL_FLOAT, false, 4 * 2, textureCoord)
+    val vTexCoordinateLocation = GLES20.glGetAttribLocation(program, V_TEX_COORDINATE)
+    GLES20.glEnableVertexAttribArray(vTexCoordinateLocation)
+    GLES20.glVertexAttribPointer(vTexCoordinateLocation, 2, GLES20.GL_FLOAT, false, 4 * 2, textureCoord)
     val sTextureLocation = GLES20.glGetUniformLocation(program, I_CHANNEL_0)
     GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, iChannel)
@@ -136,7 +134,6 @@ class CameraFilter {
   }
   
   fun release() {
-    PROGRAM = 0
     cameraRenderBuffer = null
   }
 }

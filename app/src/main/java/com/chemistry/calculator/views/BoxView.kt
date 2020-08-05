@@ -14,6 +14,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_MOVE
+import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import com.chemistry.calculator.R
 import com.chemistry.calculator.utils.AccelerateDecelerateInterpolator
@@ -158,6 +159,9 @@ class BoxView @JvmOverloads constructor(
           invalidate()
           return true
         }
+      }
+      ACTION_UP -> {
+        return performClick()
       }
     }
     return false

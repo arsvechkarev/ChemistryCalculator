@@ -67,7 +67,7 @@ class TakePictureButton @JvmOverloads constructor(
         scaleAnimator.duration = 160
         scaleAnimator.setFloatValues(scaleFactor, 1.07f, 1f)
         scaleAnimator.start()
-        return true
+        return performClick()
       }
     }
     return false

@@ -5,9 +5,7 @@ import android.hardware.Camera
 import android.opengl.GLES11Ext
 import android.opengl.GLES20
 import android.opengl.GLUtils
-import android.util.Pair
 import android.view.TextureView
-import com.chemistry.calculator.features.camera.MyGLUtils.genTexture
 import timber.log.Timber
 import java.io.IOException
 import javax.microedition.khronos.egl.EGL10
@@ -16,6 +14,7 @@ import javax.microedition.khronos.egl.EGLContext
 import javax.microedition.khronos.egl.EGLDisplay
 import javax.microedition.khronos.egl.EGLSurface
 
+@Suppress("DEPRECATION")
 class CameraRenderer(
   private var onPreviewStarted: (() -> Unit)? = null
 ) : TextureView.SurfaceTextureListener, Runnable {
@@ -34,6 +33,10 @@ class CameraRenderer(
   private var cameraSurfaceTexture: SurfaceTexture? = null
   private var cameraTextureId = 0
   private var cameraFilter: CameraFilter? = null
+  
+  fun onClick() {
+    // TODO (8/5/2020): Autofocus on click
+  }
   
   override fun onSurfaceTextureUpdated(surface: SurfaceTexture) = Unit
   
@@ -66,9 +69,11 @@ class CameraRenderer(
     gheight = -height
     
     // Open camera
-    val backCamera = getBackCamera()!!
-    val backCameraId = backCamera.second
-    camera = Camera.open(backCameraId)
+    camera = Camera.open().apply {
+      val params = parameters
+      params.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
+      parameters = params
+    }
     
     // Start rendering
     renderThread!!.start()
@@ -79,11 +84,11 @@ class CameraRenderer(
     cameraFilter = CameraFilter()
     
     // Create texture for camera preview
-    cameraTextureId = genTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES)
+    cameraTextureId = GLHelper.genTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES)
     cameraSurfaceTexture = SurfaceTexture(cameraTextureId)
-  
+    
     onPreviewStarted?.invoke()
-  
+    
     // Start camera preview
     try {
       camera!!.setPreviewTexture(cameraSurfaceTexture)
@@ -181,19 +186,6 @@ class CameraRenderer(
       throw java.lang.RuntimeException("eglMakeCurrent failed " +
           GLUtils.getEGLErrorString(egl10!!.eglGetError()))
     }
-  }
-  
-  private fun getBackCamera(): Pair<Camera.CameraInfo, Int>? {
-    val cameraInfo = Camera.CameraInfo()
-    val numberOfCameras = Camera.getNumberOfCameras()
-    
-    for (i in 0 until numberOfCameras) {
-      Camera.getCameraInfo(i, cameraInfo)
-      if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
-        return Pair(cameraInfo, i)
-      }
-    }
-    return null
   }
   
   companion object {

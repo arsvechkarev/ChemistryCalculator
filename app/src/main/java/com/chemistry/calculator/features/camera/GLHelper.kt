@@ -5,12 +5,10 @@ import android.opengl.GLES20
 import android.util.Log
 import javax.microedition.khronos.opengles.GL10
 
-object MyGLUtils {
+object GLHelper {
   private const val TAG = "MyGLUtils"
   
-  @JvmStatic
-  @JvmOverloads
-  fun genTexture(textureType: Int = GLES20.GL_TEXTURE_2D): Int {
+  fun genTexture(textureType: Int): Int {
     val genBuf = IntArray(1)
     GLES20.glGenTextures(1, genBuf, 0)
     GLES20.glBindTexture(textureType, genBuf[0])

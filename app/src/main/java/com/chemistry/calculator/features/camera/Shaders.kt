@@ -7,7 +7,8 @@ object Shaders {
     attribute vec2 vTexCoord;
     varying vec2 texCoord;
 
-    void main() {
+    void main()
+    {
       texCoord = vTexCoord;
       gl_Position = vec4(vPosition.x, vPosition.y, 0.0, 1.0);
     }
@@ -19,7 +20,8 @@ object Shaders {
     varying vec2 texCoord;
     uniform sampler2D iChannel0;
 
-    void main() {
+    void main()
+    {
       gl_FragColor = texture2D(iChannel0, texCoord);
     }
   """.trimIndent()
@@ -29,9 +31,10 @@ object Shaders {
     precision mediump float;
 
     varying vec2 texCoord;
-    uniform samplerExternalOES  iChannel0;
+    uniform samplerExternalOES iChannel0;
 
-    void main() {
+    void main()
+    {
       gl_FragColor = texture2D(iChannel0, texCoord);
     }
   """.trimIndent()
