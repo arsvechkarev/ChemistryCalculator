@@ -48,7 +48,7 @@ class TakePictureButton @JvmOverloads constructor(
       w / 2f,
       h / 2f,
       minOf(w, h) / 2f,
-      intArrayOf(context.color(R.color.light_primary), Color.TRANSPARENT),
+      intArrayOf(context.color(R.color.light_main), Color.TRANSPARENT),
       floatArrayOf(0.9f, 1f),
       Shader.TileMode.CLAMP
     )

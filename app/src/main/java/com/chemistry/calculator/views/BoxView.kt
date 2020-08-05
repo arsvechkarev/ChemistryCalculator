@@ -47,7 +47,7 @@ class BoxView @JvmOverloads constructor(
   private val cornersPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
     strokeJoin = Paint.Join.ROUND
     strokeCap = Paint.Cap.ROUND
-    color = context.color(R.color.light_primary)
+    color = context.color(R.color.light_main)
   }
   
   private var isMoving = false

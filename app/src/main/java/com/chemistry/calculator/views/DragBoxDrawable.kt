@@ -15,7 +15,7 @@ class DragBoxDrawable(context: Context) : Drawable() {
   private val rect = Rect()
   private val icon = context.getDrawable(R.drawable.ic_drag_box)!!
   private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-    color = context.color(R.color.light_primary)
+    color = context.color(R.color.light_main)
   }
   
   override fun onBoundsChange(bounds: Rect) {

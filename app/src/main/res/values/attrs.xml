@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <attr name="colorPrimary" format="color"/>
-  <attr name="colorPrimaryDark" format="color"/>
+  <attr name="colorMain" format="color"/>
+  <attr name="colorStatusBar" format="color"/>
   <attr name="colorError" format="color"/>
   <attr name="colorShadow" format="color"/>
   <attr name="colorRipple" format="color"/>

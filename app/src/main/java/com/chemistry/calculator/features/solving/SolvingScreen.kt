@@ -41,10 +41,6 @@ class SolvingScreen(
     keyboard.onItemClicked = keyboardInput::processSymbol
   }
   
-  fun processEquation(equation: String) {
-    keyboardInput.setEquation(equation)
-  }
-  
   private fun handleSuccess(equation: String) {
     val textSize = computeTextSize(equation)
     Timber.d(equation)

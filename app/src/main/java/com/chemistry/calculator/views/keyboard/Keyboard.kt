@@ -49,7 +49,7 @@ class Keyboard @JvmOverloads constructor(
   
   private val equalsButton = TextButton(
     context, SOLVE_SYMBOL, context.dimen(R.dimen.text_h0),
-    context.color(R.color.light_text_light), context.color(R.color.light_primary),
+    context.color(R.color.light_text_light), context.color(R.color.light_main),
     rippleColor = context.color(R.color.light_ripple_light), onClicked = { processItem(it) }
   )
   
