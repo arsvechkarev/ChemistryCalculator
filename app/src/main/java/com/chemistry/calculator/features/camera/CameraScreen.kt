@@ -29,7 +29,7 @@ class CameraScreen(
   private var onStringReady: ((String) -> Unit)?
 ) {
   
-  private val openGlCameraRenderer = CameraRenderer(onPreviewStarted = {
+  private val openGlCameraRenderer = TextureRenderer(onPreviewStarted = {
     AndroidThreader.onMainThread { boxView?.animateAppearance() }
   })
   

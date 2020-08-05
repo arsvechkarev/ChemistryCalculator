@@ -4,6 +4,7 @@ import com.chemistry.calculator.core.CLOSE_BRACKET_SYMBOL
 import com.chemistry.calculator.core.OPEN_BRACKET_SYMBOL
 import com.chemistry.calculator.core.PLUS_SYMBOL
 import com.chemistry.calculator.core.SUBSCRIPT_NUMBERS
+import com.chemistry.calculator.core.assertThat
 
 val CharSequence.isLetter: Boolean
   get() = (length == 1) && (this[0].isLetter())

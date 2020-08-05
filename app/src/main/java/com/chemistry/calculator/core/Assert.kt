@@ -1,4 +1,4 @@
-package com.chemistry.calculator.utils
+package com.chemistry.calculator.core
 
 import com.chemistry.calculator.BuildConfig
 import kotlin.contracts.ExperimentalContracts
