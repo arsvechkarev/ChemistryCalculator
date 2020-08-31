@@ -16,8 +16,8 @@ android {
   }
   buildTypes {
     release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+      minifyEnabled true
+      proguardFiles(getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro')
     }
   }
 
@@ -29,16 +29,15 @@ android {
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'androidx.appcompat:appcompat:1.1.0'
+  implementation 'androidx.appcompat:appcompat:1.2.0'
 
-  implementation 'com.google.android.gms:play-services-vision:20.1.0'
   implementation 'com.jakewharton.timber:timber:4.7.1'
 
   def espresso_version = "3.2.0"
   def androidTest_version = "1.2.0"
   def androidTestRunner_version = "1.1.0"
 
-  testImplementation 'junit:junit:4.12'
+  testImplementation 'junit:junit:4.13'
   androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
   androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
   androidTestImplementation "androidx.test:core:$androidTest_version"

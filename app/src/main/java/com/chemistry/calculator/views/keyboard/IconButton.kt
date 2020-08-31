@@ -7,6 +7,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.View
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import com.chemistry.calculator.R
 import com.chemistry.calculator.core.ELEMENT_BUTTON_CORNERS_COEFFICIENT
 import com.chemistry.calculator.utils.color
@@ -23,7 +24,7 @@ open class IconButton constructor(
   var onClicked: (String) -> Unit = {}
 ) : View(context), ItemButton {
   
-  private val drawable = context.getDrawable(iconRes)!!
+  private val drawable = ContextCompat.getDrawable(context, iconRes)!!
   private var cornersRadius = -1f
   
   init {
