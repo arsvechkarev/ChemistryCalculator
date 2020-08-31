@@ -4,7 +4,6 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.chemistry.calculator.MainActivity
-import com.chemistry.calculator.screens.CameraScreen
 import com.chemistry.calculator.screens.SolvingScreen
 import org.junit.FixMethodOrder
 import org.junit.Rule
@@ -21,7 +20,6 @@ class DetectingFailuresTest {
   
   @Test
   fun test1_Detecting_input_error() {
-    onScreen<CameraScreen> { openKeyboardButton.click() }
     onScreen<SolvingScreen> {
       editText.hasEmptyText()
       

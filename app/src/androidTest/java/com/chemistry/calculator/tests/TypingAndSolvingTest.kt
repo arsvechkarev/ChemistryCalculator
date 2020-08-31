@@ -4,10 +4,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.chemistry.calculator.MainActivity
-import com.chemistry.calculator.screens.CameraScreen
 import com.chemistry.calculator.screens.SolvingScreen
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +20,6 @@ class TypingAndSolvingTest {
   
   @Test
   fun test1_Typing_H2SO4_and_checking_edit_text() {
-    onScreen<CameraScreen> { openKeyboardButton.click() }
     onScreen<SolvingScreen> {
       editText.hasEmptyText()
       
@@ -39,7 +35,6 @@ class TypingAndSolvingTest {
   
   @Test
   fun test2_Typing_H2SO4_plus_NA_and_checking_result() {
-    onScreen<CameraScreen> { openKeyboardButton.click() }
     onScreen<SolvingScreen> {
       editText.hasEmptyText()
       

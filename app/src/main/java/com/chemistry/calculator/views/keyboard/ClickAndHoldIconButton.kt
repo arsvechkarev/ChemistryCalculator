@@ -27,7 +27,7 @@ class ClickAndHoldIconButton constructor(
 ) : IconButton(context, id, iconRes, iconColor, backgroundColor, onClicked = onClicked) {
   
   private val initiatorHandler = Handler()
-  private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop
+  private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop * 2
   
   private var isHoldingNow = AtomicBoolean(false)
   private var lastDownPoint = PointF()
