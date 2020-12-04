@@ -7,26 +7,26 @@
   <com.chemistry.calculator.views.EquationLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="8dp">
+    android:layout_marginTop="@dimen/equation_layout_m_top">
 
     <com.chemistry.calculator.views.EquationEditText
       android:id="@+id/equationEditText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="12dp"
-      android:layout_marginTop="16dp"
+      android:layout_marginHorizontal="@dimen/equation_screen_m_horizontal"
+      android:layout_marginTop="@dimen/edit_text_m_top"
       android:background="@drawable/bg_edit_text"
       android:maxLines="1"
-      android:padding="8dp"
+      android:padding="@dimen/edit_text_padding"
       android:textColor="?colorText"
-      android:textSize="22sp"/>
+      android:textSize="@dimen/text_h2"/>
 
     <TextView
       android:id="@+id/textSolution"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="12dp"
-      android:layout_marginTop="12dp"
+      android:layout_marginHorizontal="@dimen/equation_screen_m_horizontal"
+      android:layout_marginTop="@dimen/equation_screen_m_top"
       android:textColor="?colorText"
       android:textIsSelectable="true"
       android:textStyle="bold"
@@ -36,10 +36,10 @@
       android:id="@+id/textError"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="12dp"
-      android:layout_marginTop="12dp"
+      android:layout_marginHorizontal="@dimen/equation_screen_m_horizontal"
+      android:layout_marginTop="@dimen/equation_screen_m_top"
       android:textColor="?colorError"
-      android:textSize="22sp"
+      android:textSize="@dimen/text_h2"
       android:visibility="invisible"/>
 
     <com.chemistry.calculator.views.keyboard.Keyboard
@@ -50,6 +50,5 @@
       android:background="?colorKeyboardBg"/>
 
   </com.chemistry.calculator.views.EquationLayout>
-
 
 </FrameLayout>
